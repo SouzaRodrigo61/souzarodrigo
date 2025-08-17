@@ -1,137 +1,10 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { jsPDF } from 'jspdf'
-import html2canvas from 'html2canvas'
-import { useRef, useState } from 'react'
 
 export default function Home() {
-  const portfolioRef = useRef<HTMLDivElement>(null)
-  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
-
-  const scrollToProjects = () => {
-    const projectsSection = document.getElementById('projetos')
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-
-  const downloadCV = async () => {
-    if (!portfolioRef.current || isGeneratingPDF) return
-
-    setIsGeneratingPDF(true)
-
-    try {
-      // Criar uma cópia do conteúdo para o PDF
-      const pdfContainer = portfolioRef.current.cloneNode(true) as HTMLElement
-      
-      // Remover elementos que não devem aparecer no PDF
-      const elementsToRemove = pdfContainer.querySelectorAll('button, header, .sticky, [onclick]')
-      elementsToRemove.forEach(el => el.remove())
-      
-      // Aplicar estilos específicos para PDF
-      pdfContainer.style.cssText = `
-        position: fixed;
-        top: -9999px;
-        left: -9999px;
-        width: 1200px;
-        background: white;
-        color: black;
-        font-family: Arial, sans-serif;
-        padding: 40px;
-        margin: 0;
-        border: none;
-        outline: none;
-        z-index: -9999;
-        overflow: visible;
-        transform: none !important;
-      `
-      
-      // Substituir todas as cores CSS modernas por cores básicas
-      const styleSheets = Array.from(document.styleSheets)
-      let cssText = ''
-      
-      styleSheets.forEach(sheet => {
-        try {
-          const rules = Array.from(sheet.cssRules || sheet.rules)
-          rules.forEach(rule => {
-            if (rule instanceof CSSStyleRule) {
-              let ruleText = rule.cssText
-              // Substituir cores lab() por cores hex
-              ruleText = ruleText.replace(/lab\([^)]+\)/g, '#000000')
-              ruleText = ruleText.replace(/oklch\([^)]+\)/g, '#000000')
-              ruleText = ruleText.replace(/hsl\([^)]+\)/g, '#000000')
-              cssText += ruleText + '\n'
-            }
-          })
-        } catch (e) {
-          // Ignorar erros de CORS
-        }
-      })
-      
-      // Criar um style tag com as regras CSS limpas
-      const styleTag = document.createElement('style')
-      styleTag.textContent = cssText
-      pdfContainer.appendChild(styleTag)
-
-      // Adicionar ao DOM
-      document.body.appendChild(pdfContainer)
-
-      // Aguardar renderização
-      await new Promise(resolve => setTimeout(resolve, 300))
-
-      const canvas = await html2canvas(pdfContainer, {
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: '#ffffff',
-        width: 1200,
-        height: pdfContainer.scrollHeight,
-        logging: false,
-        removeContainer: true,
-        foreignObjectRendering: false,
-        ignoreElements: (element) => {
-          return element.tagName === 'BUTTON' || 
-                 element.classList.contains('sticky') ||
-                 (element as HTMLElement).style.position === 'sticky'
-        }
-      })
-
-      // Remover do DOM
-      document.body.removeChild(pdfContainer)
-
-      const imgData = canvas.toDataURL('image/png', 0.9)
-      const pdf = new jsPDF('p', 'mm', 'a4')
-      
-      const imgWidth = 210
-      const pageHeight = 295
-      const imgHeight = (canvas.height * imgWidth) / canvas.width
-      let heightLeft = imgHeight
-
-      let position = 0
-
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
-      heightLeft -= pageHeight
-
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight
-        pdf.addPage()
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
-        heightLeft -= pageHeight
-      }
-
-      pdf.save('Rodrigo_Souza_CV.pdf')
-    } catch (error) {
-      console.error('Erro ao gerar PDF:', error)
-    } finally {
-      setIsGeneratingPDF(false)
-    }
-  }
-
   return (
-    <div className="min-h-screen bg-background" ref={portfolioRef}>
+    <div className="min-h-screen bg-background">
       {/* Header/Navigation */}
       <header className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
@@ -140,10 +13,10 @@ export default function Home() {
             <div className="hidden md:flex items-center space-x-6">
               <a href="#sobre" className="text-muted-foreground hover:text-foreground transition-colors">Sobre</a>
               <a href="#projetos" className="text-muted-foreground hover:text-foreground transition-colors">Projetos</a>
-              <a href="#open-source" className="text-muted-foreground hover:text-foreground transition-colors">Open Source</a>
-              <a href="#habilidades" className="text-muted-foreground hover:text-foreground transition-colors">Habilidades</a>
               <a href="#experiencias" className="text-muted-foreground hover:text-foreground transition-colors">Experiências</a>
-              <a href="#contato" className="text-muted-foreground hover:text-foreground transition-colors">Contato</a>
+              <a href="#formacao" className="text-muted-foreground hover:text-foreground transition-colors">Formação</a>
+              <a href="#habilidades" className="text-muted-foreground hover:text-foreground transition-colors">Habilidades</a>
+              <a href="#open-source" className="text-muted-foreground hover:text-foreground transition-colors">Open Source</a>
             </div>
           </nav>
         </div>
@@ -159,26 +32,53 @@ export default function Home() {
             <p className="text-2xl md:text-3xl text-muted-foreground font-light">
               Software Engineer
             </p>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            {/* <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Especialista em soluções de alta complexidade, desde aplicativos iOS nativos até sistemas 
               de processamento de dados em larga escala. Experiência comprovada em projetos estratégicos 
               para grandes empresas como Caixa Econômica Federal, PagSeguro e Banco do Brasil.
-            </p>
+            </p> */}
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8 py-6" onClick={scrollToProjects}>
+            <Button size="lg" className="text-lg px-8 py-6">
               Ver Projetos
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="text-lg px-8 py-6" 
-              onClick={downloadCV}
-              disabled={isGeneratingPDF}
-            >
-              {isGeneratingPDF ? 'Gerando PDF...' : 'Baixar CV'}
-            </Button>
+            <a href="/Rodrigo_Santos_de_Souza_-_Software_Engineer.pdf" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" variant="outline" className="text-lg px-8 py-6">
+                Baixar CV
+              </Button>
+            </a>
+          </div>
+
+          {/* Contato no Hero */}
+          <div className="pt-8 border-t border-border/40">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+              <div className="flex items-center space-x-2">
+                <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span className="text-sm text-muted-foreground">souza.rodrigo61@gmail.com</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span className="text-sm text-muted-foreground">Brasília, Brasil</span>
+              </div>
+              <div className="flex space-x-2">
+                <a href="https://github.com/souzaRodrigo61/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/souzarodrigo61" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -293,219 +193,6 @@ export default function Home() {
                   <Badge variant="outline" className="text-xs">Multi-tenant</Badge>
                   <Badge variant="outline" className="text-xs">PostgreSQL</Badge>
                   <Badge variant="outline" className="text-xs">VPS</Badge>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Projetos Open Source Section */}
-      <section id="open-source" className="container mx-auto px-4 py-20 bg-muted/30">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Projetos Open Source</h2>
-            <p className="text-lg text-muted-foreground">
-              Contribuições para a comunidade de desenvolvedores
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle>SwiftDataTCA</CardTitle>
-                <CardDescription>Swift • 82 stars • 11 forks</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Sample sobre SwiftData com Composable Architecture em fase inicial de desenvolvimento. 
-                  Projeto que demonstra a integração entre SwiftData e TCA (The Composable Architecture).
-                </p>
-                <div>
-                  <p className="text-sm font-semibold text-foreground mb-2">Tecnologias:</p>
-                  <div className="flex flex-wrap gap-1">
-                    <Badge variant="outline" className="text-xs">Swift</Badge>
-                    <Badge variant="outline" className="text-xs">SwiftData</Badge>
-                    <Badge variant="outline" className="text-xs">TCA</Badge>
-                    <Badge variant="outline" className="text-xs">iOS</Badge>
-                  </div>
-                </div>
-                <a href="https://github.com/souzaRodrigo61/SwiftDataTCA" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm text-primary hover:underline">
-                  Ver no GitHub →
-                </a>
-              </CardContent>
-            </Card>
-
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle>cashew</CardTitle>
-                <CardDescription>Swift • 3 stars</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Projeto em Swift que demonstra boas práticas de desenvolvimento iOS e arquitetura limpa.
-                </p>
-                <div>
-                  <p className="text-sm font-semibold text-foreground mb-2">Tecnologias:</p>
-                  <div className="flex flex-wrap gap-1">
-                    <Badge variant="outline" className="text-xs">Swift</Badge>
-                    <Badge variant="outline" className="text-xs">iOS</Badge>
-                    <Badge variant="outline" className="text-xs">Clean Architecture</Badge>
-                  </div>
-                </div>
-                <a href="https://github.com/souzaRodrigo61/cashew" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm text-primary hover:underline">
-                  Ver no GitHub →
-                </a>
-              </CardContent>
-            </Card>
-
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle>ios-health-tracking</CardTitle>
-                <CardDescription>Swift • 4 stars • 1 fork</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Health tracking - Covid e outras condições de saúde. Aplicativo iOS para monitoramento 
-                  de saúde com foco em rastreamento de sintomas relacionados ao Covid-19.
-                </p>
-                <div>
-                  <p className="text-sm font-semibold text-foreground mb-2">Tecnologias:</p>
-                  <div className="flex flex-wrap gap-1">
-                    <Badge variant="outline" className="text-xs">Swift</Badge>
-                    <Badge variant="outline" className="text-xs">HealthKit</Badge>
-                    <Badge variant="outline" className="text-xs">iOS</Badge>
-                    <Badge variant="outline" className="text-xs">Covid Tracking</Badge>
-                  </div>
-                </div>
-                <a href="https://github.com/souzaRodrigo61/ios-health-tracking" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm text-primary hover:underline">
-                  Ver no GitHub →
-                </a>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Habilidades Section */}
-      <section id="habilidades" className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Habilidades Técnicas</h2>
-            <p className="text-lg text-muted-foreground">
-              Tecnologias e ferramentas que utilizo no dia a dia
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <Card>
-              <CardHeader>
-                <CardTitle>Mobile Development</CardTitle>
-                <CardDescription>Desenvolvimento nativo e cross-platform</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">iOS/Swift</Badge>
-                  <Badge variant="secondary">Flutter</Badge>
-                  <Badge variant="secondary">React Native</Badge>
-                  <Badge variant="secondary">Xcode</Badge>
-                  <Badge variant="secondary">Android/Kotlin</Badge>
-                  <Badge variant="secondary">Storyboard/XIB</Badge>
-                  <Badge variant="secondary">SwiftUI</Badge>
-                  <Badge variant="secondary">Jetpack Compose</Badge>
-                  <Badge variant="secondary">Material 3</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Frontend & Web</CardTitle>
-                <CardDescription>Interfaces modernas e responsivas</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">Next.js</Badge>
-                  <Badge variant="secondary">Svelte 5</Badge>
-                  <Badge variant="secondary">React</Badge>
-                  <Badge variant="secondary">TypeScript</Badge>
-                  <Badge variant="secondary">JavaScript</Badge>
-                  <Badge variant="secondary">HTML/CSS</Badge>
-                  <Badge variant="secondary">Tailwind CSS</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Backend & Cloud</CardTitle>
-                <CardDescription>APIs robustas e infraestrutura escalável</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">Node.js</Badge>
-                  <Badge variant="secondary">Rust</Badge>
-                  <Badge variant="secondary">Java/Spring</Badge>
-                  <Badge variant="secondary">PostgreSQL</Badge>
-                  <Badge variant="secondary">Docker</Badge>
-                  <Badge variant="secondary">Supabase</Badge>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card>
-              <CardHeader>
-                <CardTitle>Ferramentas & DevOps</CardTitle>
-                <CardDescription>CI/CD e colaboração</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">Git/GitHub</Badge>
-                  <Badge variant="secondary">Bitrise CI/CD</Badge>
-                  <Badge variant="secondary">Jenkins</Badge>
-                  <Badge variant="secondary">ElasticSearch</Badge>
-                  <Badge variant="secondary">Coolify</Badge>
-                  <Badge variant="secondary">VPS</Badge>
-                  <Badge variant="secondary">Railway</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Soft Skills & Idiomas</CardTitle>
-                <CardDescription>Habilidades interpessoais e comunicação</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div>
-                    <h4 className="font-semibold text-sm mb-2">Liderança & Colaboração</h4>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline">Ponto Focal</Badge>
-                      <Badge variant="outline">Perfil Ativo</Badge>
-                      <Badge variant="outline">Scrum</Badge>
-                      <Badge variant="outline">Times Multi-complementares</Badge>
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-sm mb-2">Idiomas</h4>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline">Português (Nativo)</Badge>
-                      <Badge variant="outline">Inglês (Intermediário)</Badge>
-                      <Badge variant="outline">Alemão (Iniciante)</Badge>
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-sm mb-2">Colaboração com</h4>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline">Product Owners</Badge>
-                      <Badge variant="outline">Stakeholders</Badge>
-                      <Badge variant="outline">Backend Teams</Badge>
-                      <Badge variant="outline">Mobile Teams</Badge>
-                    </div>
-                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -680,63 +367,309 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contato Section */}
-      <section id="contato" className="container mx-auto px-4 py-20">
+      {/* Formação Section */}
+      <section id="formacao" className="container mx-auto px-4 py-20">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Vamos Conversar</h2>
+            <h2 className="text-4xl font-bold text-foreground mb-4">Formação Acadêmica</h2>
             <p className="text-lg text-muted-foreground">
-              Interessado em trabalhar juntos? Entre em contato!
+              Minha jornada educacional e especializações
             </p>
           </div>
           
-          <div className="max-w-2xl mx-auto">
-            <div className="space-y-6">
-              <h3 className="text-2xl font-semibold text-foreground text-center">Informações de Contato</h3>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
+          <div className="space-y-8">
+            <Card>
+              <CardHeader>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <CardTitle>Pós-graduação em Mobile</CardTitle>
+                    <CardDescription>Universidade Católica de Brasília • Agosto 2019 — Dezembro 2021</CardDescription>
+                  </div>
+                  <Badge variant="secondary">Concluído</Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                  Pós-graduação focada no desenvolvimento de aplicativos móveis. Construí um projeto sobre health tracking 
+                  do COVID nos países brasileiros utilizando Swift (SwiftUI) e toda a stack do mundo iOS.
+                </p>
+                <p className="text-muted-foreground mb-4">
+                  Trabalhei no projeto de conclusão do curso sobre trader esportivo, onde utilizei a mesma stack 
+                  para desenvolvimento da aplicação.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline">Swift</Badge>
+                  <Badge variant="outline">SwiftUI</Badge>
+                  <Badge variant="outline">Health Tracking</Badge>
+                  <Badge variant="outline">COVID-19</Badge>
+                  <Badge variant="outline">Trader Esportivo</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+            <CardHeader>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <CardTitle>Sistemas da Informação</CardTitle>
+                    <CardDescription>Centro Universitário Projeção • Agosto 2016 — Dezembro 2019</CardDescription>
+                  </div>
+                  <Badge variant="secondary">Concluído</Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                  Graduação em Sistemas da Informação, fornecendo base sólida em desenvolvimento de software, 
+                  arquitetura de sistemas e gestão de projetos de TI.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline">Swift</Badge>
+                  <Badge variant="outline">Java</Badge>
+                  <Badge variant="outline">Redes de Computadores</Badge>
+                  <Badge variant="outline">Arquitetura de Computadores</Badge>
+                  <Badge variant="outline">Gestão de TI</Badge>
+                  <Badge variant="outline">Gestão de Projetos</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>  
+                <div className="flex justify-between items-start">
+                  <div>
+                    <CardTitle>Ciências da Computação</CardTitle>
+                    <CardDescription>Universidade Católica de Brasília • 2014 — 2015</CardDescription>
+                  </div>
+                  <Badge variant="secondary">Não pude finalizar</Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                  Início da formação em Ciências da Computação, estabelecendo fundamentos teóricos e práticos 
+                  em programação e computação.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline">C</Badge>
+                  <Badge variant="outline">Java</Badge>
+                  <Badge variant="outline">Banco de Dados</Badge>
+                  <Badge variant="outline">Arquitetura de Computadores</Badge>
+                  <Badge variant="outline">Empreendedorismo</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Habilidades Section */}
+      <section id="habilidades" className="container mx-auto px-4 py-20 bg-muted/30">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-foreground mb-4">Habilidades Técnicas</h2>
+            <p className="text-lg text-muted-foreground">
+              Tecnologias e ferramentas que utilizo no dia a dia
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <Card>
+              <CardHeader>
+                <CardTitle>Mobile Development</CardTitle>
+                <CardDescription>Desenvolvimento nativo e cross-platform</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary">iOS/Swift</Badge>
+                  <Badge variant="secondary">Flutter</Badge>
+                  <Badge variant="secondary">React Native</Badge>
+                  <Badge variant="secondary">Xcode</Badge>
+                  <Badge variant="secondary">Android/Kotlin</Badge>
+                  <Badge variant="secondary">Storyboard/XIB</Badge>
+                  <Badge variant="secondary">SwiftUI</Badge>
+                  <Badge variant="secondary">Jetpack Compose</Badge>
+                  <Badge variant="secondary">Material 3</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Frontend & Web</CardTitle>
+                <CardDescription>Interfaces modernas e responsivas</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary">Next.js</Badge>
+                  <Badge variant="secondary">Svelte 5</Badge>
+                  <Badge variant="secondary">React</Badge>
+                  <Badge variant="secondary">TypeScript</Badge>
+                  <Badge variant="secondary">JavaScript</Badge>
+                  <Badge variant="secondary">HTML/CSS</Badge>
+                  <Badge variant="secondary">Tailwind CSS</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Backend & Cloud</CardTitle>
+                <CardDescription>APIs robustas e infraestrutura escalável</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary">Node.js</Badge>
+                  <Badge variant="secondary">Rust</Badge>
+                  <Badge variant="secondary">Java/Spring</Badge>
+                  <Badge variant="secondary">PostgreSQL</Badge>
+                  <Badge variant="secondary">Docker</Badge>
+                  <Badge variant="secondary">Supabase</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Ferramentas & DevOps</CardTitle>
+                <CardDescription>CI/CD e colaboração</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary">Git/GitHub</Badge>
+                  <Badge variant="secondary">Bitrise CI/CD</Badge>
+                  <Badge variant="secondary">Jenkins</Badge>
+                  <Badge variant="secondary">ElasticSearch</Badge>
+                  <Badge variant="secondary">Coolify</Badge>
+                  <Badge variant="secondary">VPS</Badge>
+                  <Badge variant="secondary">Railway</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Soft Skills & Idiomas</CardTitle>
+                <CardDescription>Habilidades interpessoais e comunicação</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div>
+                    <h4 className="font-semibold text-sm mb-2">Liderança & Colaboração</h4>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="outline">Ponto Focal</Badge>
+                      <Badge variant="outline">Perfil Ativo</Badge>
+                      <Badge variant="outline">Scrum</Badge>
+                      <Badge variant="outline">Times Multi-complementares</Badge>
+                    </div>
                   </div>
                   <div>
-                    <p className="font-medium">Email</p>
-                    <p className="text-muted-foreground">souza.rodrigo61@gmail.com</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
+                    <h4 className="font-semibold text-sm mb-2">Idiomas</h4>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="outline">Português (Nativo)</Badge>
+                      <Badge variant="outline">Inglês (Intermediário)</Badge>
+                      <Badge variant="outline">Alemão (Iniciante)</Badge>
+                    </div>
                   </div>
                   <div>
-                    <p className="font-medium">Localização</p>
-                    <p className="text-muted-foreground">Brasília, Brasil</p>
+                    <h4 className="font-semibold text-sm mb-2">Colaboração com</h4>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="outline">Product Owners</Badge>
+                      <Badge variant="outline">Stakeholders</Badge>
+                      <Badge variant="outline">Backend Teams</Badge>
+                      <Badge variant="outline">Mobile Teams</Badge>
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="flex justify-center space-x-4 pt-4">
-                <a href="https://github.com/souzaRodrigo61/" target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline" size="icon">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                  </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Projetos Open Source Section */}
+      <section id="open-source" className="container mx-auto px-4 py-20">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-foreground mb-4">Projetos Open Source</h2>
+            <p className="text-lg text-muted-foreground">
+              Contribuições para a comunidade de desenvolvedores
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="h-full">
+              <CardHeader>
+                <CardTitle>SwiftDataTCA</CardTitle>
+                <CardDescription>Swift • 82 stars • 11 forks</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-muted-foreground">
+                  Sample sobre SwiftData com Composable Architecture em fase inicial de desenvolvimento. 
+                  Projeto que demonstra a integração entre SwiftData e TCA (The Composable Architecture).
+                </p>
+                <div>
+                  <p className="text-sm font-semibold text-foreground mb-2">Tecnologias:</p>
+                  <div className="flex flex-wrap gap-1">
+                    <Badge variant="outline" className="text-xs">Swift</Badge>
+                    <Badge variant="outline" className="text-xs">SwiftData</Badge>
+                    <Badge variant="outline" className="text-xs">TCA</Badge>
+                    <Badge variant="outline" className="text-xs">iOS</Badge>
+                  </div>
+                </div>
+                <a href="https://github.com/souzaRodrigo61/SwiftDataTCA" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm text-primary hover:underline">
+                  Ver no GitHub →
                 </a>
-                <a href="https://www.linkedin.com/in/souzarodrigo61" target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline" size="icon">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                  </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="h-full">
+              <CardHeader>
+                <CardTitle>cashew</CardTitle>
+                <CardDescription>Swift • 3 stars</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-muted-foreground">
+                  Projeto em Swift que demonstra boas práticas de desenvolvimento iOS e arquitetura limpa.
+                </p>
+                <div>
+                  <p className="text-sm font-semibold text-foreground mb-2">Tecnologias:</p>
+                  <div className="flex flex-wrap gap-1">
+                    <Badge variant="outline" className="text-xs">Swift</Badge>
+                    <Badge variant="outline" className="text-xs">iOS</Badge>
+                    <Badge variant="outline" className="text-xs">Clean Architecture</Badge>
+                  </div>
+                </div>
+                <a href="https://github.com/souzaRodrigo61/cashew" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm text-primary hover:underline">
+                  Ver no GitHub →
                 </a>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
+
+            <Card className="h-full">
+              <CardHeader>
+                <CardTitle>ios-health-tracking</CardTitle>
+                <CardDescription>Swift • 4 stars • 1 fork</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-muted-foreground">
+                  Health tracking - Covid e outras condições de saúde. Aplicativo iOS para monitoramento 
+                  de saúde com foco em rastreamento de sintomas relacionados ao Covid-19.
+                </p>
+                <div>
+                  <p className="text-sm font-semibold text-foreground mb-2">Tecnologias:</p>
+                  <div className="flex flex-wrap gap-1">
+                    <Badge variant="outline" className="text-xs">Swift</Badge>
+                    <Badge variant="outline" className="text-xs">HealthKit</Badge>
+                    <Badge variant="outline" className="text-xs">iOS</Badge>
+                    <Badge variant="outline" className="text-xs">Covid Tracking</Badge>
+                  </div>
+                </div>
+                <a href="https://github.com/souzaRodrigo61/ios-health-tracking" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm text-primary hover:underline">
+                  Ver no GitHub →
+                </a>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
