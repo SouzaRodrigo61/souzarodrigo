@@ -182,7 +182,7 @@ export default function Home() {
                 </p>
                 <div>
                   <p className="text-sm font-semibold text-foreground mb-2">Resultado:</p>
-                  <p className="text-muted-foreground">
+                  <p className="text-sm text-muted-foreground">
                     Redução de 100% nos custos (USD 16 → USD 0) na plataforma Railway com o uso do Rust e PostgreSQL. 
                     Atualmente estou em processo de migração para VPS no Brasil com Coolify para aumentar a velocidade de resposta e implementação de multi-tenant.
                   </p>
