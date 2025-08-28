@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rodrigo Souza - Desenvolvedor Fullstack",
-  description: "Portfolio profissional de Rodrigo Souza, desenvolvedor fullstack especializado em React, Node.js e tecnologias modernas.",
+  title: "Rodrigo Souza - Software Engineer",
+  description: "Portfolio profissional de Rodrigo Souza, software engineer especializado em Swift, Flutter, Rust entre outras.",
 };
 
 export default function RootLayout({
