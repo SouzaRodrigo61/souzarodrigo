@@ -37,7 +37,8 @@
       "status": "Atual",
       "description": "Desenvolvimento do aplicativo iOS das Loterias (Caixa Econômica Federal). Trabalho com 4 desenvolvedores iOS seguindo git flow e deploy via Xcode archive.",
       "technologies": ["Swift 5.5", "Storyboard/XIB", "MVC", "Voice Over", "Apple Wallet", "Xcode 15+", "Git Flow"],
-      "hasHeroModal": false
+      "hasHeroModal": true,
+      "markdownFile": "qintess-loterias.md"
     },
     {
       "id": "invillia-ios",

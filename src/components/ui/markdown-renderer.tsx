@@ -114,7 +114,30 @@ export const MarkdownRenderer = ({ content, className = "", skipFirstH1 = false 
           ),
           em: ({ children }) => (
             <em className="italic text-muted-foreground">{children}</em>
-          )
+          ),
+          img: ({ src, alt, ...props }) => {
+            // Se for um vídeo MP4, renderizar como video element
+            if (src && typeof src === 'string' && src.endsWith('.MP4')) {
+              return (
+                <video 
+                  src={src} 
+                  controls 
+                  className="w-full max-w-md mx-auto rounded-lg shadow-lg my-4"
+                >
+                  Seu navegador não suporta vídeos.
+                </video>
+              )
+            }
+            // Para imagens normais
+            return (
+              <img 
+                src={src} 
+                alt={alt} 
+                className="w-full max-w-md mx-auto rounded-lg shadow-lg my-4"
+                {...props}
+              />
+            )
+          }
         }}
       >
         {processedContent}
