@@ -1,8 +1,129 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { HeroModal, ProjectCard } from "@/components/ui/hero-modal"
+import { motion } from "framer-motion"
+import { useProjectStore, Project, Experience } from "@/lib/store"
+
+// Dados dos projetos para o modal hero
+const projectsData: ProjectCard[] = [
+  {
+    src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "DivinaPay (Divina Cashless)",
+    category: "Plataforma de Pagamentos",
+    content: (
+      <div className="space-y-6">
+        <div className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl">
+          <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto">
+            <span className="font-bold text-neutral-700 dark:text-neutral-200">
+              Plataforma para Gestão e Pagamentos em Eventos.
+            </span>{" "}
+            Sistema moderno desenvolvido com Flutter 3.31+, backend robusto em Rust (Axum e Salvo.rs), 
+            PostgreSQL via Supabase e frontend interativo em Svelte 5.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-200">Impacto nos Negócios</h3>
+            <p className="text-neutral-600 dark:text-neutral-400">
+              Processou mais de R$ 6 milhões em transações, atendendo mais de 30 eventos 
+              com elevados picos de usuários concorrentes.
+            </p>
+          </div>
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-200">Tecnologias</h3>
+            <div className="flex flex-wrap gap-2">
+              <Badge variant="outline">Flutter 3.31+</Badge>
+              <Badge variant="outline">Rust</Badge>
+              <Badge variant="outline">PostgreSQL</Badge>
+              <Badge variant="outline">Svelte 5</Badge>
+              <Badge variant="outline">Coolify</Badge>
+            </div>
+          </div>
+        </div>
+        <div className="text-center">
+          <a 
+            href="https://divinapay.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="inline-flex items-center text-primary hover:underline text-lg font-medium"
+          >
+            divinapay.com →
+          </a>
+        </div>
+      </div>
+    )
+  },
+  {
+    src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Sistema de Gerenciamento para Igrejas",
+    category: "Gestão Financeira",
+    content: (
+      <div className="space-y-6">
+        <div className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl">
+          <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto">
+            <span className="font-bold text-neutral-700 dark:text-neutral-200">
+              Sistema de gerenciamento de campanhas com evolução de Flutter para Next.js + Rust.
+            </span>{" "}
+            Implementando arquitetura multi-tenant e otimização de infraestrutura.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-200">Resultado Financeiro</h3>
+            <p className="text-neutral-600 dark:text-neutral-400">
+              Redução de 100% nos custos (USD 16 → USD 0) na plataforma Railway com o uso do Rust e PostgreSQL. 
+              Atualmente estou em processo de migração para VPS no Brasil com Coolify para aumentar a velocidade de resposta e implementação de multi-tenant.
+            </p>
+          </div>
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-200">Tecnologias</h3>
+            <div className="flex flex-wrap gap-2">
+              <Badge variant="outline">Next.js</Badge>
+              <Badge variant="outline">Rust</Badge>
+              <Badge variant="outline">Multi-tenant</Badge>
+              <Badge variant="outline">PostgreSQL</Badge>
+              <Badge variant="outline">VPS</Badge>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+]
 
 export default function Home() {
+  const [selectedProject, setSelectedProject] = useState<ProjectCard | null>(null)
+  const [selectedProjectLayoutId, setSelectedProjectLayoutId] = useState<string>("")
+  const [selectedItem, setSelectedItem] = useState<(Project | Experience) | null>(null)
+  const [selectedItemLayoutId, setSelectedItemLayoutId] = useState<string>("")
+
+  const { projects, experiences, loadProjectData } = useProjectStore()
+
+  // Carregar dados dos projetos
+  useEffect(() => {
+    loadProjectData()
+  }, [loadProjectData])
+
+  const handleProjectClick = (project: ProjectCard, layoutId: string) => {
+    setSelectedProject(project)
+    setSelectedProjectLayoutId(layoutId)
+  }
+
+  const handleItemClick = (item: Project | Experience, layoutId: string) => {
+    setSelectedItem(item)
+    setSelectedItemLayoutId(layoutId)
+  }
+
+  const handleCloseModal = () => {
+    setSelectedProject(null)
+    setSelectedProjectLayoutId("")
+    setSelectedItem(null)
+    setSelectedItemLayoutId("")
+  }
   return (
     <div className="min-h-screen bg-background">
       {/* Header/Navigation */}
@@ -140,62 +261,74 @@ export default function Home() {
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle>DivinaPay (Divina Cashless)</CardTitle>
-                <CardDescription>Sócio Desenvolvedor • 2024/01 - Presente</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Plataforma para Gestão e Pagamentos em Eventos. Sistema moderno desenvolvido com Flutter 3.31+, 
-                  backend robusto em Rust (Axum e Salvo.rs), PostgreSQL via Supabase e frontend interativo em Svelte 5.
-                </p>
-                <div>
-                  <p className="text-sm font-semibold text-foreground mb-2">Impacto:</p>
-                  <p className="text-sm text-muted-foreground">
-                    Processou mais de R$ 6 milhões em transações, atendendo mais de 30 eventos 
-                    com elevados picos de usuários concorrentes.
+            <motion.div
+              layoutId="project-0"
+              onClick={() => handleProjectClick(projectsData[0], "project-0")}
+              className="cursor-pointer"
+            >
+              <Card className="h-full hover:shadow-md transition-all duration-200">
+                <CardHeader>
+                  <CardTitle>DivinaPay (Divina Cashless)</CardTitle>
+                  <CardDescription>Sócio Desenvolvedor • 2024/01 - Presente</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-muted-foreground">
+                    Plataforma para Gestão e Pagamentos em Eventos. Sistema moderno desenvolvido com Flutter 3.31+, 
+                    backend robusto em Rust (Axum e Salvo.rs), PostgreSQL via Supabase e frontend interativo em Svelte 5.
                   </p>
-                </div>
-                <div className="flex flex-wrap gap-1">
-                  <Badge variant="outline" className="text-xs">Flutter 3.31+</Badge>
-                  <Badge variant="outline" className="text-xs">Rust</Badge>
-                  <Badge variant="outline" className="text-xs">PostgreSQL</Badge>
-                  <Badge variant="outline" className="text-xs">Svelte 5</Badge>
-                  <Badge variant="outline" className="text-xs">Coolify</Badge>
-                </div>
-                <a href="https://divinapay.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm text-primary hover:underline">
-                  divinapay.com →
-                </a>
-              </CardContent>
-            </Card>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground mb-2">Impacto:</p>
+                    <p className="text-sm text-muted-foreground">
+                      Processou mais de R$ 6 milhões em transações, atendendo mais de 30 eventos 
+                      com elevados picos de usuários concorrentes.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    <Badge variant="outline" className="text-xs">Flutter 3.31+</Badge>
+                    <Badge variant="outline" className="text-xs">Rust</Badge>
+                    <Badge variant="outline" className="text-xs">PostgreSQL</Badge>
+                    <Badge variant="outline" className="text-xs">Svelte 5</Badge>
+                    <Badge variant="outline" className="text-xs">Coolify</Badge>
+                  </div>
+                  <a href="https://divinapay.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm text-primary hover:underline">
+                    divinapay.com →
+                  </a>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle>Sistema de Gerenciamento para Igrejas</CardTitle>
-                <CardDescription>Gestor Financeiro • 2023/03 - Presente</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Sistema de gerenciamento de campanhas com evolução de Flutter para Next.js + Rust, 
-                  implementando arquitetura multi-tenant e otimização de infraestrutura.
-                </p>
-                <div>
-                  <p className="text-sm font-semibold text-foreground mb-2">Resultado:</p>
-                  <p className="text-sm text-muted-foreground">
-                    Redução de 100% nos custos (USD 16 → USD 0) na plataforma Railway com o uso do Rust e PostgreSQL. 
-                    Atualmente estou em processo de migração para VPS no Brasil com Coolify para aumentar a velocidade de resposta e implementação de multi-tenant.
+            <motion.div
+              layoutId="project-1"
+              onClick={() => handleProjectClick(projectsData[1], "project-1")}
+              className="cursor-pointer"
+            >
+              <Card className="h-full hover:shadow-md transition-all duration-200">
+                <CardHeader>
+                  <CardTitle>Sistema de Gerenciamento para Igrejas</CardTitle>
+                  <CardDescription>Gestor Financeiro • 2023/03 - Presente</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-muted-foreground">
+                    Sistema de gerenciamento de campanhas com evolução de Flutter para Next.js + Rust, 
+                    implementando arquitetura multi-tenant e otimização de infraestrutura.
                   </p>
-                </div>
-                <div className="flex flex-wrap gap-1">
-                  <Badge variant="outline" className="text-xs">Next.js</Badge>
-                  <Badge variant="outline" className="text-xs">Rust</Badge>
-                  <Badge variant="outline" className="text-xs">Multi-tenant</Badge>
-                  <Badge variant="outline" className="text-xs">PostgreSQL</Badge>
-                  <Badge variant="outline" className="text-xs">VPS</Badge>
-                </div>
-              </CardContent>
-            </Card>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground mb-2">Resultado:</p>
+                    <p className="text-sm text-muted-foreground">
+                      Redução de 100% nos custos (USD 16 → USD 0) na plataforma Railway com o uso do Rust e PostgreSQL. 
+                      Atualmente estou em processo de migração para VPS no Brasil com Coolify para aumentar a velocidade de resposta e implementação de multi-tenant.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    <Badge variant="outline" className="text-xs">Next.js</Badge>
+                    <Badge variant="outline" className="text-xs">Rust</Badge>
+                    <Badge variant="outline" className="text-xs">Multi-tenant</Badge>
+                    <Badge variant="outline" className="text-xs">PostgreSQL</Badge>
+                    <Badge variant="outline" className="text-xs">VPS</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -211,158 +344,38 @@ export default function Home() {
           </div>
           
           <div className="space-y-8">
-            <Card>
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle>iOS Developer</CardTitle>
-                    <CardDescription>Qintess • Out, 2022 - Presente</CardDescription>
-                  </div>
-                  <Badge variant="secondary">Atual</Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Desenvolvimento do aplicativo iOS das Loterias (Caixa Econômica Federal). 
-                  Trabalho com 4 desenvolvedores iOS seguindo git flow e deploy via Xcode archive.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Swift 5.5</Badge>
-                  <Badge variant="outline">Storyboard/XIB</Badge>
-                  <Badge variant="outline">MVC</Badge>
-                  <Badge variant="outline">Voice Over</Badge>
-                  <Badge variant="outline">Apple Wallet</Badge>
-                  <Badge variant="outline">Xcode 15+</Badge>
-                  <Badge variant="outline">Git Flow</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>iOS Developer</CardTitle>
-                <CardDescription>Invillia • Dez, 2021 - Set, 2022</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Desenvolvimento da plataforma de saque aniversário (FGTS) no contexto do PagSeguro. 
-                  Implementação de feature toggles e CI/CD no Bitrise.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Swift 5.4</Badge>
-                  <Badge variant="outline">XIB/ViewCode</Badge>
-                  <Badge variant="outline">SwiftUI</Badge>
-                  <Badge variant="outline">Flutter Method Channel</Badge>
-                  <Badge variant="outline">Bitrise CI/CD</Badge>
-                  <Badge variant="outline">Feature Toggles</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Mobile Developer</CardTitle>
-                <CardDescription>Vizir • Abr, 2021 - Dez, 2021</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Desenvolvimento dos projetos Natura Pay e Natura FVN. Projeto híbrido com integração 
-                  entre código nativo iOS e React Native usando iOS Native Modules.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Swift</Badge>
-                  <Badge variant="outline">React Native</Badge>
-                  <Badge variant="outline">Node.js</Badge>
-                  <Badge variant="outline">TypeScript</Badge>
-                  <Badge variant="outline">ViewCode</Badge>
-                  <Badge variant="outline">AWS</Badge>
-                  <Badge variant="outline">Elasticsearch</Badge>
-                  <Badge variant="outline">GitHub Actions</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Analista de Sistema</CardTitle>
-                <CardDescription>Qintess • Nov, 2020 - Mar, 2021</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Projeto na Polícia Federal. Atuação com desenvolvimento de sistemas legados e sustentação.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Java 6-8</Badge>
-                  <Badge variant="outline">Sistemas Legados</Badge>
-                  <Badge variant="outline">Sustentação</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Analista de Sistema</CardTitle>
-                <CardDescription>Connectis • Out, 2019 - Nov, 2020</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Cliente: Banco do Brasil. Projeto Interchange - VIP - Validação das taxas de intercâmbio 
-                  das bandeiras do Banco do Brasil.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Java Quarkus</Badge>
-                  <Badge variant="outline">Kubernetes</Badge>
-                  <Badge variant="outline">Spring Batch</Badge>
-                  <Badge variant="outline">Docker</Badge>
-                  <Badge variant="outline">Jenkins</Badge>
-                  <Badge variant="outline">Rancher</Badge>
-                  <Badge variant="outline">ElasticSearch</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Analista de Sistema Pleno</CardTitle>
-                <CardDescription>Cast Group • Ago, 2018 - Nov, 2019</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Cliente: Banco do Brasil. Projetos: Blockchain SBP (Sistema Brasileiro de Poderes), 
-                  Evidenciação de modelos de dados e Manter reunião da AD.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Node.js</Badge>
-                  <Badge variant="outline">Hyperledger Fabric</Badge>
-                  <Badge variant="outline">OpenShift</Badge>
-                  <Badge variant="outline">CouchDB</Badge>
-                  <Badge variant="outline">COBOL</Badge>
-                  <Badge variant="outline">JCL</Badge>
-                  <Badge variant="outline">AngularJS</Badge>
-                  <Badge variant="outline">Java</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Analista de Sistema Junior</CardTitle>
-                <CardDescription>Stefanini • Jun, 2016 - Ago, 2018</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Manutenção e migração de rotinas mainframe (COBOL e Natural). 
-                  Desenvolvimento de rotinas em Java com frontend em AngularJS.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">COBOL</Badge>
-                  <Badge variant="outline">Natural</Badge>
-                  <Badge variant="outline">Mainframe</Badge>
-                  <Badge variant="outline">Java</Badge>
-                  <Badge variant="outline">AngularJS</Badge>
-                </div>
-              </CardContent>
-            </Card>
+            {experiences.map((experience, index) => (
+              <motion.div
+                key={experience.id}
+                layoutId={`experience-${experience.id}`}
+                onClick={() => handleItemClick(experience, `experience-${experience.id}`)}
+                className="cursor-pointer"
+              >
+                <Card className="hover:shadow-md transition-all duration-200">
+                  <CardHeader>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <CardTitle>{experience.title}</CardTitle>
+                        <CardDescription>{experience.company} • {experience.period}</CardDescription>
+                      </div>
+                      {experience.status === "Atual" && (
+                        <Badge variant="secondary">{experience.status}</Badge>
+                      )}
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground mb-4">
+                      {experience.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {experience.technologies.map((tech, techIndex) => (
+                        <Badge key={techIndex} variant="outline">{tech}</Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -684,6 +697,35 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Hero Modal para Projetos */}
+      <HeroModal
+        item={selectedProject ? {
+          id: selectedProject.title,
+          title: selectedProject.title,
+          category: selectedProject.category,
+          role: "",
+          period: "",
+          description: "",
+          impact: "",
+          technologies: [],
+          image: selectedProject.src,
+          link: selectedProject.title === "DivinaPay (Divina Cashless)" ? "https://divinapay.com" : undefined,
+          hasHeroModal: true,
+          markdownFile: selectedProject.title === "DivinaPay (Divina Cashless)" ? "divinapay.md" : "church-management.md"
+        } : null}
+        isOpen={!!selectedProject}
+        onClose={handleCloseModal}
+        layoutId={selectedProjectLayoutId}
+      />
+
+      {/* Hero Modal para Experiências */}
+      <HeroModal
+        item={selectedItem}
+        isOpen={!!selectedItem}
+        onClose={handleCloseModal}
+        layoutId={selectedItemLayoutId}
+      />
     </div>
   )
 }

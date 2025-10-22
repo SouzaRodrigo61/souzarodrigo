@@ -1,0 +1,107 @@
+{
+  "projects": [
+    {
+      "id": "divinapay",
+      "title": "DivinaPay (Divina Cashless)",
+      "category": "Plataforma de Pagamentos",
+      "role": "Sócio Desenvolvedor",
+      "period": "2024/01 - Presente",
+      "description": "Plataforma para Gestão e Pagamentos em Eventos. Sistema moderno desenvolvido com Flutter 3.31+, backend robusto em Rust (Axum e Salvo.rs), PostgreSQL via Supabase e frontend interativo em Svelte 5.",
+      "impact": "Processou mais de R$ 6 milhões em transações, atendendo mais de 30 eventos com elevados picos de usuários concorrentes.",
+      "technologies": ["Flutter 3.31+", "Rust", "PostgreSQL", "Svelte 5", "Coolify"],
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "link": "https://divinapay.com",
+      "hasHeroModal": true,
+      "markdownFile": "divinapay.md"
+    },
+    {
+      "id": "church-management",
+      "title": "Sistema de Gerenciamento para Igrejas",
+      "category": "Gestão Financeira",
+      "role": "Gestor Financeiro",
+      "period": "2023/03 - Presente",
+      "description": "Sistema de gerenciamento de campanhas com evolução de Flutter para Next.js + Rust, implementando arquitetura multi-tenant e otimização de infraestrutura.",
+      "impact": "Redução de 100% nos custos (USD 16 → USD 0) na plataforma Railway com o uso do Rust e PostgreSQL. Atualmente estou em processo de migração para VPS no Brasil com Coolify para aumentar a velocidade de resposta e implementação de multi-tenant.",
+      "technologies": ["Next.js", "Rust", "Multi-tenant", "PostgreSQL", "VPS"],
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "hasHeroModal": true,
+      "markdownFile": "church-management.md"
+    }
+  ],
+  "experiences": [
+    {
+      "id": "qintess-ios",
+      "title": "iOS Developer",
+      "company": "Qintess",
+      "period": "Out, 2022 - Presente",
+      "status": "Atual",
+      "description": "Desenvolvimento do aplicativo iOS das Loterias (Caixa Econômica Federal). Trabalho com 4 desenvolvedores iOS seguindo git flow e deploy via Xcode archive.",
+      "technologies": ["Swift 5.5", "Storyboard/XIB", "MVC", "Voice Over", "Apple Wallet", "Xcode 15+", "Git Flow"],
+      "hasHeroModal": false
+    },
+    {
+      "id": "invillia-ios",
+      "title": "iOS Developer",
+      "company": "Invillia",
+      "period": "Dez, 2021 - Set, 2022",
+      "status": "Concluído",
+      "description": "Desenvolvimento da plataforma de saque aniversário (FGTS) no contexto do PagSeguro. Implementação de feature toggles e CI/CD no Bitrise.",
+      "technologies": ["Swift 5.4", "XIB/ViewCode", "SwiftUI", "Flutter Method Channel", "Bitrise CI/CD", "Feature Toggles"],
+      "hasHeroModal": true,
+      "markdownFile": "invillia-fgts.md"
+    },
+    {
+      "id": "vizir-mobile",
+      "title": "Mobile Developer",
+      "company": "Vizir",
+      "period": "Abr, 2021 - Dez, 2021",
+      "status": "Concluído",
+      "description": "Desenvolvimento dos projetos Natura Pay e Natura FVN. Projeto híbrido com integração entre código nativo iOS e React Native usando iOS Native Modules.",
+      "technologies": ["Swift", "React Native", "Node.js", "TypeScript", "ViewCode", "AWS", "Elasticsearch", "GitHub Actions"],
+      "hasHeroModal": true,
+      "markdownFile": "vizir-natura.md"
+    },
+    {
+      "id": "qintess-analista",
+      "title": "Analista de Sistema",
+      "company": "Qintess",
+      "period": "Nov, 2020 - Mar, 2021",
+      "status": "Concluído",
+      "description": "Projeto na Polícia Federal. Atuação com desenvolvimento de sistemas legados e sustentação.",
+      "technologies": ["Java 6-8", "Sistemas Legados", "Sustentação"],
+      "hasHeroModal": false
+    },
+    {
+      "id": "connectis-banco-brasil",
+      "title": "Analista de Sistema",
+      "company": "Connectis",
+      "period": "Out, 2019 - Nov, 2020",
+      "status": "Concluído",
+      "description": "Cliente: Banco do Brasil. Projeto Interchange - VIP - Validação das taxas de intercâmbio das bandeiras do Banco do Brasil.",
+      "technologies": ["Java Quarkus", "Kubernetes", "Spring Batch", "Docker", "Jenkins", "Rancher", "ElasticSearch"],
+      "hasHeroModal": true,
+      "markdownFile": "connectis-interchange.md"
+    },
+    {
+      "id": "cast-blockchain",
+      "title": "Analista de Sistema Pleno",
+      "company": "Cast Group",
+      "period": "Ago, 2018 - Nov, 2019",
+      "status": "Concluído",
+      "description": "Cliente: Banco do Brasil. Projetos: Blockchain SBP (Sistema Brasileiro de Poderes), Evidenciação de modelos de dados e Manter reunião da AD.",
+      "technologies": ["Node.js", "Hyperledger Fabric", "OpenShift", "CouchDB", "COBOL", "JCL", "AngularJS", "Java"],
+      "hasHeroModal": true,
+      "markdownFile": "cast-blockchain.md"
+    },
+    {
+      "id": "stefanini-mainframe",
+      "title": "Analista de Sistema Junior",
+      "company": "Stefanini",
+      "period": "Jun, 2016 - Ago, 2018",
+      "status": "Concluído",
+      "description": "Manutenção e migração de rotinas mainframe (COBOL e Natural). Desenvolvimento de rotinas em Java com frontend em AngularJS.",
+      "technologies": ["COBOL", "Natural", "Mainframe", "Java", "AngularJS"],
+      "hasHeroModal": false
+    }
+  ]
+}
