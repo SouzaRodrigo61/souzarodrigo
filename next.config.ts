@@ -9,9 +9,6 @@ const nextConfig: NextConfig = {
   // Configurações de produção
   productionBrowserSourceMaps: false,
   
-  // Otimizações de compilação
-  swcMinify: true,
-  
   async headers() {
     return [
       {
