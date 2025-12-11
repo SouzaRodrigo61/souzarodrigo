@@ -70,7 +70,8 @@ export const HeroModal = ({ item, isOpen, onClose, layoutId }: HeroModalProps) =
     } else {
       setMarkdownContent("")
     }
-  }, [isOpen, item, loadMarkdownContent])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, item?.markdownFile])
 
   if (!item) return null
 

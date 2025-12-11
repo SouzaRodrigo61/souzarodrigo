@@ -103,6 +103,13 @@ export const useProjectStore = create<ProjectStore>()(
 
       // Carregar dados dos projetos
       loadProjectData: async () => {
+        const { projects, isLoading } = get()
+        
+        // Evitar carregar múltiplas vezes se já tiver dados ou estiver carregando
+        if (projects.length > 0 || isLoading) {
+          return
+        }
+        
         set({ isLoading: true, error: null })
         
         try {

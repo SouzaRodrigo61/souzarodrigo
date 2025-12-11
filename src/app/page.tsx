@@ -103,10 +103,11 @@ export default function Home() {
 
   const { projects, experiences, loadProjectData } = useProjectStore()
 
-  // Carregar dados dos projetos
+  // Carregar dados dos projetos apenas uma vez na montagem
   useEffect(() => {
     loadProjectData()
-  }, [loadProjectData])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleProjectClick = (project: ProjectCard, layoutId: string) => {
     setSelectedProject(project)
