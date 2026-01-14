@@ -1,94 +1,29 @@
-# Projeto Interchange - VIP - Banco do Brasil
+# Analista de Sistema Senior - VIP | Banco do Brasil
 
 ## Contexto
 
-Projeto de validação das taxas de intercâmbio das bandeiras do Banco do Brasil, desenvolvido para a Connectis.
+Atuei como Analista de Sistema Senior na Connectis, trabalhando diretamente para o Banco do Brasil no projeto **Interchange - VIP**, focado na validação das taxas de intercâmbio das bandeiras do banco.
 
-## Desafios Técnicos
+## Minha Trajetória no Projeto
 
-### Processamento de Dados
-- **Problema**: Milhões de transações para processar
-- **Solução**: Spring Batch com processamento paralelo
-- **Resultado**: 99.9% de precisão na validação
+### Migração do Mainframe para Plataforma Moderna
 
-### Integração com Sistemas
-- **Problema**: Múltiplas fontes de dados
-- **Solução**: APIs REST e message queues
-- **Resultado**: Integração estável e confiável
+Trabalhei na migração da análise do sistema de intercâmbio de bandeiras (Visa, Elo, Mastercard) que era realizada no **mainframe COBOL** para uma infraestrutura moderna na plataforma moderna do Banco do Brasil. Essa migração foi essencial para modernizar o processamento de validação de taxas, mantendo a precisão e confiabilidade do sistema legado.
 
-## Arquitetura Técnica
+### Desenvolvimento Híbrido: Moderno e COBOL Online
 
-### Backend (Java Quarkus)
-- **Framework**: Quarkus para performance
-- **Batch**: Spring Batch para processamento
-- **Database**: PostgreSQL otimizado
+A migração envolveu a criação de uma arquitetura moderna com **Java Quarkus** e **Spring Batch** para processamento de grandes volumes de transações na nova plataforma. No entanto, algumas APIs foram desenvolvidas seguindo o padrão do Banco do Brasil em **COBOL online**, garantindo compatibilidade com sistemas críticos existentes. Essa abordagem híbrida permitiu uma transição gradual e segura.
 
-### Infraestrutura (Kubernetes)
-- **Orquestração**: Kubernetes
-- **Monitoramento**: ElasticSearch
-- **CI/CD**: Jenkins + Rancher
+### Frontend com Angular 8
 
-### Integração
-- **Docker**: Containerização
-- **APIs**: REST e GraphQL
-- **Message Queues**: RabbitMQ
+Implementei as telas do sistema utilizando **Angular 8**, criando uma interface moderna e responsiva para visualização e gestão das validações de taxas de intercâmbio. O frontend se integrava tanto com as APIs modernas em Quarkus quanto com os serviços COBOL online, proporcionando uma experiência unificada para os usuários.
 
-## Funcionalidades Principais
+## Infraestrutura e DevOps
 
-### Validação de Taxas
-- Comparação de taxas
-- Detecção de discrepâncias
-- Relatórios detalhados
+O projeto utilizava **Kubernetes** para orquestração de containers, com **Docker** para containerização das aplicações. A infraestrutura era gerenciada via **Rancher**, e o CI/CD era realizado através do **Jenkins**. Também trabalhei com **ElasticSearch** para busca e análise de dados, essencial para o monitoramento e relatórios do sistema de validação de taxas.
 
-### Processamento em Lote
-- Jobs agendados
-- Processamento paralelo
-- Monitoramento em tempo real
+## Impacto e Aprendizados
 
-### Analytics
-- Dashboards interativos
-- Relatórios executivos
-- Alertas automáticos
+Este projeto foi uma experiência fundamental na minha carreira, combinando a migração de sistemas legados (mainframe COBOL) com tecnologias modernas (Quarkus, Angular, Kubernetes). Aprendi a importância de criar soluções híbridas que respeitam os padrões estabelecidos pelo banco (COBOL online) enquanto modernizam a infraestrutura, mantendo a confiabilidade e performance necessárias para processar validações críticas de taxas de intercâmbio das principais bandeiras.
 
-## Impacto no Negócio
-
-### Métricas
-- **Transações**: 10M+ processadas/dia
-- **Precisão**: 99.9% de acurácia
-- **Performance**: 50% mais rápido
-
-### Casos de Uso
-1. **Validação**: Taxas de intercâmbio
-2. **Relatórios**: Análise de discrepâncias
-3. **Alertas**: Notificações automáticas
-
-## Tecnologias Utilizadas
-
-### Backend
-- **Java Quarkus**: Framework moderno
-- **Spring Batch**: Processamento em lote
-- **PostgreSQL**: Banco de dados
-
-### Infraestrutura
-- **Kubernetes**: Orquestração
-- **Docker**: Containerização
-- **Jenkins**: CI/CD
-- **Rancher**: Gestão de clusters
-
-### Integração
-- **ElasticSearch**: Busca e analytics
-- **REST APIs**: Comunicação
-- **Message Queues**: Processamento assíncrono
-
-## Lições Aprendidas
-
-### Desenvolvimento
-- Quarkus oferece performance excepcional
-- Spring Batch é ideal para processamento em lote
-- Kubernetes facilita escalabilidade
-
-### Negócio
-- Validação automática reduz erros
-- Monitoramento é essencial
-- Relatórios impactam decisões
-
+A experiência me deu uma visão profunda sobre a complexidade de migrar sistemas financeiros críticos, onde a precisão e compatibilidade são tão importantes quanto a modernização tecnológica.

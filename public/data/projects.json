@@ -74,12 +74,12 @@
     },
     {
       "id": "connectis-banco-brasil",
-      "title": "Analista de Sistema",
+      "title": "Analista de Sistema Senior",
       "company": "Connectis",
       "period": "Out, 2019 - Nov, 2020",
       "status": "Concluído",
-      "description": "Cliente: Banco do Brasil. Projeto Interchange - VIP - Validação das taxas de intercâmbio das bandeiras do Banco do Brasil.",
-      "technologies": ["Java Quarkus", "Kubernetes", "Spring Batch", "Docker", "Jenkins", "Rancher", "ElasticSearch"],
+      "description": "Migração do sistema de validação de taxas de intercâmbio das bandeiras (Visa, Elo, Mastercard) do mainframe COBOL para a plataforma moderna do Banco do Brasil. Desenvolvimento de arquitetura híbrida com Java Quarkus e Spring Batch, integração com a plataforma 3.0 do BB, implementação de APIs em COBOL online (padrão BB) e frontend em Angular 8.",
+      "technologies": ["COBOL", "Natural", "Java Quarkus", "Angular 8", "Kubernetes", "Spring Batch", "Docker", "Jenkins", "Rancher", "ElasticSearch"],
       "hasHeroModal": true,
       "markdownFile": "connectis-interchange.md"
     },
@@ -90,7 +90,7 @@
       "period": "Ago, 2018 - Nov, 2019",
       "status": "Concluído",
       "description": "Cliente: Banco do Brasil. Projetos: Blockchain SBP (Sistema Brasileiro de Poderes), Evidenciação de modelos de dados e Manter reunião da AD.",
-      "technologies": ["Node.js", "Hyperledger Fabric", "OpenShift", "CouchDB", "COBOL", "JCL", "AngularJS", "Java"],
+      "technologies": ["Node.js", "Hyperledger Fabric", "OpenShift", "CouchDB", "COBOL", "Natural", "JCL", "AngularJS", "Java"],
       "hasHeroModal": true,
       "markdownFile": "cast-blockchain.md"
     },
