@@ -243,6 +243,13 @@ export default function Home() {
                     <Badge variant="secondary">Rust</Badge>
                     <Badge variant="secondary">Java</Badge>
                     <Badge variant="secondary">Cloud Computing</Badge>
+                    <Badge variant="secondary">COBOL</Badge>
+                    <Badge variant="secondary">Natural</Badge>
+                    <Badge variant="secondary">Quarkus</Badge>
+                    <Badge variant="secondary">Angular</Badge>
+                    <Badge variant="secondary">Spring Batch</Badge>
+                    <Badge variant="secondary">Kubernetes</Badge>
+                    <Badge variant="secondary">Docker</Badge>
                   </div>
                 </CardContent>
               </Card>
