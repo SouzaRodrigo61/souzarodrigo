@@ -1,744 +1,968 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { HeroModal, ProjectCard } from "@/components/ui/hero-modal"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
+import {
+  IconBrandGithub,
+  IconBrandLinkedin,
+  IconMail,
+  IconMapPin,
+  IconDownload,
+  IconArrowUpRight,
+  IconDeviceMobile,
+  IconServer,
+  IconCloud,
+  IconTerminal2,
+  IconCpu,
+  IconSparkles,
+  IconBuildingBank,
+  IconCheck,
+  IconCopy,
+  IconLayersLinked,
+  IconShieldCheck,
+  IconBolt,
+  IconFileText,
+  IconCode,
+  IconStar,
+  IconGitFork,
+  IconMenu2,
+  IconX,
+  IconClock,
+  IconFilter
+} from "@tabler/icons-react"
+import { HeroModal } from "@/components/ui/hero-modal"
 import { useProjectStore, Project, Experience } from "@/lib/store"
+import { ArchitectureSimulator } from "@/components/ui/architecture-simulator"
 
-// Dados dos projetos para o modal hero
-const projectsData: ProjectCard[] = [
+const allProjectsList: (Project & { highlightMetric: string; highlightLabel: string; type: "mobile" | "backend" | "fintech" })[] = [
   {
-    src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    id: "divinapay",
     title: "DivinaPay (Divina Cashless)",
-    category: "Plataforma de Pagamentos",
-    content: (
-      <div className="space-y-6">
-        <div className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl">
-          <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto">
-            <span className="font-bold text-neutral-700 dark:text-neutral-200">
-              Plataforma para Gestão e Pagamentos em Eventos.
-            </span>{" "}
-            Sistema moderno desenvolvido com Flutter 3.31+, backend robusto em Rust (Axum e Salvo.rs), 
-            PostgreSQL via Supabase e frontend interativo em Svelte 5.
-          </p>
-        </div>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-200">Impacto nos Negócios</h3>
-            <p className="text-neutral-600 dark:text-neutral-400">
-              Processou mais de R$ 6 milhões em transações, atendendo mais de 30 eventos 
-              com elevados picos de usuários concorrentes.
-            </p>
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-200">Tecnologias</h3>
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="outline">Flutter 3.31+</Badge>
-              <Badge variant="outline">Rust</Badge>
-              <Badge variant="outline">PostgreSQL</Badge>
-              <Badge variant="outline">Svelte 5</Badge>
-              <Badge variant="outline">Coolify</Badge>
-            </div>
-          </div>
-        </div>
-        <div className="text-center">
-          <a 
-            href="https://divinapay.com" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="inline-flex items-center text-primary hover:underline text-lg font-medium"
-          >
-            divinapay.com →
-          </a>
-        </div>
-      </div>
-    )
+    category: "Plataforma de Pagamentos em Eventos",
+    role: "Sócio Desenvolvedor",
+    period: "2024/01 - Presente",
+    description: "Plataforma completa para gestão e pagamentos cashless em eventos de grande porte. Aplicativo móvel moderno em Flutter 3.31+, backend de alta performance em Rust (Axum e Salvo.rs), banco PostgreSQL via Supabase e frontend operacional em Svelte 5.",
+    impact: "Processou mais de R$ 6 milhões em transações, atendendo mais de 30 eventos com elevados picos de usuários simultâneos e zero tolerância a downtime.",
+    technologies: ["Flutter 3.31+", "Rust", "Axum", "PostgreSQL", "Supabase", "Svelte 5", "Coolify"],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3",
+    link: "https://divinapay.com",
+    hasHeroModal: true,
+    markdownFile: "divinapay.md",
+    highlightMetric: "R$ 6M+",
+    highlightLabel: "Volume em Eventos",
+    type: "fintech"
   },
   {
-    src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Sistema de Gerenciamento para Igrejas",
-    category: "Gestão Financeira",
-    content: (
-      <div className="space-y-6">
-        <div className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl">
-          <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto">
-            <span className="font-bold text-neutral-700 dark:text-neutral-200">
-              Sistema de gerenciamento de campanhas com evolução de Flutter para Next.js + Rust.
-            </span>{" "}
-            Implementando arquitetura multi-tenant e otimização de infraestrutura.
-          </p>
-        </div>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-200">Resultado Financeiro</h3>
-            <p className="text-neutral-600 dark:text-neutral-400">
-              Redução de 100% nos custos (USD 16 → USD 0) na plataforma Railway com o uso do Rust e PostgreSQL. 
-              Atualmente estou em processo de migração para VPS no Brasil com Coolify para aumentar a velocidade de resposta e implementação de multi-tenant.
-            </p>
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-200">Tecnologias</h3>
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="outline">Next.js</Badge>
-              <Badge variant="outline">Rust</Badge>
-              <Badge variant="outline">Multi-tenant</Badge>
-              <Badge variant="outline">PostgreSQL</Badge>
-              <Badge variant="outline">VPS</Badge>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
+    id: "church-management",
+    title: "Sistema de Gestão & Multi-tenant",
+    category: "Gestão Financeira & SaaS",
+    role: "Tech Lead & Gestor Financeiro",
+    period: "2023/03 - Presente",
+    description: "Sistema completo de campanhas e gestão financeira com evolução de Flutter para Next.js + Rust, implementando arquitetura multi-tenant isolada e otimização total de custos de infraestrutura.",
+    impact: "Redução de 100% nos custos fixos de cloud (USD 16 → USD 0) na plataforma Railway com Rust + PostgreSQL, migrando para infraestrutura VPS autogerenciada no Brasil com Coolify.",
+    technologies: ["Next.js", "Rust", "Multi-tenant", "PostgreSQL", "VPS", "Coolify", "Tailwind CSS"],
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.0.3",
+    hasHeroModal: true,
+    markdownFile: "church-management.md",
+    highlightMetric: "100%",
+    highlightLabel: "Economia de Cloud",
+    type: "backend"
+  }
+]
+
+const enterpriseClients = [
+  { name: "Caixa Econômica Federal", role: "Loterias Caixa iOS (Atual)" },
+  { name: "Banco do Brasil", role: "Intercâmbio de Cartões & Blockchain SBP" },
+  { name: "PagSeguro", role: "Saque Aniversário FGTS Mobile" },
+  { name: "Natura & Co", role: "NaturaPay & Natura FVN Mobile" },
+  { name: "Polícia Federal", role: "Sustentação de Sistemas Críticos" },
+  { name: "DivinaPay", role: "Plataforma de Pagamentos Cashless" }
+]
+
+const skillPillars = [
+  {
+    icon: <IconDeviceMobile className="w-5 h-5 text-emerald-400" />,
+    title: "Mobile Architecture & iOS Native",
+    description: "Especialista em Swift nativo com foco em arquiteturas reativas (Combine, SwiftUI), UIKit avançado, Diffable Data Sources, Apple Wallet e The Composable Architecture (TCA).",
+    badges: ["Swift 5.5+", "SwiftUI", "Combine", "UIKit / XIB", "TCA", "Diffable DS", "Apple Wallet", "VoiceOver a11y", "Flutter 3.31+", "React Native"]
+  },
+  {
+    icon: <IconServer className="w-5 h-5 text-cyan-400" />,
+    title: "High-Performance Systems & Rust",
+    description: "Desenvolvimento de microsserviços de altíssimo throughput, baixa latência e consumo mínimo de memória para processamento financeiro e APIs multi-tenant.",
+    badges: ["Rust (Axum/Salvo)", "Java Quarkus", "Spring Batch", "Node.js / TS", "PostgreSQL", "Supabase", "Redis", "Microservices"]
+  },
+  {
+    icon: <IconBuildingBank className="w-5 h-5 text-amber-400" />,
+    title: "FinTech & Enterprise Scale",
+    description: "Sistemas de validação de taxas de intercâmbio de bandeiras (Visa, Mastercard, Elo), gateways de pagamentos cashless e migração de sistemas legados de missão crítica.",
+    badges: ["Interchange Rates", "PagSeguro FGTS", "Caixa Loterias", "NaturaPay", "Cashless POS", "COBOL/Natural Legacy Modernization", "Hyperledger Fabric"]
+  },
+  {
+    icon: <IconCloud className="w-5 h-5 text-indigo-400" />,
+    title: "Infra, Cloud & DevOps",
+    description: "Pipelines de CI/CD automatizados para mobile e backend, orquestração de containers e self-hosted infrastructure para máxima economia e performance.",
+    badges: ["Docker", "Kubernetes", "Bitrise CI/CD", "GitHub Actions", "Coolify", "VPS Brasil", "Jenkins", "ElasticSearch"]
+  }
+]
+
+const openSourceProjects = [
+  {
+    title: "SwiftDataTCA",
+    description: "Arquitetura de integração e sample pioneiro entre SwiftData e The Composable Architecture (TCA) para apps iOS modernos e escaláveis.",
+    stars: 82,
+    forks: 11,
+    tech: ["Swift", "SwiftData", "TCA", "iOS 17+"],
+    link: "https://github.com/souzaRodrigo61/SwiftDataTCA"
+  },
+  {
+    title: "cashew",
+    description: "Demonstração de Clean Architecture aplicada a apps Swift e ecossistema iOS com separação rígida de camadas e testabilidade.",
+    stars: 3,
+    forks: 0,
+    tech: ["Swift", "iOS", "Clean Arch", "Unit Tests"],
+    link: "https://github.com/souzaRodrigo61/cashew"
+  },
+  {
+    title: "ios-health-tracking",
+    description: "Rastreador de métricas de saúde e sintomas com integração ao Apple HealthKit e interface reativa.",
+    stars: 4,
+    forks: 1,
+    tech: ["Swift", "HealthKit", "SwiftUI", "Combine"],
+    link: "https://github.com/souzaRodrigo61/ios-health-tracking"
+  }
+]
+
+const educationData = [
+  {
+    title: "Pós-graduação em Desenvolvimento Mobile",
+    institution: "Universidade Católica de Brasília (UCB)",
+    period: "Agosto 2019 — Dezembro 2021",
+    status: "Concluído",
+    description: "Especialização focada em ecossistema Apple iOS, Swift, SwiftUI, arquiteturas reativas e projetos aplicados de saúde (HealthKit) e trader esportivo."
+  },
+  {
+    title: "Bacharelado em Sistemas de Informação",
+    institution: "Centro Universitário Projeção",
+    period: "Agosto 2016 — Dezembro 2019",
+    status: "Concluído",
+    description: "Formação integral em engenharia de software, algoritmos, arquitetura de computadores, redes e governança de TI."
+  },
+  {
+    title: "Ciência da Computação (Fundamentos)",
+    institution: "Universidade Católica de Brasília (UCB)",
+    period: "2014 — 2015",
+    status: "Ciclo Básico",
+    description: "Fundamentação teórica em estruturas de dados, linguagens estruturadas (C, Java) e matemática discreta."
   }
 ]
 
 export default function Home() {
-  const [selectedProject, setSelectedProject] = useState<ProjectCard | null>(null)
-  const [selectedProjectLayoutId, setSelectedProjectLayoutId] = useState<string>("")
   const [selectedItem, setSelectedItem] = useState<(Project | Experience) | null>(null)
-  const [selectedItemLayoutId, setSelectedItemLayoutId] = useState<string>("")
+  const [selectedLayoutId, setSelectedLayoutId] = useState<string>("")
+  const [copiedEmail, setCopiedEmail] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [projectFilter, setProjectFilter] = useState<"all" | "fintech" | "backend">("all")
+  const [currentTime, setCurrentTime] = useState<string>("")
 
-  const { projects, experiences, loadProjectData } = useProjectStore()
+  const { experiences, loadProjectData } = useProjectStore()
 
-  // Carregar dados dos projetos apenas uma vez na montagem
   useEffect(() => {
     loadProjectData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadProjectData])
+
+  // Real-time Brasília Clock
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date()
+      const formatter = new Intl.DateTimeFormat("pt-BR", {
+        timeZone: "America/Sao_Paulo",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      })
+      setCurrentTime(formatter.format(now))
+    }
+    updateTime()
+    const timer = setInterval(updateTime, 1000)
+    return () => clearInterval(timer)
   }, [])
 
-  const handleProjectClick = (project: ProjectCard, layoutId: string) => {
-    setSelectedProject(project)
-    setSelectedProjectLayoutId(layoutId)
-  }
-
-  const handleItemClick = (item: Project | Experience, layoutId: string) => {
+  const handleOpenItem = (item: Project | Experience, layoutId: string) => {
     setSelectedItem(item)
-    setSelectedItemLayoutId(layoutId)
+    setSelectedLayoutId(layoutId)
   }
 
   const handleCloseModal = () => {
-    setSelectedProject(null)
-    setSelectedProjectLayoutId("")
     setSelectedItem(null)
-    setSelectedItemLayoutId("")
+    setSelectedLayoutId("")
   }
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("souza.rodrigo61@gmail.com")
+    setCopiedEmail(true)
+    setTimeout(() => setCopiedEmail(false), 2400)
+  }
+
+  const filteredProjects = allProjectsList.filter((p) => {
+    if (projectFilter === "all") return true
+    return p.type === projectFilter
+  })
+
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header/Navigation */}
-      <header className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <nav className="flex items-center justify-between">
-            <div className="text-xl font-bold text-foreground">Rodrigo Souza</div>
-            <div className="hidden md:flex items-center space-x-6">
-              <a href="#sobre" className="text-muted-foreground hover:text-foreground transition-colors">Sobre</a>
-              <a href="#projetos" className="text-muted-foreground hover:text-foreground transition-colors">Projetos</a>
-              <a href="#experiencias" className="text-muted-foreground hover:text-foreground transition-colors">Experiências</a>
-              <a href="#formacao" className="text-muted-foreground hover:text-foreground transition-colors">Formação</a>
-              <a href="#habilidades" className="text-muted-foreground hover:text-foreground transition-colors">Habilidades</a>
-              <a href="#open-source" className="text-muted-foreground hover:text-foreground transition-colors">Open Source</a>
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 selection:bg-emerald-500/20 selection:text-emerald-300 relative overflow-x-hidden font-sans">
+      {/* Background Ambient Glow & Grid Pattern */}
+      <div className="fixed inset-0 pointer-events-none noise-overlay z-0 opacity-40" />
+      <div className="fixed top-[-10%] left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-emerald-500/10 via-cyan-500/5 to-transparent blur-3xl pointer-events-none z-0" />
+      <div className="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-gradient-to-t from-emerald-500/5 to-transparent blur-3xl pointer-events-none z-0" />
+
+      {/* Floating Island Navigation */}
+      <header className="sticky top-4 z-40 px-4 max-w-5xl mx-auto">
+        <nav className="relative flex items-center justify-between px-5 py-3 rounded-full bg-zinc-900/80 border border-white/10 backdrop-blur-xl shadow-2xl card-bezel">
+          <a href="#" className="flex items-center gap-2.5 group">
+            <div className="w-8 h-8 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-mono font-bold text-xs group-hover:scale-105 transition-transform">
+              RS
             </div>
-          </nav>
-        </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-semibold tracking-tight text-zinc-100 group-hover:text-emerald-400 transition-colors">
+                Rodrigo Souza
+              </span>
+              <span className="text-[10px] text-zinc-400 font-mono flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Staff / Senior Software Engineer
+              </span>
+            </div>
+          </a>
+
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-6 text-xs font-mono text-zinc-400">
+            <a href="#sobre" className="hover:text-zinc-100 transition-colors">Sobre</a>
+            <a href="#projetos" className="hover:text-zinc-100 transition-colors">Projetos</a>
+            <a href="#experiencia" className="hover:text-zinc-100 transition-colors">Trajetória</a>
+            <a href="#arquitetura" className="hover:text-zinc-100 transition-colors">Simulador</a>
+            <a href="#opensource" className="hover:text-zinc-100 transition-colors">Open Source</a>
+          </div>
+
+          {/* Right Action */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleCopyEmail}
+              className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-800 hover:bg-zinc-700/80 text-zinc-200 text-xs font-mono border border-white/10 transition-all active:scale-95 cursor-pointer"
+            >
+              {copiedEmail ? (
+                <>
+                  <IconCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="text-emerald-400 font-medium">Email Copiado!</span>
+                </>
+              ) : (
+                <>
+                  <IconCopy className="w-3.5 h-3.5 text-zinc-400" />
+                  <span>Copiar Email</span>
+                </>
+              )}
+            </button>
+
+            <a
+              href="#contato"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 text-xs font-semibold tracking-tight transition-all active:scale-95 shadow-lg shadow-emerald-500/20"
+            >
+              <span>Contato</span>
+              <IconArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-1.5 rounded-full bg-zinc-800 text-zinc-300 border border-white/10"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <IconX className="w-4 h-4" /> : <IconMenu2 className="w-4 h-4" />}
+            </button>
+          </div>
+        </nav>
+
+        {/* Mobile Dropdown */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="md:hidden mt-2 p-4 rounded-2xl bg-zinc-900/95 border border-white/10 backdrop-blur-2xl shadow-xl flex flex-col gap-3 text-sm font-mono"
+            >
+              <a href="#sobre" onClick={() => setMobileMenuOpen(false)} className="py-1 text-zinc-300 hover:text-emerald-400">Sobre</a>
+              <a href="#projetos" onClick={() => setMobileMenuOpen(false)} className="py-1 text-zinc-300 hover:text-emerald-400">Projetos</a>
+              <a href="#experiencia" onClick={() => setMobileMenuOpen(false)} className="py-1 text-zinc-300 hover:text-emerald-400">Trajetória</a>
+              <a href="#arquitetura" onClick={() => setMobileMenuOpen(false)} className="py-1 text-zinc-300 hover:text-emerald-400">Simulador</a>
+              <a href="#opensource" onClick={() => setMobileMenuOpen(false)} className="py-1 text-zinc-300 hover:text-emerald-400">Open Source</a>
+              <button
+                onClick={() => {
+                  handleCopyEmail()
+                  setMobileMenuOpen(false)
+                }}
+                className="mt-2 text-left py-2 px-3 rounded-lg bg-zinc-800 text-emerald-400 text-xs font-mono flex items-center justify-between"
+              >
+                <span>{copiedEmail ? "Email copiado com sucesso!" : "souza.rodrigo61@gmail.com"}</span>
+                <IconCopy className="w-3.5 h-3.5" />
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          <div className="space-y-4">
-            <h1 className="text-5xl md:text-7xl font-bold text-foreground">
-              Rodrigo Souza
-            </h1>
-            <p className="text-2xl md:text-3xl text-muted-foreground font-light">
-              Software Engineer
-            </p>
-            {/* <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Especialista em soluções de alta complexidade, desde aplicativos iOS nativos até sistemas 
-              de processamento de dados em larga escala. Experiência comprovada em projetos estratégicos 
-              para grandes empresas como Caixa Econômica Federal, PagSeguro e Banco do Brasil.
-            </p> */}
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8 py-6">
-              Ver Projetos
-            </Button>
-            <a href="/Rodrigo_Santos_de_Souza_-_Software_Engineer.pdf" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6">
-                Baixar CV
-              </Button>
-            </a>
-          </div>
-
-          {/* Contato no Hero */}
-          <div className="pt-8 border-t border-border/40">
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
-              <div className="flex items-center space-x-2">
-                <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <span className="text-sm text-muted-foreground">souza.rodrigo61@gmail.com</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span className="text-sm text-muted-foreground">Brasília, Brasil</span>
-              </div>
-              <div className="flex space-x-2">
-                <a href="https://github.com/souzaRodrigo61/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                  </svg>
-                </a>
-                <a href="https://www.linkedin.com/in/souzarodrigo61" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Sobre Section */}
-      <section id="sobre" className="container mx-auto px-4 py-20 bg-muted/30">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Sobre Mim</h2>
-            <p className="text-lg text-muted-foreground">
-              Desenvolvedor Mobile & Fullstack apaixonado por soluções de alta complexidade
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Sou um desenvolvedor versátil e orientado a resultados, com histórico comprovado na construção 
-                de soluções de alta complexidade, desde aplicativos de grande escala até sistemas de processamento de dados.
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Atualmente atuo no app Loterias iOS da Caixa Econômica Federal. Minha carreira inclui projetos 
-                estratégicos no PagSeguro e no app NaturaPay, além de contribuições para o Banco do Brasil no 
-                processamento de arquivos de transações (interchange rate) da Visa, Mastercard e Elo.
-              </p>
-            </div>
+      {/* Main Container */}
+      <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-20 pb-32 space-y-24 md:space-y-36">
+        
+        {/* HERO SECTION */}
+        <section className="space-y-12">
+          <div className="grid lg:grid-cols-12 gap-10 items-center">
             
-            <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Especialidades</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="secondary">Mobile Development</Badge>
-                    <Badge variant="secondary">iOS/Swift</Badge>
-                    <Badge variant="secondary">Flutter</Badge>
-                    <Badge variant="secondary">React Native</Badge>
-                    <Badge variant="secondary">Node.js</Badge>
-                    <Badge variant="secondary">Rust</Badge>
-                    <Badge variant="secondary">Java</Badge>
-                    <Badge variant="secondary">Cloud Computing</Badge>
-                    <Badge variant="secondary">COBOL</Badge>
-                    <Badge variant="secondary">Natural</Badge>
-                    <Badge variant="secondary">Quarkus</Badge>
-                    <Badge variant="secondary">Angular</Badge>
-                    <Badge variant="secondary">Spring Batch</Badge>
-                    <Badge variant="secondary">Kubernetes</Badge>
-                    <Badge variant="secondary">Docker</Badge>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
+            {/* Left Hero Column */}
+            <div className="lg:col-span-7 space-y-6 text-left">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block" />
+                Senior Software Engineer • iOS & Distributed Systems
+              </div>
 
-      {/* Projetos de Destaque Section */}
-      <section id="projetos" className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Projetos de Destaque</h2>
-            <p className="text-lg text-muted-foreground">
-              Projetos que demonstram minha capacidade técnica e impacto nos negócios
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            <motion.div
-              layoutId="project-0"
-              onClick={() => handleProjectClick(projectsData[0], "project-0")}
-              className="cursor-pointer"
-            >
-              <Card className="h-full hover:shadow-md transition-all duration-200">
-                <CardHeader>
-                  <CardTitle>DivinaPay (Divina Cashless)</CardTitle>
-                  <CardDescription>Sócio Desenvolvedor • 2024/01 - Presente</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-muted-foreground">
-                    Plataforma para Gestão e Pagamentos em Eventos. Sistema moderno desenvolvido com Flutter 3.31+, 
-                    backend robusto em Rust (Axum e Salvo.rs), PostgreSQL via Supabase e frontend interativo em Svelte 5.
-                  </p>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground mb-2">Impacto:</p>
-                    <p className="text-sm text-muted-foreground">
-                      Processou mais de R$ 6 milhões em transações, atendendo mais de 30 eventos 
-                      com elevados picos de usuários concorrentes.
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    <Badge variant="outline" className="text-xs">Flutter 3.31+</Badge>
-                    <Badge variant="outline" className="text-xs">Rust</Badge>
-                    <Badge variant="outline" className="text-xs">PostgreSQL</Badge>
-                    <Badge variant="outline" className="text-xs">Svelte 5</Badge>
-                    <Badge variant="outline" className="text-xs">Coolify</Badge>
-                  </div>
-                  <a href="https://divinapay.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm text-primary hover:underline">
-                    divinapay.com →
-                  </a>
-                </CardContent>
-              </Card>
-            </motion.div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-50 leading-[1.08]">
+                Arquiteturas mobile nativas e sistemas distribuídos em <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">Rust & Swift</span>.
+              </h1>
 
-            <motion.div
-              layoutId="project-1"
-              onClick={() => handleProjectClick(projectsData[1], "project-1")}
-              className="cursor-pointer"
-            >
-              <Card className="h-full hover:shadow-md transition-all duration-200">
-                <CardHeader>
-                  <CardTitle>Sistema de Gerenciamento para Igrejas</CardTitle>
-                  <CardDescription>Gestor Financeiro • 2023/03 - Presente</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-muted-foreground">
-                    Sistema de gerenciamento de campanhas com evolução de Flutter para Next.js + Rust, 
-                    implementando arquitetura multi-tenant e otimização de infraestrutura.
-                  </p>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground mb-2">Resultado:</p>
-                    <p className="text-sm text-muted-foreground">
-                      Redução de 100% nos custos (USD 16 → USD 0) na plataforma Railway com o uso do Rust e PostgreSQL. 
-                      Atualmente estou em processo de migração para VPS no Brasil com Coolify para aumentar a velocidade de resposta e implementação de multi-tenant.
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    <Badge variant="outline" className="text-xs">Next.js</Badge>
-                    <Badge variant="outline" className="text-xs">Rust</Badge>
-                    <Badge variant="outline" className="text-xs">Multi-tenant</Badge>
-                    <Badge variant="outline" className="text-xs">PostgreSQL</Badge>
-                    <Badge variant="outline" className="text-xs">VPS</Badge>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+              <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl">
+                Mais de 10 anos construindo aplicações de alta complexidade e missão crítica. 
+                Atualmente liderando desenvolvimentos no app <strong>Loterias Caixa iOS</strong> (Caixa Econômica Federal), 
+                com histórico em <strong>Banco do Brasil</strong>, <strong>PagSeguro</strong> (Saque FGTS) e <strong>NaturaPay</strong>.
+              </p>
 
-      {/* Experiências Section */}
-      <section id="experiencias" className="container mx-auto px-4 py-20 bg-muted/30">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Experiência Profissional</h2>
-            <p className="text-lg text-muted-foreground">
-              Minha jornada profissional e projetos realizados
-            </p>
-          </div>
-          
-          <div className="space-y-8">
-            {experiences.map((experience, index) => (
-              <motion.div
-                key={experience.id}
-                layoutId={`experience-${experience.id}`}
-                onClick={() => handleItemClick(experience, `experience-${experience.id}`)}
-                className="cursor-pointer"
-              >
-                <Card className="hover:shadow-md transition-all duration-200">
-                  <CardHeader>
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <CardTitle>{experience.title}</CardTitle>
-                        <CardDescription>{experience.company} • {experience.period}</CardDescription>
-                      </div>
-                      {experience.status === "Atual" && (
-                        <Badge variant="secondary">{experience.status}</Badge>
-                      )}
+              {/* CTAs */}
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <a
+                  href="#projetos"
+                  className="group inline-flex items-center gap-3 px-6 py-3 rounded-full bg-zinc-100 hover:bg-white text-zinc-950 font-semibold text-sm transition-all active:scale-[0.98] shadow-lg shadow-white/5"
+                >
+                  <span>Explorar Casos de Estudo</span>
+                  <div className="w-6 h-6 rounded-full bg-zinc-900/10 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                    <IconArrowUpRight className="w-3.5 h-3.5" />
+                  </div>
+                </a>
+
+                <a
+                  href="/Rodrigo_Santos_de_Souza_-_Software_Engineer.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-zinc-900/80 hover:bg-zinc-800 text-zinc-200 text-sm font-medium border border-white/10 transition-all active:scale-[0.98]"
+                >
+                  <IconDownload className="w-4 h-4 text-zinc-400" />
+                  <span>Baixar CV (PDF)</span>
+                </a>
+              </div>
+
+              {/* Quick Contacts & Local Clock */}
+              <div className="flex flex-wrap items-center gap-4 pt-4 text-xs font-mono text-zinc-400">
+                <div className="flex items-center gap-1.5">
+                  <IconMapPin className="w-3.5 h-3.5 text-zinc-500" />
+                  <span>Brasília, DF</span>
+                </div>
+                {currentTime && (
+                  <>
+                    <span>•</span>
+                    <div className="flex items-center gap-1.5 text-emerald-400">
+                      <IconClock className="w-3.5 h-3.5" />
+                      <span>{currentTime} (UTC-3)</span>
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground mb-4">
-                      {experience.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {experience.technologies.map((tech, techIndex) => (
-                        <Badge key={techIndex} variant="outline">{tech}</Badge>
+                  </>
+                )}
+                <span>•</span>
+                <a 
+                  href="https://github.com/souzaRodrigo61" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 hover:text-emerald-400 transition-colors"
+                >
+                  <IconBrandGithub className="w-3.5 h-3.5" />
+                  <span>souzaRodrigo61</span>
+                </a>
+                <span>•</span>
+                <a 
+                  href="https://www.linkedin.com/in/souzarodrigo61" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 hover:text-emerald-400 transition-colors"
+                >
+                  <IconBrandLinkedin className="w-3.5 h-3.5" />
+                  <span>in/souzarodrigo61</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Right Hero Column: Machined Bento Showcase */}
+            <div className="lg:col-span-5">
+              <div className="relative rounded-3xl p-1.5 ring-1 ring-white/10 bg-white/[0.02] shadow-2xl backdrop-blur-xl card-bezel">
+                <div className="rounded-[calc(1.5rem-0.375rem)] bg-zinc-900/90 border border-white/5 p-6 space-y-5">
+                  
+                  {/* Card Header Status */}
+                  <div className="flex items-center justify-between pb-4 border-b border-white/5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="text-xs font-mono text-zinc-300 font-medium">Arquitetura em Produção</span>
+                    </div>
+                    <span className="text-[11px] font-mono text-zinc-500">2024 • 2026</span>
+                  </div>
+
+                  {/* Highlight Metrics */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="p-3.5 rounded-2xl bg-zinc-950/60 border border-white/5">
+                      <div className="text-2xl font-bold tracking-tight text-emerald-400 font-mono">R$ 6M+</div>
+                      <div className="text-xs text-zinc-400 mt-0.5">Transações Processadas</div>
+                      <div className="text-[10px] text-zinc-500 font-mono mt-1">DivinaPay Cashless</div>
+                    </div>
+                    <div className="p-3.5 rounded-2xl bg-zinc-950/60 border border-white/5">
+                      <div className="text-2xl font-bold tracking-tight text-cyan-400 font-mono">100%</div>
+                      <div className="text-xs text-zinc-400 mt-0.5">Otimização de Infra</div>
+                      <div className="text-[10px] text-zinc-500 font-mono mt-1">Rust + PostgreSQL</div>
+                    </div>
+                  </div>
+
+                  {/* Focus Badges */}
+                  <div className="space-y-2.5 pt-1">
+                    <div className="text-xs font-mono text-zinc-400 flex items-center justify-between">
+                      <span>Stack Principal Ativa</span>
+                      <span className="text-emerald-400">10+ Anos Exp</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {["Swift 5.5+", "Combine", "SwiftUI", "TCA", "Rust Axum", "PostgreSQL", "Flutter", "Kubernetes"].map((t) => (
+                        <span key={t} className="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-zinc-800/80 text-zinc-300 border border-white/5">
+                          {t}
+                        </span>
                       ))}
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+
+                  {/* Micro Terminal Quote */}
+                  <div className="p-3 rounded-xl bg-zinc-950/80 border border-white/5 font-mono text-[11px] text-zinc-400 flex items-center gap-2">
+                    <IconTerminal2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="truncate">Loterias Caixa • Saque FGTS • Interchange BB</span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Social Proof Bar */}
+          <div className="pt-8 border-t border-white/5">
+            <div className="text-center mb-5">
+              <span className="text-[11px] uppercase tracking-[0.2em] font-mono text-zinc-400">
+                Soluções e Engenharia Estratégica para Grandes Players
+              </span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+              {enterpriseClients.map((client, idx) => (
+                <div
+                  key={idx}
+                  className="p-3 rounded-2xl bg-zinc-900/40 border border-white/5 hover:border-white/15 transition-all text-center flex flex-col justify-center"
+                >
+                  <div className="text-xs font-semibold text-zinc-200 tracking-tight">{client.name}</div>
+                  <div className="text-[10px] text-zinc-400 font-mono mt-0.5 truncate">{client.role}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FEATURED PROJECTS (PROJETOS EM DESTAQUE) */}
+        <section id="projetos" className="space-y-8 scroll-mt-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/5">
+            <div>
+              <div className="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2">Engenharia Aplicada</div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">Projetos de Destaque</h2>
+            </div>
+
+            {/* Filter Tabs */}
+            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-zinc-900 border border-white/10 text-xs font-mono">
+              <button
+                onClick={() => setProjectFilter("all")}
+                className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
+                  projectFilter === "all" ? "bg-zinc-800 text-emerald-400 font-medium" : "text-zinc-400 hover:text-zinc-200"
+                }`}
+              >
+                Todos
+              </button>
+              <button
+                onClick={() => setProjectFilter("fintech")}
+                className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
+                  projectFilter === "fintech" ? "bg-zinc-800 text-emerald-400 font-medium" : "text-zinc-400 hover:text-zinc-200"
+                }`}
+              >
+                FinTech & Cashless
+              </button>
+              <button
+                onClick={() => setProjectFilter("backend")}
+                className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
+                  projectFilter === "backend" ? "bg-zinc-800 text-emerald-400 font-medium" : "text-zinc-400 hover:text-zinc-200"
+                }`}
+              >
+                Multi-tenant & Rust
+              </button>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.2 }}
+                  layoutId={`project-${index}`}
+                  onClick={() => handleOpenItem(project, `project-${index}`)}
+                  className="group cursor-pointer"
+                >
+                  <div className="h-full rounded-3xl p-1.5 ring-1 ring-white/10 bg-white/[0.02] hover:ring-emerald-500/30 transition-all duration-300 card-bezel">
+                    <div className="h-full rounded-[calc(1.5rem-0.375rem)] bg-zinc-900/90 border border-white/5 p-6 flex flex-col justify-between space-y-6 group-hover:bg-zinc-900/95 transition-colors">
+                      
+                      <div className="space-y-4">
+                        {/* Top Metric Bar */}
+                        <div className="flex items-center justify-between">
+                          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-800 text-zinc-300 text-xs font-mono border border-white/5">
+                            {project.category}
+                          </div>
+                          <div className="text-right">
+                            <span className="text-xs font-mono font-bold text-emerald-400">{project.highlightMetric}</span>
+                            <span className="text-[10px] text-zinc-400 block font-mono">{project.highlightLabel}</span>
+                          </div>
+                        </div>
+
+                        {/* Title */}
+                        <h3 className="text-2xl font-bold text-zinc-50 group-hover:text-emerald-300 transition-colors flex items-center justify-between">
+                          <span>{project.title}</span>
+                          <div className="w-8 h-8 rounded-full bg-white/5 group-hover:bg-emerald-500/20 text-zinc-400 group-hover:text-emerald-300 flex items-center justify-center transition-all">
+                            <IconArrowUpRight className="w-4 h-4" />
+                          </div>
+                        </h3>
+
+                        {/* Description */}
+                        <p className="text-sm text-zinc-400 leading-relaxed">
+                          {project.description}
+                        </p>
+
+                        {/* Impact Highlight */}
+                        <div className="p-3 rounded-xl bg-zinc-950/70 border border-white/5 text-xs text-zinc-300 leading-relaxed">
+                          <strong className="text-emerald-400 font-medium">Impacto: </strong>
+                          {project.impact}
+                        </div>
+                      </div>
+
+                      {/* Tech Badges & CTA */}
+                      <div className="space-y-4 pt-2">
+                        <div className="flex flex-wrap gap-1.5">
+                          {project.technologies.map((t) => (
+                            <span key={t} className="px-2 py-0.5 rounded-md text-[11px] font-mono bg-zinc-800 text-zinc-300 border border-white/5">
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="text-xs font-mono text-emerald-400 group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                          <span>Abrir Estudo de Caso & Arquitetura Completa</span>
+                          <span>→</span>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </section>
+
+        {/* INTERACTIVE ARCHITECTURE SIMULATOR */}
+        <section id="arquitetura" className="space-y-8 scroll-mt-24">
+          <ArchitectureSimulator />
+        </section>
+
+        {/* ABOUT & PHILOSOPHY (SOBRE MIM) */}
+        <section id="sobre" className="space-y-10 scroll-mt-24">
+          <div className="rounded-3xl p-1.5 ring-1 ring-white/10 bg-white/[0.02] card-bezel">
+            <div className="rounded-[calc(1.5rem-0.375rem)] bg-zinc-900/90 border border-white/5 p-8 md:p-12">
+              <div className="grid lg:grid-cols-12 gap-10 items-center">
+                
+                <div className="lg:col-span-7 space-y-6">
+                  <div className="text-xs font-mono uppercase tracking-widest text-emerald-400">Perfil & Filosofia de Engenharia</div>
+                  <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">
+                    Construindo software resiliente onde precisão e escala importam.
+                  </h2>
+                  <p className="text-base text-zinc-300 leading-relaxed">
+                    Sou um engenheiro de software versátil, focado em resolver gargalos de alta complexidade. 
+                    Minha trajetória combina o rigor do <strong>desenvolvimento nativo Apple (iOS/Swift)</strong> com a 
+                    eficiência extrema de <strong>sistemas de baixo nível em Rust</strong> e microsserviços modernos.
+                  </p>
+                  <p className="text-base text-zinc-400 leading-relaxed">
+                    Com ampla bagagem no setor bancário e de pagamentos, atuei diretamente na modernização de rotinas mainframe 
+                    no <strong>Banco do Brasil</strong> para arquiteturas cloud, validação de arquivos de taxas de intercâmbio (Visa, Master, Elo), 
+                    e na engenharia do app das <strong>Loterias Caixa</strong>, garantindo acessibilidade (VoiceOver), conformidade com a Apple e estabilidade para milhões de usuários.
+                  </p>
+                </div>
+
+                <div className="lg:col-span-5 space-y-4">
+                  <div className="p-4 rounded-2xl bg-zinc-950/70 border border-white/5 space-y-2">
+                    <div className="flex items-center gap-2 text-emerald-400 text-sm font-semibold">
+                      <IconShieldCheck className="w-4 h-4" />
+                      <span>Zero-Defect Delivery</span>
+                    </div>
+                    <p className="text-xs text-zinc-400 leading-relaxed">
+                      Foco em código limpo, arquitetura desacoplada (Clean Architecture / TCA), testes e CI/CD automatizado com Bitrise e GitHub Actions.
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-zinc-950/70 border border-white/5 space-y-2">
+                    <div className="flex items-center gap-2 text-cyan-400 text-sm font-semibold">
+                      <IconBolt className="w-4 h-4" />
+                      <span>Performance & Eficiência de Custos</span>
+                    </div>
+                    <p className="text-xs text-zinc-400 leading-relaxed">
+                      Uso de Rust para eliminar custos desnecessários com cloud, reduzindo a latência para sub-milissegundos e operando com pegada mínima de memória.
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-zinc-950/70 border border-white/5 space-y-2">
+                    <div className="flex items-center gap-2 text-amber-400 text-sm font-semibold">
+                      <IconLayersLinked className="w-4 h-4" />
+                      <span>Domínio Ponta a Ponta</span>
+                    </div>
+                    <p className="text-xs text-zinc-400 leading-relaxed">
+                      Da concepção de UX/UI reativa no cliente mobile até o provisionamento de servidores bare-metal, VPS e bancos relacionais robustos.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CAREER TIMELINE (EXPERIÊNCIA PROFISSIONAL) */}
+        <section id="experiencia" className="space-y-8 scroll-mt-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/5">
+            <div>
+              <div className="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2">Histórico Profissional</div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">Trajetória & Experiências</h2>
+            </div>
+            <p className="text-sm text-zinc-400 max-w-md">
+              Clique em qualquer experiência para abrir a documentação técnica e arquitetural completa.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {experiences.map((exp) => (
+              <motion.div
+                key={exp.id}
+                layoutId={`experience-${exp.id}`}
+                onClick={() => handleOpenItem(exp, `experience-${exp.id}`)}
+                className="group cursor-pointer"
+              >
+                <div className="rounded-2xl p-1 ring-1 ring-white/10 bg-white/[0.01] hover:ring-white/20 transition-all card-bezel">
+                  <div className="rounded-[calc(1rem-0.125rem)] bg-zinc-900/80 hover:bg-zinc-900 p-6 transition-colors space-y-4">
+                    
+                    {/* Header Row */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-zinc-800 border border-white/10 flex items-center justify-center text-zinc-300 font-bold text-xs">
+                          {exp.company.substring(0, 2).toUpperCase()}
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-bold text-zinc-100 group-hover:text-emerald-400 transition-colors">
+                            {exp.title}
+                          </h3>
+                          <div className="text-xs text-zinc-400 font-mono">
+                            {exp.company} • {exp.period}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        {exp.status === "Atual" && (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            Posição Atual
+                          </span>
+                        )}
+                        {exp.hasHeroModal && (
+                          <span className="text-xs font-mono text-zinc-400 group-hover:text-emerald-400 flex items-center gap-1">
+                            <span>Ver Estudo de Caso</span>
+                            <IconArrowUpRight className="w-3.5 h-3.5" />
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-sm text-zinc-400 leading-relaxed">
+                      {exp.description}
+                    </p>
+
+                    {/* Tech Badges */}
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {exp.technologies.map((tech, techIdx) => (
+                        <span key={techIdx} className="px-2.5 py-0.5 rounded-md text-[11px] font-mono bg-zinc-950/60 text-zinc-400 border border-white/5">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Formação Section */}
-      <section id="formacao" className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Formação Acadêmica</h2>
-            <p className="text-lg text-muted-foreground">
-              Minha jornada educacional e especializações
+        {/* ARCHITECTURE PILLARS (HABILIDADES) */}
+        <section className="space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/5">
+            <div>
+              <div className="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2">Domínio Técnico</div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">Pilares de Engenharia</h2>
+            </div>
+            <p className="text-sm text-zinc-400 max-w-md">
+              Tecnologias, padrões arquiteturais e frameworks utilizados na entrega de produtos de alto calibre.
             </p>
           </div>
-          
-          <div className="space-y-8">
-            <Card>
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle>Pós-graduação em Mobile</CardTitle>
-                    <CardDescription>Universidade Católica de Brasília • Agosto 2019 — Dezembro 2021</CardDescription>
-                  </div>
-                  <Badge variant="secondary">Concluído</Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Pós-graduação focada no desenvolvimento de aplicativos móveis. Construí um projeto sobre health tracking 
-                  do COVID nos países brasileiros utilizando Swift (SwiftUI) e toda a stack do mundo iOS.
-                </p>
-                <p className="text-muted-foreground mb-4">
-                  Trabalhei no projeto de conclusão do curso sobre trader esportivo, onde utilizei a mesma stack 
-                  para desenvolvimento da aplicação.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Swift</Badge>
-                  <Badge variant="outline">SwiftUI</Badge>
-                  <Badge variant="outline">Health Tracking</Badge>
-                  <Badge variant="outline">COVID-19</Badge>
-                  <Badge variant="outline">Trader Esportivo</Badge>
-                </div>
-              </CardContent>
-            </Card>
 
-            <Card>
-            <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle>Sistemas da Informação</CardTitle>
-                    <CardDescription>Centro Universitário Projeção • Agosto 2016 — Dezembro 2019</CardDescription>
-                  </div>
-                  <Badge variant="secondary">Concluído</Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Graduação em Sistemas da Informação, fornecendo base sólida em desenvolvimento de software, 
-                  arquitetura de sistemas e gestão de projetos de TI.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Swift</Badge>
-                  <Badge variant="outline">Java</Badge>
-                  <Badge variant="outline">Redes de Computadores</Badge>
-                  <Badge variant="outline">Arquitetura de Computadores</Badge>
-                  <Badge variant="outline">Gestão de TI</Badge>
-                  <Badge variant="outline">Gestão de Projetos</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>  
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle>Ciências da Computação</CardTitle>
-                    <CardDescription>Universidade Católica de Brasília • 2014 — 2015</CardDescription>
-                  </div>
-                  <Badge variant="secondary">Não pude finalizar</Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Início da formação em Ciências da Computação, estabelecendo fundamentos teóricos e práticos 
-                  em programação e computação.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">C</Badge>
-                  <Badge variant="outline">Java</Badge>
-                  <Badge variant="outline">Banco de Dados</Badge>
-                  <Badge variant="outline">Arquitetura de Computadores</Badge>
-                  <Badge variant="outline">Empreendedorismo</Badge>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Habilidades Section */}
-      <section id="habilidades" className="container mx-auto px-4 py-20 bg-muted/30">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Habilidades Técnicas</h2>
-            <p className="text-lg text-muted-foreground">
-              Tecnologias e ferramentas que utilizo no dia a dia
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <Card>
-              <CardHeader>
-                <CardTitle>Mobile Development</CardTitle>
-                <CardDescription>Desenvolvimento nativo e cross-platform</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">iOS/Swift</Badge>
-                  <Badge variant="secondary">Flutter</Badge>
-                  <Badge variant="secondary">React Native</Badge>
-                  <Badge variant="secondary">Xcode</Badge>
-                  <Badge variant="secondary">Android/Kotlin</Badge>
-                  <Badge variant="secondary">Storyboard/XIB</Badge>
-                  <Badge variant="secondary">SwiftUI</Badge>
-                  <Badge variant="secondary">Jetpack Compose</Badge>
-                  <Badge variant="secondary">Material 3</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Frontend & Web</CardTitle>
-                <CardDescription>Interfaces modernas e responsivas</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">Next.js</Badge>
-                  <Badge variant="secondary">Svelte 5</Badge>
-                  <Badge variant="secondary">React</Badge>
-                  <Badge variant="secondary">TypeScript</Badge>
-                  <Badge variant="secondary">JavaScript</Badge>
-                  <Badge variant="secondary">HTML/CSS</Badge>
-                  <Badge variant="secondary">Tailwind CSS</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Backend & Cloud</CardTitle>
-                <CardDescription>APIs robustas e infraestrutura escalável</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">Node.js</Badge>
-                  <Badge variant="secondary">Rust</Badge>
-                  <Badge variant="secondary">Java/Spring</Badge>
-                  <Badge variant="secondary">PostgreSQL</Badge>
-                  <Badge variant="secondary">Docker</Badge>
-                  <Badge variant="secondary">Supabase</Badge>
-                  <Badge variant="secondary">COBOL</Badge>
-                  <Badge variant="secondary">Natural</Badge>
-                  <Badge variant="secondary">Quarkus</Badge>
-                  <Badge variant="secondary">Spring Batch</Badge>
-                  <Badge variant="secondary">Kubernetes</Badge>
-                  <Badge variant="secondary">Docker</Badge>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card>
-              <CardHeader>
-                <CardTitle>Ferramentas & DevOps</CardTitle>
-                <CardDescription>CI/CD e colaboração</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">Git/GitHub</Badge>
-                  <Badge variant="secondary">Bitrise CI/CD</Badge>
-                  <Badge variant="secondary">Jenkins</Badge>
-                  <Badge variant="secondary">ElasticSearch</Badge>
-                  <Badge variant="secondary">Coolify</Badge>
-                  <Badge variant="secondary">VPS</Badge>
-                  <Badge variant="secondary">Railway</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Soft Skills & Idiomas</CardTitle>
-                <CardDescription>Habilidades interpessoais e comunicação</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div>
-                    <h4 className="font-semibold text-sm mb-2">Liderança & Colaboração</h4>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline">Ponto Focal</Badge>
-                      <Badge variant="outline">Perfil Ativo</Badge>
-                      <Badge variant="outline">Scrum</Badge>
-                      <Badge variant="outline">Times Multi-complementares</Badge>
+          <div className="grid md:grid-cols-2 gap-6">
+            {skillPillars.map((pillar, idx) => (
+              <div
+                key={idx}
+                className="rounded-3xl p-1.5 ring-1 ring-white/10 bg-white/[0.02] card-bezel"
+              >
+                <div className="h-full rounded-[calc(1.5rem-0.375rem)] bg-zinc-900/90 border border-white/5 p-6 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <div className="w-10 h-10 rounded-2xl bg-zinc-800 border border-white/10 flex items-center justify-center shadow-inner">
+                      {pillar.icon}
                     </div>
+                    <h3 className="text-xl font-bold text-zinc-100">{pillar.title}</h3>
+                    <p className="text-sm text-zinc-400 leading-relaxed">{pillar.description}</p>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-sm mb-2">Idiomas</h4>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline">Português (Nativo)</Badge>
-                      <Badge variant="outline">Inglês (Intermediário)</Badge>
-                      <Badge variant="outline">Alemão (Iniciante)</Badge>
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-sm mb-2">Colaboração com</h4>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline">Product Owners</Badge>
-                      <Badge variant="outline">Stakeholders</Badge>
-                      <Badge variant="outline">Backend Teams</Badge>
-                      <Badge variant="outline">Mobile Teams</Badge>
+
+                  <div className="pt-3 border-t border-white/5">
+                    <div className="flex flex-wrap gap-1.5">
+                      {pillar.badges.map((b) => (
+                        <span key={b} className="px-2.5 py-1 rounded-lg text-xs font-mono bg-zinc-800/90 text-zinc-300 border border-white/5">
+                          {b}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Projetos Open Source Section */}
-      <section id="open-source" className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Projetos Open Source</h2>
-            <p className="text-lg text-muted-foreground">
-              Contribuições para a comunidade de desenvolvedores
-            </p>
+        {/* OPEN SOURCE & COMMUNITY */}
+        <section id="opensource" className="space-y-8 scroll-mt-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/5">
+            <div>
+              <div className="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2">Comunidade & Pesquisa</div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">Projetos Open Source</h2>
+            </div>
+            <a 
+              href="https://github.com/souzaRodrigo61" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-xs font-mono text-emerald-400 hover:underline flex items-center gap-1"
+            >
+              <span>Ver todos os repositórios no GitHub</span>
+              <IconArrowUpRight className="w-3.5 h-3.5" />
+            </a>
           </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle>SwiftDataTCA</CardTitle>
-                <CardDescription>Swift • 82 stars • 11 forks</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Sample sobre SwiftData com Composable Architecture em fase inicial de desenvolvimento. 
-                  Projeto que demonstra a integração entre SwiftData e TCA (The Composable Architecture).
-                </p>
-                <div>
-                  <p className="text-sm font-semibold text-foreground mb-2">Tecnologias:</p>
-                  <div className="flex flex-wrap gap-1">
-                    <Badge variant="outline" className="text-xs">Swift</Badge>
-                    <Badge variant="outline" className="text-xs">SwiftData</Badge>
-                    <Badge variant="outline" className="text-xs">TCA</Badge>
-                    <Badge variant="outline" className="text-xs">iOS</Badge>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {openSourceProjects.map((repo, idx) => (
+              <a
+                key={idx}
+                href={repo.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block rounded-3xl p-1.5 ring-1 ring-white/10 bg-white/[0.02] hover:ring-emerald-500/30 transition-all card-bezel"
+              >
+                <div className="h-full rounded-[calc(1.5rem-0.375rem)] bg-zinc-900/90 border border-white/5 p-6 flex flex-col justify-between space-y-5">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5 text-xs font-mono text-zinc-400">
+                        <IconBrandGithub className="w-4 h-4 text-zinc-300" />
+                        <span>GitHub</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-xs font-mono text-zinc-400">
+                        <span className="flex items-center gap-1 text-amber-400">
+                          <IconStar className="w-3.5 h-3.5 fill-amber-400" />
+                          {repo.stars}
+                        </span>
+                        {repo.forks > 0 && (
+                          <span className="flex items-center gap-1 text-zinc-400">
+                            <IconGitFork className="w-3.5 h-3.5" />
+                            {repo.forks}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <h3 className="text-lg font-bold text-zinc-100 group-hover:text-emerald-400 transition-colors flex items-center justify-between">
+                      <span>{repo.title}</span>
+                      <IconArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-emerald-400 transition-colors" />
+                    </h3>
+
+                    <p className="text-xs text-zinc-400 leading-relaxed">
+                      {repo.description}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5 pt-2 border-t border-white/5">
+                    {repo.tech.map((t) => (
+                      <span key={t} className="px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-800 text-zinc-300">
+                        {t}
+                      </span>
+                    ))}
                   </div>
                 </div>
-                <a href="https://github.com/souzaRodrigo61/SwiftDataTCA" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm text-primary hover:underline">
-                  Ver no GitHub →
-                </a>
-              </CardContent>
-            </Card>
-
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle>cashew</CardTitle>
-                <CardDescription>Swift • 3 stars</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Projeto em Swift que demonstra boas práticas de desenvolvimento iOS e arquitetura limpa.
-                </p>
-                <div>
-                  <p className="text-sm font-semibold text-foreground mb-2">Tecnologias:</p>
-                  <div className="flex flex-wrap gap-1">
-                    <Badge variant="outline" className="text-xs">Swift</Badge>
-                    <Badge variant="outline" className="text-xs">iOS</Badge>
-                    <Badge variant="outline" className="text-xs">Clean Architecture</Badge>
-                  </div>
-                </div>
-                <a href="https://github.com/souzaRodrigo61/cashew" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm text-primary hover:underline">
-                  Ver no GitHub →
-                </a>
-              </CardContent>
-            </Card>
-
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle>ios-health-tracking</CardTitle>
-                <CardDescription>Swift • 4 stars • 1 fork</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Health tracking - Covid e outras condições de saúde. Aplicativo iOS para monitoramento 
-                  de saúde com foco em rastreamento de sintomas relacionados ao Covid-19.
-                </p>
-                <div>
-                  <p className="text-sm font-semibold text-foreground mb-2">Tecnologias:</p>
-                  <div className="flex flex-wrap gap-1">
-                    <Badge variant="outline" className="text-xs">Swift</Badge>
-                    <Badge variant="outline" className="text-xs">HealthKit</Badge>
-                    <Badge variant="outline" className="text-xs">iOS</Badge>
-                    <Badge variant="outline" className="text-xs">Covid Tracking</Badge>
-                  </div>
-                </div>
-                <a href="https://github.com/souzaRodrigo61/ios-health-tracking" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm text-primary hover:underline">
-                  Ver no GitHub →
-                </a>
-              </CardContent>
-            </Card>
+              </a>
+            ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border/40 bg-muted/30">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center">
-            <p className="text-muted-foreground">
-              © 2024 Rodrigo Souza. Todos os direitos reservados.
-            </p>
+        {/* EDUCATION & ACADEMIC BACKGROUND */}
+        <section id="formacao" className="space-y-8 scroll-mt-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/5">
+            <div>
+              <div className="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2">Fundamentação Acadêmica</div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">Formação & Especializações</h2>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {educationData.map((edu, idx) => (
+              <div
+                key={idx}
+                className="rounded-3xl p-1.5 ring-1 ring-white/10 bg-white/[0.02] card-bezel"
+              >
+                <div className="h-full rounded-[calc(1.5rem-0.375rem)] bg-zinc-900/90 border border-white/5 p-6 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2.5">
+                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-zinc-800 text-emerald-400 text-[10px] font-mono border border-white/5">
+                      {edu.status}
+                    </span>
+                    <h3 className="text-base font-bold text-zinc-100">{edu.title}</h3>
+                    <div className="text-xs font-mono text-zinc-400">
+                      {edu.institution}
+                    </div>
+                    <div className="text-[11px] font-mono text-zinc-500">
+                      {edu.period}
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-zinc-400 leading-relaxed pt-2 border-t border-white/5">
+                    {edu.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* DIRECT CONTACT & CONNECT SECTION */}
+        <section id="contato" className="scroll-mt-24">
+          <div className="rounded-3xl p-1.5 ring-1 ring-white/10 bg-gradient-to-b from-white/[0.04] to-emerald-500/[0.03] card-bezel">
+            <div className="rounded-[calc(1.5rem-0.375rem)] bg-zinc-900/95 border border-white/5 p-8 md:p-14 text-center space-y-8">
+              
+              <div className="max-w-2xl mx-auto space-y-4">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  Pronto para novos desafios e arquiteturas
+                </div>
+                <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-zinc-50">
+                  Vamos construir algo de alto impacto juntos?
+                </h2>
+                <p className="text-base text-zinc-400 leading-relaxed">
+                  Disponível para projetos estratégicos, consultoria em arquitetura iOS / Rust, e posições de liderança técnica.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <button
+                  onClick={handleCopyEmail}
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-sm transition-all active:scale-95 shadow-xl shadow-emerald-500/20 cursor-pointer"
+                >
+                  {copiedEmail ? (
+                    <>
+                      <IconCheck className="w-4 h-4" />
+                      <span>souza.rodrigo61@gmail.com (Copiado!)</span>
+                    </>
+                  ) : (
+                    <>
+                      <IconMail className="w-4 h-4" />
+                      <span>Copiar Email: souza.rodrigo61@gmail.com</span>
+                    </>
+                  )}
+                </button>
+
+                <a
+                  href="https://www.linkedin.com/in/souzarodrigo61"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-medium text-sm border border-white/10 transition-all active:scale-95"
+                >
+                  <IconBrandLinkedin className="w-4 h-4 text-zinc-400" />
+                  <span>Conectar no LinkedIn</span>
+                </a>
+              </div>
+
+              <div className="pt-8 border-t border-white/5 flex flex-wrap items-center justify-center gap-8 text-xs font-mono text-zinc-400">
+                <div className="flex items-center gap-2">
+                  <IconMapPin className="w-4 h-4 text-emerald-400" />
+                  <span>Brasília, DF (UTC-3)</span>
+                </div>
+                <div>•</div>
+                <div>Português (Nativo) • Inglês (Intermediário)</div>
+                <div>•</div>
+                <div>iOS • Rust • Cloud • FinTech</div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      {/* FOOTER */}
+      <footer className="border-t border-white/5 bg-zinc-950/80 py-8 relative z-10">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400">
+          <div>
+            © {new Date().getFullYear()} Rodrigo Souza. Engenharia de software com foco em precisão e escala.
+          </div>
+          <div className="flex items-center gap-4">
+            <a href="https://github.com/souzaRodrigo61" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-200 transition-colors">
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/souzarodrigo61" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-200 transition-colors">
+              LinkedIn
+            </a>
+            <a href="#sobre" className="hover:text-zinc-200 transition-colors">
+              Voltar ao topo ↑
+            </a>
           </div>
         </div>
       </footer>
 
-      {/* Hero Modal para Projetos */}
-      <HeroModal
-        item={selectedProject ? {
-          id: selectedProject.title,
-          title: selectedProject.title,
-          category: selectedProject.category,
-          role: "",
-          period: "",
-          description: "",
-          impact: "",
-          technologies: [],
-          image: selectedProject.src,
-          link: selectedProject.title === "DivinaPay (Divina Cashless)" ? "https://divinapay.com" : undefined,
-          hasHeroModal: true,
-          markdownFile: selectedProject.title === "DivinaPay (Divina Cashless)" ? "divinapay.md" : "church-management.md"
-        } : null}
-        isOpen={!!selectedProject}
-        onClose={handleCloseModal}
-        layoutId={selectedProjectLayoutId}
-      />
-
-      {/* Hero Modal para Experiências */}
+      {/* UNIVERSAL HERO MODAL */}
       <HeroModal
         item={selectedItem}
         isOpen={!!selectedItem}
         onClose={handleCloseModal}
-        layoutId={selectedItemLayoutId}
+        layoutId={selectedLayoutId}
       />
     </div>
   )

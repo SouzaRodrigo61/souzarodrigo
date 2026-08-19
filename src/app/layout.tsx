@@ -14,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rodrigo Souza - Software Engineer",
-  description: "Portfolio profissional de Rodrigo Souza, software engineer especializado em Swift, Flutter, Rust entre outras.",
+  title: "Rodrigo Souza — Senior Software Engineer | iOS & Distributed Systems",
+  description: "Senior Software Engineer especializado em iOS nativo (Swift/SwiftUI/TCA), Rust, arquiteturas distribuídas de alta escala e modernização para instituições financeiras e produtos de grande porte.",
+  keywords: ["Rodrigo Souza", "Software Engineer", "iOS Developer", "Swift", "Rust", "Distributed Systems", "Caixa", "Banco do Brasil", "Flutter", "Fullstack", "FinTech"],
 };
 
 export default function RootLayout({
@@ -24,9 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR" className="dark scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans bg-zinc-950 text-zinc-100 antialiased selection:bg-emerald-500/20 selection:text-emerald-300 min-h-screen relative`}
       >
         <Providers>
           {children}
