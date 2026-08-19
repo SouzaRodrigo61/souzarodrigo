@@ -2,7 +2,13 @@
 @import "tw-animate-css";
 @plugin '../hero.ts';
 @source '../../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
-@custom-variant dark (&:is(.dark *));
+
+/* tema segue o sistema — sobrescreve o variant class-based do plugin HeroUI */
+@custom-variant dark {
+  @media (prefers-color-scheme: dark) {
+    @slot;
+  }
+}
 
 @theme inline {
   --color-background: var(--background);
@@ -45,41 +51,43 @@
 }
 
 :root {
+  color-scheme: light;
   --radius: 1rem;
-  --background: #09090b;
-  --foreground: #fafafa;
-  --card: #121215;
-  --card-foreground: #fafafa;
-  --popover: #121215;
-  --popover-foreground: #fafafa;
-  --primary: #10b981;
-  --primary-foreground: #022c22;
-  --secondary: #18181b;
-  --secondary-foreground: #fafafa;
-  --muted: #18181b;
-  --muted-foreground: #a1a1aa;
-  --accent: #18181b;
-  --accent-foreground: #fafafa;
-  --destructive: #ef4444;
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.12);
-  --ring: #10b981;
-  --chart-1: #10b981;
-  --chart-2: #06b6d4;
-  --chart-3: #8b5cf6;
-  --chart-4: #f59e0b;
-  --chart-5: #ec4899;
-  --sidebar: #09090b;
-  --sidebar-foreground: #fafafa;
-  --sidebar-primary: #10b981;
-  --sidebar-primary-foreground: #022c22;
-  --sidebar-accent: #18181b;
-  --sidebar-accent-foreground: #fafafa;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #10b981;
+  --background: #fafafa;
+  --foreground: #18181b;
+  --card: #ffffff;
+  --card-foreground: #18181b;
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+  --primary: #059669;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #52525b;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --destructive: #dc2626;
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(0, 0, 0, 0.12);
+  --ring: #059669;
+  --chart-1: #059669;
+  --chart-2: #0891b2;
+  --chart-3: #7c3aed;
+  --chart-4: #d97706;
+  --chart-5: #db2777;
+  --sidebar: #fafafa;
+  --sidebar-foreground: #18181b;
+  --sidebar-primary: #059669;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f4f4f5;
+  --sidebar-accent-foreground: #18181b;
+  --sidebar-border: rgba(0, 0, 0, 0.08);
+  --sidebar-ring: #059669;
 }
 
-.dark {
+@media (prefers-color-scheme: dark) { :root {
+  color-scheme: dark;
   --background: #09090b;
   --foreground: #fafafa;
   --card: #121215;
@@ -111,7 +119,7 @@
   --sidebar-accent-foreground: #fafafa;
   --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-ring: #10b981;
-}
+} }
 
 @layer base {
   * {
@@ -124,16 +132,28 @@
 
 /* Custom visual ambient patterns */
 .noise-overlay {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 0);
   background-size: 24px 24px;
 }
 
 .glow-pill {
-  box-shadow: 0 0 20px -5px rgba(16, 185, 129, 0.25);
+  box-shadow: 0 0 20px -5px rgba(5, 150, 105, 0.2);
 }
 
 .card-bezel {
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.08), 0 8px 32px -8px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9), 0 8px 32px -8px rgba(24, 24, 27, 0.14);
+}
+
+@media (prefers-color-scheme: dark) {
+  .noise-overlay {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+  }
+  .glow-pill {
+    box-shadow: 0 0 20px -5px rgba(16, 185, 129, 0.25);
+  }
+  .card-bezel {
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.08), 0 8px 32px -8px rgba(0, 0, 0, 0.5);
+  }
 }
 
 @layer base {

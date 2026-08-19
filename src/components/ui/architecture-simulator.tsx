@@ -36,7 +36,7 @@ const architectures: SystemArchitecture[] = [
     id: "ios-loterias",
     title: "Loterias Caixa iOS Architecture",
     subtitle: "Mobile Reativo de Grande Porte (Milhões de Usuários)",
-    icon: <IconDeviceMobile className="w-5 h-5 text-emerald-400" />,
+    icon: <IconDeviceMobile className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
     tag: "iOS • Swift 5.5 • Combine",
     metrics: [
       { label: "Taxa de Atualização", value: "120 FPS" },
@@ -75,7 +75,7 @@ const architectures: SystemArchitecture[] = [
     id: "rust-divinapay",
     title: "DivinaPay High-Throughput Engine",
     subtitle: "Processamento de Eventos e Pagamentos Cashless",
-    icon: <IconServer className="w-5 h-5 text-cyan-400" />,
+    icon: <IconServer className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />,
     tag: "Rust • Axum • PostgreSQL",
     metrics: [
       { label: "Volume Processado", value: "R$ 6M+" },
@@ -114,7 +114,7 @@ const architectures: SystemArchitecture[] = [
     id: "bb-interchange",
     title: "Banco do Brasil Interchange Clearing",
     subtitle: "Modernização Mainframe COBOL → Quarkus Cloud",
-    icon: <IconBuildingBank className="w-5 h-5 text-amber-400" />,
+    icon: <IconBuildingBank className="w-5 h-5 text-amber-600 dark:text-amber-400" />,
     tag: "Java Quarkus • Spring Batch • K8s",
     metrics: [
       { label: "Bandeiras Validadas", value: "Visa / Master / Elo" },
@@ -156,26 +156,26 @@ export function ArchitectureSimulator() {
   const activeArch = architectures.find((a) => a.id === activeArchId) || architectures[0]
 
   return (
-    <div className="rounded-3xl p-1.5 ring-1 ring-white/10 bg-white/[0.02] shadow-2xl card-bezel overflow-hidden">
-      <div className="rounded-[calc(1.5rem-0.375rem)] bg-zinc-900/90 border border-white/5 p-6 md:p-8 space-y-8">
+    <div className="rounded-3xl p-1.5 ring-1 ring-black/10 dark:ring-white/10 bg-black/[0.03] dark:bg-white/[0.02] shadow-2xl card-bezel overflow-hidden">
+      <div className="rounded-[calc(1.5rem-0.375rem)] bg-white/90 dark:bg-zinc-900/90 border border-black/10 dark:border-white/5 p-6 md:p-8 space-y-8">
         
         {/* Header & Mode Switcher */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/5">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-black/10 dark:border-white/5">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400">
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-600 dark:text-emerald-400">
               <IconActivity className="w-4 h-4 animate-pulse" />
               <span>Simulador Interativo de Topologia</span>
             </div>
-            <h3 className="text-xl md:text-2xl font-bold text-zinc-50">
+            <h3 className="text-xl md:text-2xl font-bold text-zinc-950 dark:text-zinc-50">
               Engenharia de Sistemas em Ação
             </h3>
-            <p className="text-xs text-zinc-400">
+            <p className="text-xs text-zinc-600 dark:text-zinc-400">
               Selecione uma arquitetura de produção para inspecionar os pipelines e métricas.
             </p>
           </div>
 
           {/* Architecture Switcher Tabs */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-2xl bg-zinc-950/80 border border-white/5">
+          <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-2xl bg-white/80 dark:bg-zinc-950/80 border border-black/10 dark:border-white/5">
             {architectures.map((arch) => {
               const isActive = arch.id === activeArchId
               return (
@@ -184,8 +184,8 @@ export function ArchitectureSimulator() {
                   onClick={() => setActiveArchId(arch.id)}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer ${
                     isActive
-                      ? "bg-zinc-800 text-zinc-100 shadow-md border border-white/10 font-semibold"
-                      : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900"
+                      ? "bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-md border border-black/10 dark:border-white/10 font-semibold"
+                      : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-900"
                   }`}
                 >
                   <span className="scale-90">{arch.icon}</span>
@@ -210,13 +210,13 @@ export function ArchitectureSimulator() {
             {/* Top Overview & Metric Row */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               <div className="space-y-1.5">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800/80 border border-white/5 text-xs font-mono text-emerald-400">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-200/80 dark:bg-zinc-800/80 border border-black/10 dark:border-white/5 text-xs font-mono text-emerald-600 dark:text-emerald-400">
                   {activeArch.tag}
                 </div>
-                <h4 className="text-xl md:text-2xl font-bold text-zinc-100">
+                <h4 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-zinc-100">
                   {activeArch.title}
                 </h4>
-                <p className="text-xs text-zinc-400">
+                <p className="text-xs text-zinc-600 dark:text-zinc-400">
                   {activeArch.subtitle}
                 </p>
               </div>
@@ -226,9 +226,9 @@ export function ArchitectureSimulator() {
                 {activeArch.metrics.map((m, idx) => (
                   <div
                     key={idx}
-                    className="p-3 rounded-2xl bg-zinc-950/70 border border-white/5 text-center"
+                    className="p-3 rounded-2xl bg-white/70 dark:bg-zinc-950/70 border border-black/10 dark:border-white/5 text-center"
                   >
-                    <div className="text-sm md:text-base font-bold text-zinc-100 font-mono">{m.value}</div>
+                    <div className="text-sm md:text-base font-bold text-zinc-900 dark:text-zinc-100 font-mono">{m.value}</div>
                     <div className="text-[10px] text-zinc-500 font-mono mt-0.5">{m.label}</div>
                   </div>
                 ))}
@@ -237,34 +237,34 @@ export function ArchitectureSimulator() {
 
             {/* Interactive Pipeline Steps */}
             <div className="space-y-3">
-              <div className="text-xs font-mono text-zinc-400 flex items-center justify-between">
+              <div className="text-xs font-mono text-zinc-600 dark:text-zinc-400 flex items-center justify-between">
                 <span>Fluxo de Execução do Pipeline</span>
-                <span className="text-emerald-400 font-medium">End-to-End Trace</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-medium">End-to-End Trace</span>
               </div>
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {activeArch.steps.map((step, idx) => (
                   <div
                     key={idx}
-                    className="relative group p-4 rounded-2xl bg-zinc-950/60 border border-white/5 hover:border-white/15 transition-all flex flex-col justify-between space-y-3"
+                    className="relative group p-4 rounded-2xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-black/10 dark:border-white/5 hover:border-black/15 dark:hover:border-white/15 transition-all flex flex-col justify-between space-y-3"
                   >
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-[11px] font-mono text-emerald-400 font-semibold">
+                        <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">
                           {step.title}
                         </span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-white/5">
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-black/10 dark:border-white/5">
                           {step.latency}
                         </span>
                       </div>
-                      <div className="text-xs font-bold text-zinc-200">{step.tech}</div>
-                      <p className="text-[11px] text-zinc-400 leading-relaxed">
+                      <div className="text-xs font-bold text-zinc-800 dark:text-zinc-200">{step.tech}</div>
+                      <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                         {step.description}
                       </p>
                     </div>
 
-                    <div className="pt-2 border-t border-white/5 flex items-center gap-1.5 text-[10px] font-mono text-zinc-500">
-                      <IconCheck className="w-3.5 h-3.5 text-emerald-500" />
+                    <div className="pt-2 border-t border-black/10 dark:border-white/5 flex items-center gap-1.5 text-[10px] font-mono text-zinc-500">
+                      <IconCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-500" />
                       <span>Verificado em Produção</span>
                     </div>
                   </div>
@@ -273,9 +273,9 @@ export function ArchitectureSimulator() {
             </div>
 
             {/* Architectural Summary Callout */}
-            <div className="p-4 rounded-2xl bg-zinc-950/80 border border-white/5 flex items-center gap-3.5 text-xs text-zinc-300">
+            <div className="p-4 rounded-2xl bg-white/80 dark:bg-zinc-950/80 border border-black/10 dark:border-white/5 flex items-center gap-3.5 text-xs text-zinc-700 dark:text-zinc-300">
               <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
-                <IconSparkles className="w-4 h-4 text-emerald-400" />
+                <IconSparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               </div>
               <p className="leading-relaxed font-mono text-[11px] md:text-xs">
                 {activeArch.summary}

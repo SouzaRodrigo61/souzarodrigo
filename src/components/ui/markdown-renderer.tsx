@@ -37,83 +37,83 @@ export const MarkdownRenderer = ({ content, className = "", skipFirstH1 = false 
         remarkPlugins={[remarkGfm]}
         components={{
           h1: ({ children }) => (
-            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-100 mb-4 mt-8 pb-2 border-b border-white/5">{children}</h1>
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4 mt-8 pb-2 border-b border-black/10 dark:border-white/5">{children}</h1>
           ),
           h2: ({ children }) => (
-            <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-zinc-100 mb-4 mt-8">{children}</h2>
+            <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4 mt-8">{children}</h2>
           ),
           h3: ({ children }) => (
-            <h3 className="text-lg md:text-xl font-semibold text-emerald-400 mb-3 mt-6">{children}</h3>
+            <h3 className="text-lg md:text-xl font-semibold text-emerald-600 dark:text-emerald-400 mb-3 mt-6">{children}</h3>
           ),
           p: ({ children }) => (
-            <p className="text-zinc-300 mb-4 leading-relaxed text-sm md:text-base">{children}</p>
+            <p className="text-zinc-700 dark:text-zinc-300 mb-4 leading-relaxed text-sm md:text-base">{children}</p>
           ),
           ul: ({ children }) => (
-            <ul className="list-disc list-inside mb-4 text-zinc-300 space-y-2 text-sm md:text-base">{children}</ul>
+            <ul className="list-disc list-inside mb-4 text-zinc-700 dark:text-zinc-300 space-y-2 text-sm md:text-base">{children}</ul>
           ),
           ol: ({ children }) => (
-            <ol className="list-decimal list-inside mb-4 text-zinc-300 space-y-2 text-sm md:text-base">{children}</ol>
+            <ol className="list-decimal list-inside mb-4 text-zinc-700 dark:text-zinc-300 space-y-2 text-sm md:text-base">{children}</ol>
           ),
           li: ({ children }) => (
-            <li className="text-zinc-300">{children}</li>
+            <li className="text-zinc-700 dark:text-zinc-300">{children}</li>
           ),
           code: ({ children, className }) => {
             const isInline = !className
             if (isInline) {
               return (
-                <code className="bg-zinc-800/90 text-emerald-300 px-2 py-0.5 rounded text-xs md:text-sm font-mono border border-white/5">
+                <code className="bg-zinc-200/90 dark:bg-zinc-800/90 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded text-xs md:text-sm font-mono border border-black/10 dark:border-white/5">
                   {children}
                 </code>
               )
             }
             return (
-              <code className="block bg-zinc-950/90 p-4 rounded-xl text-xs md:text-sm font-mono text-zinc-200 border border-white/10 overflow-x-auto my-4">
+              <code className="block bg-zinc-100/90 dark:bg-zinc-950/90 p-4 rounded-xl text-xs md:text-sm font-mono text-zinc-800 dark:text-zinc-200 border border-black/10 dark:border-white/10 overflow-x-auto my-4">
                 {children}
               </code>
             )
           },
           blockquote: ({ children }) => (
-            <blockquote className="border-l-2 border-emerald-500/60 bg-emerald-950/10 pl-4 py-2 italic text-zinc-300 my-4 rounded-r-lg">
+            <blockquote className="border-l-2 border-emerald-500/60 bg-emerald-950/10 pl-4 py-2 italic text-zinc-700 dark:text-zinc-300 my-4 rounded-r-lg">
               {children}
             </blockquote>
           ),
           table: ({ children }) => (
-            <div className="overflow-x-auto my-6 rounded-xl border border-white/10">
-              <table className="min-w-full text-sm divide-y divide-white/10">
+            <div className="overflow-x-auto my-6 rounded-xl border border-black/10 dark:border-white/10">
+              <table className="min-w-full text-sm divide-y divide-black/10 dark:divide-white/10">
                 {children}
               </table>
             </div>
           ),
           thead: ({ children }) => (
-            <thead className="bg-zinc-800/50 text-zinc-200">{children}</thead>
+            <thead className="bg-zinc-200/60 dark:bg-zinc-800/50 text-zinc-800 dark:text-zinc-200">{children}</thead>
           ),
           tbody: ({ children }) => (
-            <tbody className="divide-y divide-white/5 bg-zinc-900/30">{children}</tbody>
+            <tbody className="divide-y divide-black/5 dark:divide-white/5 bg-zinc-100/50 dark:bg-zinc-900/30">{children}</tbody>
           ),
           tr: ({ children }) => (
-            <tr className="hover:bg-zinc-800/30 transition-colors">{children}</tr>
+            <tr className="hover:bg-zinc-200/40 dark:hover:bg-zinc-800/30 transition-colors">{children}</tr>
           ),
           th: ({ children }) => (
-            <th className="px-4 py-3 text-left font-semibold text-zinc-200 font-mono text-xs uppercase tracking-wider">{children}</th>
+            <th className="px-4 py-3 text-left font-semibold text-zinc-800 dark:text-zinc-200 font-mono text-xs uppercase tracking-wider">{children}</th>
           ),
           td: ({ children }) => (
-            <td className="px-4 py-3 text-zinc-300">{children}</td>
+            <td className="px-4 py-3 text-zinc-700 dark:text-zinc-300">{children}</td>
           ),
           a: ({ href, children }) => (
             <a 
               href={href} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-emerald-400 hover:text-emerald-300 underline underline-offset-4 transition-colors font-medium"
+              className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 underline underline-offset-4 transition-colors font-medium"
             >
               {children}
             </a>
           ),
           strong: ({ children }) => (
-            <strong className="font-semibold text-zinc-100">{children}</strong>
+            <strong className="font-semibold text-zinc-900 dark:text-zinc-100">{children}</strong>
           ),
           em: ({ children }) => (
-            <em className="italic text-zinc-300">{children}</em>
+            <em className="italic text-zinc-700 dark:text-zinc-300">{children}</em>
           ),
           img: ({ src, alt, ...props }) => {
             // Se for um vídeo MP4, renderizar como video element

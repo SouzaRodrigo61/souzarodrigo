@@ -108,32 +108,32 @@ export const HeroModal = ({ item, isOpen, onClose, layoutId }: HeroModalProps) =
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 8 }}
             transition={{ type: "spring", stiffness: 280, damping: 28 }}
-            className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-[2rem] p-1.5 ring-1 ring-white/10 bg-white/[0.03] shadow-2xl backdrop-blur-xl"
+            className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-[2rem] p-1.5 ring-1 ring-black/10 dark:ring-white/10 bg-black/[0.04] dark:bg-white/[0.03] shadow-2xl backdrop-blur-xl"
           >
-            <div className="relative w-full h-full rounded-[calc(2rem-0.375rem)] bg-zinc-900/95 border border-white/5 overflow-hidden flex flex-col">
+            <div className="relative w-full h-full rounded-[calc(2rem-0.375rem)] bg-white/95 dark:bg-zinc-900/95 border border-black/10 dark:border-white/5 overflow-hidden flex flex-col">
               <button
                 onClick={onClose}
                 aria-label="Fechar modal"
-                className="absolute right-4 top-4 z-20 rounded-full bg-zinc-950/70 p-2.5 text-zinc-300 border border-white/10 backdrop-blur-md transition-all hover:bg-zinc-800 hover:text-white active:scale-95 cursor-pointer"
+                className="absolute right-4 top-4 z-20 rounded-full bg-white/70 dark:bg-zinc-950/70 p-2.5 text-zinc-700 dark:text-zinc-300 border border-black/10 dark:border-white/10 backdrop-blur-md transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-zinc-950 dark:hover:text-white active:scale-95 cursor-pointer"
               >
                 <IconX className="h-5 w-5" />
               </button>
 
               {/* Image Header if present */}
               {imageSrc && (
-                <div className="relative h-56 md:h-64 w-full bg-zinc-950/60 border-b border-white/5 overflow-hidden">
+                <div className="relative h-56 md:h-64 w-full bg-zinc-100/80 dark:bg-zinc-950/60 border-b border-black/10 dark:border-white/5 overflow-hidden">
                   <BlurImage src={imageSrc} alt={title} className="object-cover" fill />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-black/30" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-100 dark:from-zinc-900 via-transparent to-black/30" />
                 </div>
               )}
 
               {/* Text Content */}
               <div className="p-6 md:p-10 max-h-[calc(90vh-14rem)] overflow-y-auto space-y-6">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono mb-3">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-mono mb-3">
                     {subtitle}
                   </div>
-                  <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-zinc-50">{title}</h2>
+                  <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">{title}</h2>
                 </div>
                 
                 {isLoadingMarkdown ? (
@@ -145,10 +145,10 @@ export const HeroModal = ({ item, isOpen, onClose, layoutId }: HeroModalProps) =
                   <MarkdownRenderer content={markdownContent} skipFirstH1={true} />
                 ) : (
                   <div className="space-y-6">
-                    <p className="text-zinc-300 text-base leading-relaxed">{item.description}</p>
+                    <p className="text-zinc-700 dark:text-zinc-300 text-base leading-relaxed">{item.description}</p>
                     <div className="flex flex-wrap gap-2 pt-2">
                       {item.technologies.map((tech, index) => (
-                        <span key={index} className="px-3 py-1 rounded-lg text-xs font-mono bg-zinc-800/80 text-zinc-300 border border-white/5">
+                        <span key={index} className="px-3 py-1 rounded-lg text-xs font-mono bg-zinc-200/80 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 border border-black/10 dark:border-white/5">
                           {tech}
                         </span>
                       ))}
@@ -157,15 +157,15 @@ export const HeroModal = ({ item, isOpen, onClose, layoutId }: HeroModalProps) =
                 )}
 
                 {link && (
-                  <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+                  <div className="pt-4 border-t border-black/10 dark:border-white/5 flex items-center justify-between">
                     <a 
                       href={link} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 text-sm font-medium border border-emerald-500/20 transition-all active:scale-[0.98]"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-sm font-medium border border-emerald-500/20 transition-all active:scale-[0.98]"
                     >
                       Acessar Aplicação / Site Oficial
-                      <span className="text-emerald-400">↗</span>
+                      <span className="text-emerald-600 dark:text-emerald-400">↗</span>
                     </a>
                   </div>
                 )}
