@@ -327,11 +327,6 @@ export default function Home() {
             
             {/* Left Hero Column */}
             <div className="lg:col-span-7 space-y-6 text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-mono">
-                <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-500 animate-ping inline-block" />
-                Senior Software Engineer • iOS & Distributed Systems
-              </div>
-
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50 leading-[1.08]">
                 Arquiteturas mobile nativas e sistemas distribuídos em <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 dark:from-emerald-400 via-teal-600 dark:via-teal-300 to-cyan-600 dark:to-cyan-400">Rust & Swift</span>.
               </h1>
@@ -436,13 +431,9 @@ export default function Home() {
                       <span>Stack Principal Ativa</span>
                       <span className="text-emerald-600 dark:text-emerald-400">10+ Anos Exp</span>
                     </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {["Swift 5.5+", "Combine", "SwiftUI", "TCA", "Rust Axum", "PostgreSQL", "Flutter", "Kubernetes"].map((t) => (
-                        <span key={t} className="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-zinc-200/80 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 border border-black/10 dark:border-white/5">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
+                    <p className="text-xs font-mono text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                      Swift 5.5+, Combine, SwiftUI, TCA, Rust Axum, PostgreSQL, Flutter, Kubernetes
+                    </p>
                   </div>
 
                   {/* Micro Terminal Quote */}
@@ -566,13 +557,9 @@ export default function Home() {
 
                       {/* Tech Badges & CTA */}
                       <div className="space-y-4 pt-2">
-                        <div className="flex flex-wrap gap-1.5">
-                          {project.technologies.map((t) => (
-                            <span key={t} className="px-2 py-0.5 rounded-md text-[11px] font-mono bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-black/10 dark:border-white/5">
-                              {t}
-                            </span>
-                          ))}
-                        </div>
+                        <p className="text-xs font-mono text-zinc-600 dark:text-zinc-400">
+                          {project.technologies.join(", ")}
+                        </p>
 
                         <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 group-hover:translate-x-1 transition-transform flex items-center gap-1">
                           <span>Abrir Estudo de Caso & Arquitetura Completa</span>
@@ -714,13 +701,9 @@ export default function Home() {
                     </p>
 
                     {/* Tech Badges */}
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {exp.technologies.map((tech, techIdx) => (
-                        <span key={techIdx} className="px-2.5 py-0.5 rounded-md text-[11px] font-mono bg-zinc-100/80 dark:bg-zinc-950/60 text-zinc-600 dark:text-zinc-400 border border-black/10 dark:border-white/5">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                    <p className="text-xs font-mono text-zinc-600 dark:text-zinc-400 pt-1">
+                      {exp.technologies.join(", ")}
+                    </p>
 
                   </div>
                 </div>
@@ -745,11 +728,11 @@ export default function Home() {
             {skillPillars.map((pillar, idx) => (
               <div
                 key={idx}
-                className="rounded-3xl p-1.5 ring-1 ring-black/10 dark:ring-white/10 bg-black/[0.03] dark:bg-white/[0.02] card-bezel"
+                className="group rounded-3xl p-1.5 ring-1 ring-black/10 dark:ring-white/10 bg-black/[0.03] dark:bg-white/[0.02] hover:ring-emerald-500/30 transition-all card-bezel"
               >
                 <div className="h-full rounded-[calc(1.5rem-0.375rem)] bg-white/90 dark:bg-zinc-900/90 border border-black/10 dark:border-white/5 p-6 space-y-4 flex flex-col justify-between">
                   <div className="space-y-3">
-                    <div className="w-10 h-10 rounded-2xl bg-zinc-200 dark:bg-zinc-800 border border-black/10 dark:border-white/10 flex items-center justify-center shadow-inner">
+                    <div className="w-10 h-10 rounded-2xl bg-zinc-200 dark:bg-zinc-800 border border-black/10 dark:border-white/10 flex items-center justify-center shadow-inner group-hover:bg-emerald-500/10 group-hover:border-emerald-500/20 transition-colors">
                       {pillar.icon}
                     </div>
                     <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">{pillar.title}</h3>
@@ -757,13 +740,9 @@ export default function Home() {
                   </div>
 
                   <div className="pt-3 border-t border-black/10 dark:border-white/5">
-                    <div className="flex flex-wrap gap-1.5">
-                      {pillar.badges.map((b) => (
-                        <span key={b} className="px-2.5 py-1 rounded-lg text-xs font-mono bg-zinc-200/90 dark:bg-zinc-800/90 text-zinc-700 dark:text-zinc-300 border border-black/10 dark:border-white/5">
-                          {b}
-                        </span>
-                      ))}
-                    </div>
+                    <p className="text-xs font-mono text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                      {pillar.badges.join(", ")}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -829,12 +808,10 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <div className="flex flex-wrap gap-1.5 pt-2 border-t border-black/10 dark:border-white/5">
-                    {repo.tech.map((t) => (
-                      <span key={t} className="px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
-                        {t}
-                      </span>
-                    ))}
+                  <div className="pt-2 border-t border-black/10 dark:border-white/5">
+                    <p className="text-[11px] font-mono text-zinc-600 dark:text-zinc-400">
+                      {repo.tech.join(", ")}
+                    </p>
                   </div>
                 </div>
               </a>
@@ -855,7 +832,7 @@ export default function Home() {
             {educationData.map((edu, idx) => (
               <div
                 key={idx}
-                className="rounded-3xl p-1.5 ring-1 ring-black/10 dark:ring-white/10 bg-black/[0.03] dark:bg-white/[0.02] card-bezel"
+                className="rounded-3xl p-1.5 ring-1 ring-black/10 dark:ring-white/10 bg-black/[0.03] dark:bg-white/[0.02] hover:ring-emerald-500/30 transition-all card-bezel"
               >
                 <div className="h-full rounded-[calc(1.5rem-0.375rem)] bg-white/90 dark:bg-zinc-900/90 border border-black/10 dark:border-white/5 p-6 flex flex-col justify-between space-y-4">
                   <div className="space-y-2.5">
