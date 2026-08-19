@@ -30,6 +30,17 @@
   ],
   "experiences": [
     {
+      "id": "consignado-fintech",
+      "title": "Desenvolvedor Full-Stack Mobile",
+      "company": "Fintech de Crédito Consignado",
+      "period": "Fev, 2026 - Presente",
+      "status": "Atual",
+      "description": "Desenvolvimento ponta a ponta do funil de crédito consignado digital: app principal em Flutter (simulação, biometria antifraude, assinatura eletrônica e desembolso), SDK white-label em React Native para parceiros (modelo B2B2C), microsserviço de elegibilidade em .NET e deep linking universal no webapp Next.js.",
+      "technologies": ["Flutter", "Dart", "BLoC", "React Native", "TypeScript", ".NET Core", "Datadog RUM", "OpenFeature", "RSA-OAEP/HMAC", "Maestro e2e"],
+      "hasHeroModal": true,
+      "markdownFile": "consignado-fintech-sdk.md"
+    },
+    {
       "id": "qintess-ios",
       "title": "iOS Developer",
       "company": "Qintess",

@@ -108,6 +108,14 @@ const skillPillars = [
 
 const openSourceProjects = [
   {
+    title: "codemode-cli",
+    description: "Code mode / programmatic tool calling para agentes de IA em um único binário Rust: um script Rhai sandboxed substitui N tool-calls por 1. Medido em tarefa real: 6 tool-calls → 1 (83% de redução de chamadas). Sem MCP, sem processo residente.",
+    stars: 0,
+    forks: 0,
+    tech: ["Rust", "Rhai", "AI Agents", "Sandbox"],
+    link: "https://github.com/SouzaRodrigo61/codemode-cli"
+  },
+  {
     title: "SwiftDataTCA",
     description: "Arquitetura de integração e sample pioneiro entre SwiftData e The Composable Architecture (TCA) para apps iOS modernos e escaláveis.",
     stars: 82,
