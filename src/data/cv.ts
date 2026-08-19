@@ -134,9 +134,9 @@ export const cv: Record<"pt" | "en", CvData> = {
         link: "divinapay.com",
       },
       {
-        name: "Sistema de gestão multi-tenant — Tech Lead",
+        name: "Sistema de gestão de campanhas — Desenvolvedor (trabalho voluntário)",
         description:
-          "Plataforma de campanhas e gestão financeira em Next.js + Rust com arquitetura multi-tenant; redução de 100% do custo fixo de cloud (USD 16 -> USD 0) e migração para VPS autogerenciada.",
+          "Plataforma de campanhas e gestão financeira em Next.js + Rust com arquitetura multi-tenant, mantida como serviço voluntário; redução de 100% do custo fixo de cloud (USD 16 -> USD 0) e migração para VPS autogerenciada.",
       },
       {
         name: "codemode-cli — Open source",
@@ -249,9 +249,9 @@ export const cv: Record<"pt" | "en", CvData> = {
         link: "divinapay.com",
       },
       {
-        name: "Multi-tenant management system — Tech Lead",
+        name: "Campaign management system — Developer (volunteer work)",
         description:
-          "Campaign and financial-management platform in Next.js + Rust with multi-tenant architecture; cut fixed cloud costs by 100% (USD 16 -> USD 0) and migrated to self-managed VPS infrastructure.",
+          "Campaign and financial-management platform in Next.js + Rust with multi-tenant architecture, maintained as volunteer work; cut fixed cloud costs by 100% (USD 16 -> USD 0) and migrated to self-managed VPS infrastructure.",
       },
       {
         name: "codemode-cli — Open source",
