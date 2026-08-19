@@ -56,7 +56,7 @@ const allProjectsList: (Project & { highlightMetric: string; highlightLabel: str
     id: "church-management",
     title: "Sistema de Gestão & Multi-tenant",
     category: "Gestão Financeira & SaaS",
-    role: "Tech Lead & Gestor Financeiro",
+    role: "Desenvolvedor (Voluntário)",
     period: "2023/03 - Presente",
     description: "Sistema completo de campanhas e gestão financeira com evolução de Flutter para Next.js + Rust, implementando arquitetura multi-tenant isolada e otimização total de custos de infraestrutura.",
     impact: "Redução de 100% nos custos fixos de cloud (USD 16 → USD 0) na plataforma Railway com Rust + PostgreSQL, migrando para infraestrutura VPS autogerenciada no Brasil com Coolify.",

@@ -18,7 +18,7 @@
       "id": "church-management",
       "title": "Sistema de Gerenciamento para Igrejas",
       "category": "Gestão Financeira",
-      "role": "Gestor Financeiro",
+      "role": "Desenvolvedor Voluntário",
       "period": "2023/03 - Presente",
       "description": "Sistema de gerenciamento de campanhas com evolução de Flutter para Next.js + Rust, implementando arquitetura multi-tenant e otimização de infraestrutura.",
       "impact": "Redução de 100% nos custos (USD 16 → USD 0) na plataforma Railway com o uso do Rust e PostgreSQL. Atualmente estou em processo de migração para VPS no Brasil com Coolify para aumentar a velocidade de resposta e implementação de multi-tenant.",
