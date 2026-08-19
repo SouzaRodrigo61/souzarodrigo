@@ -9,6 +9,16 @@ const nextConfig: NextConfig = {
   // Configurações de produção
   productionBrowserSourceMaps: false,
   
+  async redirects() {
+    return [
+      {
+        source: '/Rodrigo_Santos_de_Souza_-_Software_Engineer.pdf',
+        destination: '/cv/pt',
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {

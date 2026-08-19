@@ -355,14 +355,13 @@ export default function Home() {
                 </a>
 
                 <a
-                  href="/Rodrigo_Santos_de_Souza_-_Software_Engineer.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/cv/pt"
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/80 dark:bg-zinc-900/80 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm font-medium border border-black/10 dark:border-white/10 transition-all active:scale-[0.98]"
                 >
                   <IconDownload className="w-4 h-4 text-zinc-600 dark:text-zinc-400" />
                   <span>Baixar CV (PDF)</span>
                 </a>
+                <a href="/cv/en" className="text-xs font-mono text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">English CV</a>
               </div>
 
               {/* Quick Contacts & Local Clock */}
@@ -919,14 +918,13 @@ export default function Home() {
                 </a>
 
                 <a
-                  href="/Rodrigo_Santos_de_Souza_-_Software_Engineer.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/cv/pt"
                   className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 font-medium text-sm border border-black/10 dark:border-white/10 transition-all active:scale-95"
                 >
                   <IconDownload className="w-4 h-4 text-zinc-600 dark:text-zinc-400" />
                   <span>Baixar CV (PDF)</span>
                 </a>
+                <a href="/cv/en" className="text-xs font-mono text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">English CV</a>
               </div>
 
               <button
