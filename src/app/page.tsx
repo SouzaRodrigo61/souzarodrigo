@@ -87,6 +87,12 @@ const skillPillars = [
     badges: ["Swift 5.5+", "SwiftUI", "Combine", "UIKit / XIB", "TCA", "Diffable DS", "Apple Wallet", "VoiceOver a11y", "Flutter 3.31+", "React Native"]
   },
   {
+    icon: <IconCpu className="w-5 h-5 text-violet-600 dark:text-violet-400" />,
+    title: "AI Agents & Token Economy",
+    description: "Pesquisa aplicada em tooling de agentes: programmatic tool calling (codemode-cli) e compressão de contexto de shell (RTK). Ganhos medidos no uso diário: 3.813 tool-calls evitadas em 279 execuções do codemode; 91% de corte de output em 17,8 mil comandos via RTK.",
+    badges: ["codemode-cli", "Rhai", "RTK", "Programmatic tool calling", "Sandbox", "Token reduction"]
+  },
+  {
     icon: <IconServer className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />,
     title: "High-Performance Systems & Rust",
     description: "Desenvolvimento de microsserviços de altíssimo throughput, baixa latência e consumo mínimo de memória para processamento financeiro e APIs multi-tenant.",
@@ -109,11 +115,19 @@ const skillPillars = [
 const openSourceProjects = [
   {
     title: "codemode-cli",
-    description: "Code mode / programmatic tool calling para agentes de IA em um único binário Rust: um script Rhai sandboxed substitui N tool-calls por 1. Medido em tarefa real: 6 tool-calls → 1 (83% de redução de chamadas). Sem MCP, sem processo residente.",
+    description: "Code mode / programmatic tool calling em um binário Rust: um script Rhai sandboxed substitui N tool-calls por 1. Sem MCP, sem processo residente. Medido: 6 → 1 (83%). Em uso real: 279 execuções, 3.813 tool-calls evitadas, 68% das rodadas colapsam 3+ primitivas.",
     stars: 0,
     forks: 0,
     tech: ["Rust", "Rhai", "AI Agents", "Sandbox"],
     link: "https://github.com/SouzaRodrigo61/codemode-cli"
+  },
+  {
+    title: "rtk",
+    description: "Proxy CLI que corta até 90% do output de shell lido pelo agente. Fork público; filtros embutidos in-process no codemode-cli. Uso em produção: 17,8 mil comandos, 91% de redução de output.",
+    stars: 0,
+    forks: 0,
+    tech: ["Rust", "CLI", "Token economy", "AI Agents"],
+    link: "https://github.com/SouzaRodrigo61/rtk"
   },
   {
     title: "SwiftDataTCA",

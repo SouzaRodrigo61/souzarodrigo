@@ -55,7 +55,7 @@ export const cv: Record<"pt" | "en", CvData> = {
     location: "Brasília, DF, Brasil",
     contacts: CONTACTS,
     summary:
-      "Engenheiro de software sênior com 10+ anos em aplicações de missão crítica para instituições financeiras (Caixa, Banco do Brasil, PagSeguro) e fintechs. Especialista em mobile nativo e multiplataforma (Swift/SwiftUI, Flutter, React Native) e em backends de alta performance em Rust, Node.js, Java Spring e Quarkus. Experiência recente com .NET em fintech. Histórico de entregas ponta a ponta: do funil de crédito digital com biometria antifraude ao processamento de R$ 2M+ em pagamentos cashless.",
+      "Engenheiro de software sênior com 10+ anos em aplicações de missão crítica para instituições financeiras (Caixa, Banco do Brasil, PagSeguro) e fintechs. Especialista em mobile nativo e multiplataforma (Swift/SwiftUI, Flutter, React Native) e em backends de alta performance em Rust, Node.js, Java Spring e Quarkus. Pesquisa aplicada em tooling de agentes de IA (autor do codemode-cli; RTK em produção). Experiência recente com .NET em fintech. Histórico de entregas ponta a ponta: do funil de crédito digital com biometria antifraude ao processamento de R$ 2M+ em pagamentos cashless.",
     sections: {
       experience: "Experiência Profissional",
       projects: "Projetos Selecionados",
@@ -69,7 +69,7 @@ export const cv: Record<"pt" | "en", CvData> = {
         company: "Vale Consignado (fintech de crédito consignado)",
         period: "02/2026 – presente",
         bullets: [
-          "Construí do zero o funil de crédito consignado CLT no app Flutter (435 commits): simulação, biometria/documentoscopia antifraude, OTP, assinatura eletrônica e desembolso, com retomada de jornada interrompida.",
+          "Construí do zero o funil de crédito consignado CLT no app Flutter: simulação, biometria/documentoscopia antifraude, OTP, assinatura eletrônica e desembolso, com retomada de jornada interrompida.",
           "Consolidei a orquestração da Home (múltiplos pollers e cubits) em arquitetura única com BLoC + restartable(), eliminando condições de corrida e bugs de produção (tela branca, polling concorrente).",
           "Desenvolvi o SDK white-label React Native para parceiros (modelo B2B2C): publicação npm com Trusted Publishing (OIDC), criptografia de CPF ponta a ponta (RSA-OAEP + HMAC-SHA256) e kill switch remoto por feature flag.",
           "Implementei observabilidade com Datadog (RUM + Logs) em Flutter e React Native, com 100% de cobertura de testes nos módulos críticos de telemetria, cache e feature flags.",
@@ -141,8 +141,14 @@ export const cv: Record<"pt" | "en", CvData> = {
       {
         name: "codemode-cli — Open source",
         description:
-          "Binário Rust de programmatic tool calling para agentes de IA: um script Rhai sandboxed substitui N tool-calls por 1 (medido: 6 -> 1, redução de 83%).",
+          "Binário Rust de programmatic tool calling para agentes de IA: um script Rhai sandboxed substitui N tool-calls por 1, sem MCP e sem processo residente. Medido em tarefa real: 6 -> 1 (83%). Em uso real: 279 execuções, 3.813 tool-calls evitadas (68% das rodadas colapsam 3+ primitivas).",
         link: "github.com/SouzaRodrigo61/codemode-cli",
+      },
+      {
+        name: "rtk — Open source (fork público)",
+        description:
+          "Proxy CLI que comprime output de shell antes de entrar no contexto do agente; filtros também embutidos in-process no codemode-cli. Em produção: 17,8 mil comandos, 91% de redução de output.",
+        link: "github.com/SouzaRodrigo61/rtk",
       },
     ],
     education: [
@@ -160,6 +166,7 @@ export const cv: Record<"pt" | "en", CvData> = {
     skills: [
       { group: "Mobile", items: "Swift, SwiftUI, Combine, UIKit, TCA, Flutter, Dart, BLoC, React Native, TypeScript" },
       { group: "Backend", items: "Rust (Axum/Salvo), Node.js, Java (Spring, Quarkus), PostgreSQL, MongoDB, Supabase, .NET Core (atuação recente)" },
+      { group: "IA / Agentes", items: "codemode-cli (Rhai, programmatic tool calling), RTK, sandboxing, redução de contexto em agentes" },
       { group: "Infra & Qualidade", items: "Docker, Kubernetes, GitHub Actions, Bitrise, Datadog (RUM/Logs), OpenFeature, Maestro e2e, testes unitários" },
     ],
     languages: ["Português (nativo)", "Inglês (intermediário)"],
@@ -170,7 +177,7 @@ export const cv: Record<"pt" | "en", CvData> = {
     location: "Brasília, Brazil",
     contacts: CONTACTS,
     summary:
-      "Senior software engineer with 10+ years building mission-critical applications for financial institutions (Caixa, Banco do Brasil, PagSeguro) and fintechs. Specialist in native and cross-platform mobile (Swift/SwiftUI, Flutter, React Native) and high-performance backends in Rust, Node.js, Java Spring and Quarkus. Recent .NET experience in a fintech context. Track record of end-to-end delivery: from a digital credit funnel with anti-fraud biometrics to processing R$ 2M+ (BRL) in cashless payments.",
+      "Senior software engineer with 10+ years building mission-critical applications for financial institutions (Caixa, Banco do Brasil, PagSeguro) and fintechs. Specialist in native and cross-platform mobile (Swift/SwiftUI, Flutter, React Native) and high-performance backends in Rust, Node.js, Java Spring and Quarkus. Applied research in AI-agent tooling (author of codemode-cli; RTK in production). Recent .NET experience in a fintech context. Track record of end-to-end delivery: from a digital credit funnel with anti-fraud biometrics to processing R$ 2M+ (BRL) in cashless payments.",
     sections: {
       experience: "Professional Experience",
       projects: "Selected Projects",
@@ -184,7 +191,7 @@ export const cv: Record<"pt" | "en", CvData> = {
         company: "Vale Consignado (payroll-loan fintech)",
         period: "02/2026 – present",
         bullets: [
-          "Built the payroll-loan credit funnel from scratch in the main Flutter app (435 commits): simulation, anti-fraud biometrics/document verification, OTP, e-signature and disbursement, with interrupted-journey resumption.",
+          "Built the payroll-loan credit funnel from scratch in the main Flutter app: simulation, anti-fraud biometrics/document verification, OTP, e-signature and disbursement, with interrupted-journey resumption.",
           "Consolidated home-screen orchestration (multiple pollers and cubits) into a single BLoC + restartable() architecture, eliminating race conditions and production bugs (blank screen, concurrent polling).",
           "Developed the white-label React Native SDK for partners (B2B2C model): npm Trusted Publishing (OIDC), end-to-end document encryption (RSA-OAEP + HMAC-SHA256) and remote feature-flag kill switch.",
           "Implemented observability with Datadog (RUM + Logs) across Flutter and React Native, with 100% test coverage in critical telemetry, cache and feature-flag modules.",
@@ -256,8 +263,14 @@ export const cv: Record<"pt" | "en", CvData> = {
       {
         name: "codemode-cli — Open source",
         description:
-          "Rust binary for programmatic tool calling in AI agents: one sandboxed Rhai script replaces N tool calls (measured: 6 -> 1, an 83% reduction).",
+          "Rust binary for programmatic tool calling in AI agents: one sandboxed Rhai script replaces N tool calls, with no MCP and no resident process. Measured on a real task: 6 -> 1 (83%). In real use: 279 runs, 3,813 tool-calls avoided (68% of runs collapse 3+ primitives).",
         link: "github.com/SouzaRodrigo61/codemode-cli",
+      },
+      {
+        name: "rtk — Open source (public fork)",
+        description:
+          "CLI proxy that compresses shell output before it enters the agent context; filters also embedded in-process in codemode-cli. In production: 17.8k commands, 91% output reduction.",
+        link: "github.com/SouzaRodrigo61/rtk",
       },
     ],
     education: [
@@ -275,6 +288,7 @@ export const cv: Record<"pt" | "en", CvData> = {
     skills: [
       { group: "Mobile", items: "Swift, SwiftUI, Combine, UIKit, TCA, Flutter, Dart, BLoC, React Native, TypeScript" },
       { group: "Backend", items: "Rust (Axum/Salvo), Node.js, Java (Spring, Quarkus), PostgreSQL, MongoDB, Supabase, .NET Core (recent)" },
+      { group: "AI / Agents", items: "codemode-cli (Rhai, programmatic tool calling), RTK, sandboxing, agent-context reduction" },
       { group: "Infra & Quality", items: "Docker, Kubernetes, GitHub Actions, Bitrise, Datadog (RUM/Logs), OpenFeature, Maestro e2e, unit testing" },
     ],
     languages: ["Portuguese (native)", "English (intermediate)"],
