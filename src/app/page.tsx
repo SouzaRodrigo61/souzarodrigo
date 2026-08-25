@@ -42,13 +42,13 @@ const allProjectsList: (Project & { highlightMetric: string; highlightLabel: str
     role: "Sócio Desenvolvedor",
     period: "2024/01 - Presente",
     description: "Plataforma completa para gestão e pagamentos cashless em eventos de grande porte. Aplicativo móvel moderno em Flutter 3.31+, backend de alta performance em Rust (Axum e Salvo.rs), banco PostgreSQL via Supabase e frontend operacional em Svelte 5.",
-    impact: "Processou mais de R$ 6 milhões em transações, atendendo mais de 30 eventos com elevados picos de usuários simultâneos e zero tolerância a downtime.",
+    impact: "Processou mais de R$ 2 milhões em transações, atendendo mais de 30 eventos com elevados picos de usuários simultâneos e zero tolerância a downtime.",
     technologies: ["Flutter 3.31+", "Rust", "Axum", "PostgreSQL", "Supabase", "Svelte 5", "Coolify"],
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3",
     link: "https://divinapay.com",
     hasHeroModal: true,
     markdownFile: "divinapay.md",
-    highlightMetric: "R$ 6M+",
+    highlightMetric: "R$ 2M+",
     highlightLabel: "Volume em Eventos",
     type: "fintech"
   },
@@ -333,7 +333,7 @@ export default function Home() {
 
               <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
                 Mais de 10 anos construindo aplicações de alta complexidade e missão crítica. 
-                Atualmente em uma <strong>fintech de crédito consignado</strong> (Flutter, React Native e .NET),
+                Atualmente em uma <strong>fintech de crédito consignado</strong> (Flutter e React Native),
                 com passagens por <strong>Loterias Caixa iOS</strong> (Caixa Econômica Federal), <strong>Banco do Brasil</strong>, <strong>PagSeguro</strong> (Saque FGTS) e <strong>NaturaPay</strong>.
               </p>
 
@@ -351,12 +351,13 @@ export default function Home() {
 
                 <a
                   href="/cv/pt"
+                  download="Rodrigo-Santos-de-Souza-CV-PT.pdf"
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/80 dark:bg-zinc-900/80 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm font-medium border border-black/10 dark:border-white/10 transition-all active:scale-[0.98]"
                 >
                   <IconDownload className="w-4 h-4 text-zinc-600 dark:text-zinc-400" />
                   <span>Baixar CV (PDF)</span>
                 </a>
-                <a href="/cv/en" className="text-xs font-mono text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">English CV</a>
+                <a href="/cv/en" download="Rodrigo-Santos-de-Souza-CV-EN.pdf" className="text-xs font-mono text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">English CV</a>
               </div>
 
               {/* Quick Contacts & Local Clock */}
@@ -414,7 +415,7 @@ export default function Home() {
                   {/* Highlight Metrics */}
                   <div className="grid grid-cols-2 gap-3">
                     <div className="p-3.5 rounded-2xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-black/10 dark:border-white/5">
-                      <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono">R$ 6M+</div>
+                      <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono">R$ 2M+</div>
                       <div className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">Transações Processadas</div>
                       <div className="text-[10px] text-zinc-500 font-mono mt-1">DivinaPay Cashless</div>
                     </div>
@@ -432,7 +433,7 @@ export default function Home() {
                       <span className="text-emerald-600 dark:text-emerald-400">10+ Anos Exp</span>
                     </div>
                     <p className="text-xs font-mono text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                      Swift 5.5+, Combine, SwiftUI, TCA, Rust Axum, PostgreSQL, Flutter, Kubernetes
+                      Swift, Flutter, React Native, Rust, Node.js, Java Spring/Quarkus, PostgreSQL, Kubernetes
                     </p>
                   </div>
 
@@ -896,12 +897,13 @@ export default function Home() {
 
                 <a
                   href="/cv/pt"
+                  download="Rodrigo-Santos-de-Souza-CV-PT.pdf"
                   className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 font-medium text-sm border border-black/10 dark:border-white/10 transition-all active:scale-95"
                 >
                   <IconDownload className="w-4 h-4 text-zinc-600 dark:text-zinc-400" />
                   <span>Baixar CV (PDF)</span>
                 </a>
-                <a href="/cv/en" className="text-xs font-mono text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">English CV</a>
+                <a href="/cv/en" download="Rodrigo-Santos-de-Souza-CV-EN.pdf" className="text-xs font-mono text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">English CV</a>
               </div>
 
               <button

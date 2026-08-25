@@ -55,7 +55,7 @@ export const cv: Record<"pt" | "en", CvData> = {
     location: "Brasília, DF, Brasil",
     contacts: CONTACTS,
     summary:
-      "Engenheiro de software sênior com 10+ anos em aplicações de missão crítica para instituições financeiras (Caixa, Banco do Brasil, PagSeguro) e fintechs. Especialista em mobile nativo e multiplataforma (Swift/SwiftUI, Flutter, React Native) e em backends de alta performance em Rust e .NET. Histórico de entregas ponta a ponta: do funil de crédito digital com biometria antifraude ao processamento de R$ 6M+ em pagamentos cashless.",
+      "Engenheiro de software sênior com 10+ anos em aplicações de missão crítica para instituições financeiras (Caixa, Banco do Brasil, PagSeguro) e fintechs. Especialista em mobile nativo e multiplataforma (Swift/SwiftUI, Flutter, React Native) e em backends de alta performance em Rust, Node.js, Java Spring e Quarkus. Experiência recente com .NET em fintech. Histórico de entregas ponta a ponta: do funil de crédito digital com biometria antifraude ao processamento de R$ 2M+ em pagamentos cashless.",
     sections: {
       experience: "Experiência Profissional",
       projects: "Projetos Selecionados",
@@ -130,7 +130,7 @@ export const cv: Record<"pt" | "en", CvData> = {
       {
         name: "DivinaPay (Divina Cashless) — Sócio Desenvolvedor",
         description:
-          "Plataforma de pagamentos cashless para eventos: app Flutter, backend Rust (Axum/Salvo) e PostgreSQL. Processou R$ 6M+ em transações em 30+ eventos, com picos elevados de usuários simultâneos.",
+          "Plataforma de pagamentos cashless para eventos: app Flutter, backend Rust (Axum/Salvo) e PostgreSQL. Processou R$ 2M+ em transações em 30+ eventos, com picos elevados de usuários simultâneos.",
         link: "divinapay.com",
       },
       {
@@ -159,7 +159,7 @@ export const cv: Record<"pt" | "en", CvData> = {
     ],
     skills: [
       { group: "Mobile", items: "Swift, SwiftUI, Combine, UIKit, TCA, Flutter, Dart, BLoC, React Native, TypeScript" },
-      { group: "Backend", items: "Rust (Axum/Salvo), .NET Core, C#, Node.js, Java Quarkus, PostgreSQL, MongoDB, Supabase" },
+      { group: "Backend", items: "Rust (Axum/Salvo), Node.js, Java (Spring, Quarkus), PostgreSQL, MongoDB, Supabase, .NET Core (atuação recente)" },
       { group: "Infra & Qualidade", items: "Docker, Kubernetes, GitHub Actions, Bitrise, Datadog (RUM/Logs), OpenFeature, Maestro e2e, testes unitários" },
     ],
     languages: ["Português (nativo)", "Inglês (intermediário)"],
@@ -170,7 +170,7 @@ export const cv: Record<"pt" | "en", CvData> = {
     location: "Brasília, Brazil",
     contacts: CONTACTS,
     summary:
-      "Senior software engineer with 10+ years building mission-critical applications for financial institutions (Caixa, Banco do Brasil, PagSeguro) and fintechs. Specialist in native and cross-platform mobile (Swift/SwiftUI, Flutter, React Native) and high-performance backends in Rust and .NET. Track record of end-to-end delivery: from a digital credit funnel with anti-fraud biometrics to processing R$ 6M+ (BRL) in cashless payments.",
+      "Senior software engineer with 10+ years building mission-critical applications for financial institutions (Caixa, Banco do Brasil, PagSeguro) and fintechs. Specialist in native and cross-platform mobile (Swift/SwiftUI, Flutter, React Native) and high-performance backends in Rust, Node.js, Java Spring and Quarkus. Recent .NET experience in a fintech context. Track record of end-to-end delivery: from a digital credit funnel with anti-fraud biometrics to processing R$ 2M+ (BRL) in cashless payments.",
     sections: {
       experience: "Professional Experience",
       projects: "Selected Projects",
@@ -245,7 +245,7 @@ export const cv: Record<"pt" | "en", CvData> = {
       {
         name: "DivinaPay (Divina Cashless) — Founding Developer",
         description:
-          "Cashless payments platform for live events: Flutter app, Rust backend (Axum/Salvo) and PostgreSQL. Processed R$ 6M+ (BRL) across 30+ events with high concurrent-user peaks.",
+          "Cashless payments platform for live events: Flutter app, Rust backend (Axum/Salvo) and PostgreSQL. Processed R$ 2M+ (BRL) across 30+ events with high concurrent-user peaks.",
         link: "divinapay.com",
       },
       {
@@ -274,7 +274,7 @@ export const cv: Record<"pt" | "en", CvData> = {
     ],
     skills: [
       { group: "Mobile", items: "Swift, SwiftUI, Combine, UIKit, TCA, Flutter, Dart, BLoC, React Native, TypeScript" },
-      { group: "Backend", items: "Rust (Axum/Salvo), .NET Core, C#, Node.js, Java Quarkus, PostgreSQL, MongoDB, Supabase" },
+      { group: "Backend", items: "Rust (Axum/Salvo), Node.js, Java (Spring, Quarkus), PostgreSQL, MongoDB, Supabase, .NET Core (recent)" },
       { group: "Infra & Quality", items: "Docker, Kubernetes, GitHub Actions, Bitrise, Datadog (RUM/Logs), OpenFeature, Maestro e2e, unit testing" },
     ],
     languages: ["Portuguese (native)", "English (intermediate)"],

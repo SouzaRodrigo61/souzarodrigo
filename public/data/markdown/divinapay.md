@@ -44,7 +44,7 @@ Plataforma completa para gestão e pagamentos em eventos, desenvolvida com tecno
 ## Impacto nos Negócios
 
 ### Métricas de Sucesso
-- **Volume**: R$ 6+ milhões processados
+- **Volume**: R$ 2+ milhões processados
 - **Eventos**: 30+ eventos atendidos
 - **Usuários**: 80.000+ pessoas atendidas
 - **Satisfação**: +97% satisfação dos clientes

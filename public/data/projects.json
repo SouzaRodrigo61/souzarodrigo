@@ -7,7 +7,7 @@
       "role": "Sócio Desenvolvedor",
       "period": "2024/01 - Presente",
       "description": "Plataforma para Gestão e Pagamentos em Eventos. Sistema moderno desenvolvido com Flutter 3.31+, backend robusto em Rust (Axum e Salvo.rs), PostgreSQL via Supabase e frontend interativo em Svelte 5.",
-      "impact": "Processou mais de R$ 6 milhões em transações, atendendo mais de 30 eventos com elevados picos de usuários concorrentes.",
+      "impact": "Processou mais de R$ 2 milhões em transações, atendendo mais de 30 eventos com elevados picos de usuários concorrentes.",
       "technologies": ["Flutter 3.31+", "Rust", "PostgreSQL", "Svelte 5", "Coolify"],
       "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "link": "https://divinapay.com",

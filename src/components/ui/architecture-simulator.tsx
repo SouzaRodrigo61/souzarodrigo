@@ -78,7 +78,7 @@ const architectures: SystemArchitecture[] = [
     icon: <IconServer className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />,
     tag: "Rust • Axum • PostgreSQL",
     metrics: [
-      { label: "Volume Processado", value: "R$ 6M+" },
+      { label: "Volume Processado", value: "R$ 2M+" },
       { label: "Latência Média", value: "0.8 ms" },
       { label: "Concorrência", value: "Zero Lock" }
     ],
