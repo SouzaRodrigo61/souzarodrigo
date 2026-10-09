@@ -38,6 +38,23 @@ import { ArchitectureSimulator } from "@/components/ui/architecture-simulator"
 
 const allProjectsList: (Project & { highlightMetric: string; highlightLabel: string; type: "mobile" | "backend" | "fintech" })[] = [
   {
+    id: "kernos",
+    title: "Kernos — WMS no celular",
+    category: "WMS para Distribuidoras",
+    role: "Fundador e Desenvolvedor",
+    period: "2026 - Presente",
+    description: "WMS sem coletor, no celular da equipe e ao lado do ERP, para distribuidoras de Brasília e entorno: endereçamento, recebimento pela nota e separação conferida. Backend em Rust (axum) com uma crate por feature, Postgres com schema por empresa e webapp React, construído com um harness de agentes de IA.",
+    impact: "Isolamento entre empresas garantido em uma camada só e provado por teste de integração que sobe o binário; 29 crates, uma por feature. Em piloto, ainda sem base de clientes.",
+    technologies: ["Rust", "Axum", "PostgreSQL multi-tenant", "React", "Clerk", "MCP", "Cloudflare Workers"],
+    image: "/data/markdown/media/kernos-etiqueta.svg",
+    link: "https://kernos.com.br",
+    hasHeroModal: true,
+    markdownFile: "kernos.md",
+    highlightMetric: "29 crates",
+    highlightLabel: "Uma por feature, em Rust",
+    type: "backend"
+  },
+  {
     id: "divinapay",
     title: "DivinaPay (Divina Cashless)",
     category: "Plataforma de Pagamentos em Eventos",
@@ -390,6 +407,7 @@ export default function Home() {
                   layoutId={`project-${index}`}
                   onClick={() => handleOpenItem(project, `project-${index}`)}
                   className="group cursor-pointer"
+                  style={project.id === "kernos" ? { gridColumn: "1 / -1" } : undefined}
                 >
                   <div className="h-full rounded-3xl p-px border border-black/10 dark:border-white/10 bg-white dark:bg-[#0b0b0e] hover:border-emerald-500/40 transition-all duration-300">
                     <div className="h-full rounded-[calc(1.5rem-1px)] bg-transparent p-6 flex flex-col justify-between space-y-6 group-hover:bg-white/95 dark:group-hover:bg-zinc-900/95 transition-colors">
