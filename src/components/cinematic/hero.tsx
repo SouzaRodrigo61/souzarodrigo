@@ -162,6 +162,9 @@ export function CinematicHero() {
           <a href="/cv/en" download="Rodrigo-Santos-de-Souza-CV-EN.pdf" className="font-mono text-xs text-zinc-500 transition hover:text-emerald-300">
             English CV
           </a>
+          <a href="#kernos" className="font-mono text-xs text-emerald-300/80 transition hover:text-emerald-200">
+            Kernos, meu produto ↓
+          </a>
         </motion.div>
       </motion.div>
 

@@ -32,6 +32,7 @@ import { HeroModal } from "@/components/ui/hero-modal"
 import { useProjectStore, Project, Experience } from "@/lib/store"
 import { CinematicHero } from "@/components/cinematic/hero"
 import { Harness } from "@/components/cinematic/harness"
+import { KernosShowcase } from "@/components/cinematic/kernos"
 import { CreditsStrip, RevealSection, ScrollProgress } from "@/components/cinematic/scene"
 import { ArchitectureSimulator } from "@/components/ui/architecture-simulator"
 
@@ -250,13 +251,13 @@ export default function Home() {
           <div className="hidden md:flex items-center gap-4 lg:gap-5 text-xs font-mono whitespace-nowrap text-zinc-600 dark:text-zinc-400">
             <a href="#sobre" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Sobre</a>
             <a href="#harness" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Harness</a>
+            <a href="#kernos" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Kernos</a>
             <a href="#projetos" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Projetos</a>
             <a href="#experiencia" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Trajetória</a>
             <a href="#arquitetura" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Simulador</a>
             <a href="#opensource" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Open Source</a>
             <a href="/consultoria" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Consultoria</a>
-            <a href="https://kernos.com.br" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Kernos ↗</a>
-          </div>
+                      </div>
 
           {/* Right Action */}
           <div className="flex items-center gap-2">
@@ -329,6 +330,7 @@ export default function Home() {
 
       <CinematicHero />
       <Harness />
+      <KernosShowcase />
 
       {/* Main Container */}
       <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-20 pb-32 space-y-24 md:space-y-36">
@@ -342,7 +344,7 @@ export default function Home() {
         <RevealSection id="projetos" className="space-y-8 scroll-mt-24">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-black/10 dark:border-white/10">
             <div>
-              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 03 · Engenharia aplicada</div>
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 04 · Engenharia aplicada</div>
               <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-950 dark:text-zinc-50">Projetos <span className="font-serif font-normal italic text-emerald-700 dark:text-emerald-200">de destaque</span></h2>
             </div>
 
@@ -456,7 +458,7 @@ export default function Home() {
               <div className="grid lg:grid-cols-12 gap-10 items-center">
                 
                 <div className="lg:col-span-7 space-y-6">
-                  <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 04 · Perfil</div>
+                  <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 05 · Perfil</div>
                   <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-950 dark:text-zinc-50">
                     Rigor de banco, <span className="font-serif font-normal italic text-emerald-700 dark:text-emerald-200">velocidade de agente.</span>
                   </h2>
@@ -512,7 +514,7 @@ export default function Home() {
         <RevealSection id="experiencia" className="space-y-8 scroll-mt-24">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-black/10 dark:border-white/10">
             <div>
-              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 05 · Histórico</div>
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 06 · Histórico</div>
               <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-950 dark:text-zinc-50">Trajetória <span className="font-serif font-normal italic text-emerald-700 dark:text-emerald-200">& experiências</span></h2>
             </div>
             <p className="text-sm text-zinc-600 dark:text-zinc-400 max-w-md">
@@ -584,7 +586,7 @@ export default function Home() {
         <RevealSection className="space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-black/10 dark:border-white/10">
             <div>
-              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 06 · Domínio técnico</div>
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 07 · Domínio técnico</div>
               <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-950 dark:text-zinc-50">Pilares <span className="font-serif font-normal italic text-emerald-700 dark:text-emerald-200">de engenharia</span></h2>
             </div>
             <p className="text-sm text-zinc-600 dark:text-zinc-400 max-w-md">
@@ -622,7 +624,7 @@ export default function Home() {
         <RevealSection id="opensource" className="space-y-8 scroll-mt-24">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-black/10 dark:border-white/10">
             <div>
-              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 07 · Comunidade e pesquisa</div>
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 08 · Comunidade e pesquisa</div>
               <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-950 dark:text-zinc-50">Projetos <span className="font-serif font-normal italic text-emerald-700 dark:text-emerald-200">open source</span></h2>
             </div>
             <a 
@@ -691,7 +693,7 @@ export default function Home() {
         <RevealSection id="formacao" className="space-y-8 scroll-mt-24">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-black/10 dark:border-white/10">
             <div>
-              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 08 · Fundamentação</div>
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 09 · Fundamentação</div>
               <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-950 dark:text-zinc-50">Formação <span className="font-serif font-normal italic text-emerald-700 dark:text-emerald-200">& especializações</span></h2>
             </div>
           </div>
@@ -730,7 +732,7 @@ export default function Home() {
           <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0b0b0e] px-6 py-16 text-center md:px-14 md:py-24">
             <div aria-hidden className="pointer-events-none absolute left-1/2 top-0 h-72 w-[700px] -translate-x-1/2 rounded-full bg-emerald-500/15 blur-[120px]" />
             <div className="relative space-y-8">
-              <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-300/80">Cena 09 · Créditos</div>
+              <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-300/80">Cena 10 · Créditos</div>
               <h2 className="mx-auto max-w-3xl text-[clamp(2.2rem,5.6vw,4.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-50">
                 Fim da primeira cena. <span className="font-serif font-normal italic text-emerald-200">Vamos para a segunda?</span>
               </h2>
