@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 
@@ -13,10 +13,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+});
+
 const SITE_URL = "https://souzarodrigo.com.br";
-const TITLE = "Rodrigo Souza — Senior Software Engineer | iOS, Mobile & Sistemas Distribuídos";
+const TITLE = "Rodrigo Souza — Senior Software Engineer | Mobile em Fintech & Engenharia AI-first";
 const DESCRIPTION =
-  "Engenheiro de software sênior em Brasília com 10+ anos em apps de missão crítica: Loterias Caixa iOS, fintech de crédito consignado (Flutter/React Native), Banco do Brasil, PagSeguro. Swift, Flutter, Rust e sistemas distribuídos.";
+  "Engenheiro de software sênior em Brasília com 10+ anos em apps de missão crítica: Loterias Caixa iOS, fintech de crédito consignado (Flutter/React Native), Banco do Brasil, PagSeguro. Swift, Flutter, Rust e engenharia AI-first com agentes de IA.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -102,7 +109,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans bg-background text-foreground antialiased selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:text-emerald-300 min-h-screen relative`}
+        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} font-sans bg-background text-foreground antialiased selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:text-emerald-300 min-h-screen relative`}
       >
         <script
           type="application/ld+json"

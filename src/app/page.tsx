@@ -12,7 +12,6 @@ import {
   IconDeviceMobile,
   IconServer,
   IconCloud,
-  IconTerminal2,
   IconCpu,
   IconSparkles,
   IconBuildingBank,
@@ -27,11 +26,12 @@ import {
   IconGitFork,
   IconMenu2,
   IconX,
-  IconClock,
   IconFilter
 } from "@tabler/icons-react"
 import { HeroModal } from "@/components/ui/hero-modal"
 import { useProjectStore, Project, Experience } from "@/lib/store"
+import { CinematicHero } from "@/components/cinematic/hero"
+import { Harness } from "@/components/cinematic/harness"
 import { ArchitectureSimulator } from "@/components/ui/architecture-simulator"
 
 const allProjectsList: (Project & { highlightMetric: string; highlightLabel: string; type: "mobile" | "backend" | "fintech" })[] = [
@@ -185,30 +185,12 @@ export default function Home() {
   const [copiedEmail, setCopiedEmail] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [projectFilter, setProjectFilter] = useState<"all" | "fintech" | "backend">("all")
-  const [currentTime, setCurrentTime] = useState<string>("")
 
   const { experiences, loadProjectData } = useProjectStore()
 
   useEffect(() => {
     loadProjectData()
   }, [loadProjectData])
-
-  // Real-time Brasília Clock
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date()
-      const formatter = new Intl.DateTimeFormat("pt-BR", {
-        timeZone: "America/Sao_Paulo",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-      })
-      setCurrentTime(formatter.format(now))
-    }
-    updateTime()
-    const timer = setInterval(updateTime, 1000)
-    return () => clearInterval(timer)
-  }, [])
 
   const handleOpenItem = (item: Project | Experience, layoutId: string) => {
     setSelectedItem(item)
@@ -246,30 +228,33 @@ export default function Home() {
               RS
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+              <span className="whitespace-nowrap text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                 Rodrigo Souza
               </span>
-              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono flex items-center gap-1.5">
+              <span className="whitespace-nowrap text-[10px] text-zinc-600 dark:text-zinc-400 font-mono flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-500 animate-pulse" />
-                Staff / Senior Software Engineer
+                Senior Software Engineer
               </span>
             </div>
           </a>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-6 text-xs font-mono text-zinc-600 dark:text-zinc-400">
+          <div className="hidden md:flex items-center gap-4 lg:gap-5 text-xs font-mono whitespace-nowrap text-zinc-600 dark:text-zinc-400">
             <a href="#sobre" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Sobre</a>
+            <a href="#harness" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Harness</a>
             <a href="#projetos" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Projetos</a>
             <a href="#experiencia" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Trajetória</a>
             <a href="#arquitetura" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Simulador</a>
             <a href="#opensource" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Open Source</a>
+            <a href="/consultoria" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Consultoria</a>
+            <a href="https://kernos.com.br" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Kernos ↗</a>
           </div>
 
           {/* Right Action */}
           <div className="flex items-center gap-2">
             <button
               onClick={handleCopyEmail}
-              className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300/80 dark:hover:bg-zinc-700/80 text-zinc-800 dark:text-zinc-200 text-xs font-mono border border-black/10 dark:border-white/10 transition-all active:scale-95 cursor-pointer"
+              className="hidden xl:inline-flex whitespace-nowrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300/80 dark:hover:bg-zinc-700/80 text-zinc-800 dark:text-zinc-200 text-xs font-mono border border-black/10 dark:border-white/10 transition-all active:scale-95 cursor-pointer"
             >
               {copiedEmail ? (
                 <>
@@ -317,6 +302,8 @@ export default function Home() {
               <a href="#experiencia" onClick={() => setMobileMenuOpen(false)} className="py-1 text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400">Trajetória</a>
               <a href="#arquitetura" onClick={() => setMobileMenuOpen(false)} className="py-1 text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400">Simulador</a>
               <a href="#opensource" onClick={() => setMobileMenuOpen(false)} className="py-1 text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400">Open Source</a>
+              <a href="/consultoria" onClick={() => setMobileMenuOpen(false)} className="py-1 text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400">Consultoria</a>
+              <a href="https://kernos.com.br" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="py-1 text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400">Kernos ↗</a>
               <button
                 onClick={() => {
                   handleCopyEmail()
@@ -332,139 +319,15 @@ export default function Home() {
         </AnimatePresence>
       </header>
 
+      <CinematicHero />
+      <Harness />
+
       {/* Main Container */}
       <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-20 pb-32 space-y-24 md:space-y-36">
         
-        {/* HERO SECTION */}
-        <section className="space-y-12">
-          <div className="grid lg:grid-cols-12 gap-10 items-center">
-            
-            {/* Left Hero Column */}
-            <div className="lg:col-span-7 space-y-6 text-left">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50 leading-[1.08]">
-                Arquiteturas mobile nativas e sistemas distribuídos em <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 dark:from-emerald-400 via-teal-600 dark:via-teal-300 to-cyan-600 dark:to-cyan-400">Rust & Swift</span>.
-              </h1>
-
-              <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
-                Mais de 10 anos construindo aplicações de alta complexidade e missão crítica. 
-                Atualmente em uma <strong>fintech de crédito consignado</strong> (Flutter e React Native),
-                com passagens por <strong>Loterias Caixa iOS</strong> (Caixa Econômica Federal), <strong>Banco do Brasil</strong>, <strong>PagSeguro</strong> (Saque FGTS) e <strong>NaturaPay</strong>.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap items-center gap-3 pt-2">
-                <a
-                  href="#projetos"
-                  className="group inline-flex items-center gap-3 px-6 py-3 rounded-full bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 font-semibold text-sm transition-all active:scale-[0.98] shadow-lg shadow-black/10 dark:shadow-white/5"
-                >
-                  <span>Explorar Casos de Estudo</span>
-                  <div className="w-6 h-6 rounded-full bg-zinc-100/40 dark:bg-zinc-900/10 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
-                    <IconArrowUpRight className="w-3.5 h-3.5" />
-                  </div>
-                </a>
-
-                <a
-                  href="/cv/pt"
-                  download="Rodrigo-Santos-de-Souza-CV-PT.pdf"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/80 dark:bg-zinc-900/80 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-sm font-medium border border-black/10 dark:border-white/10 transition-all active:scale-[0.98]"
-                >
-                  <IconDownload className="w-4 h-4 text-zinc-600 dark:text-zinc-400" />
-                  <span>Baixar CV (PDF)</span>
-                </a>
-                <a href="/cv/en" download="Rodrigo-Santos-de-Souza-CV-EN.pdf" className="text-xs font-mono text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">English CV</a>
-              </div>
-
-              {/* Quick Contacts & Local Clock */}
-              <div className="flex flex-wrap items-center gap-4 pt-4 text-xs font-mono text-zinc-600 dark:text-zinc-400">
-                <div className="flex items-center gap-1.5">
-                  <IconMapPin className="w-3.5 h-3.5 text-zinc-500" />
-                  <span>Brasília, DF</span>
-                </div>
-                {currentTime && (
-                  <>
-                    <span>•</span>
-                    <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
-                      <IconClock className="w-3.5 h-3.5" />
-                      <span>{currentTime} (UTC-3)</span>
-                    </div>
-                  </>
-                )}
-                <span>•</span>
-                <a 
-                  href="https://github.com/souzaRodrigo61" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
-                >
-                  <IconBrandGithub className="w-3.5 h-3.5" />
-                  <span>souzaRodrigo61</span>
-                </a>
-                <span>•</span>
-                <a 
-                  href="https://www.linkedin.com/in/souzarodrigo61" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
-                >
-                  <IconBrandLinkedin className="w-3.5 h-3.5" />
-                  <span>in/souzarodrigo61</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Right Hero Column: Machined Bento Showcase */}
-            <div className="lg:col-span-5">
-              <div className="relative rounded-3xl p-1.5 ring-1 ring-black/10 dark:ring-white/10 bg-black/[0.03] dark:bg-white/[0.02] shadow-2xl backdrop-blur-xl card-bezel">
-                <div className="rounded-[calc(1.5rem-0.375rem)] bg-white/90 dark:bg-zinc-900/90 border border-black/10 dark:border-white/5 p-6 space-y-5">
-                  
-                  {/* Card Header Status */}
-                  <div className="flex items-center justify-between pb-4 border-b border-black/10 dark:border-white/5">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-600 dark:bg-emerald-500 animate-pulse" />
-                      <span className="text-xs font-mono text-zinc-700 dark:text-zinc-300 font-medium">Arquitetura em Produção</span>
-                    </div>
-                    <span className="text-[11px] font-mono text-zinc-500">2024 • 2026</span>
-                  </div>
-
-                  {/* Highlight Metrics */}
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="p-3.5 rounded-2xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-black/10 dark:border-white/5">
-                      <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono">R$ 2M+</div>
-                      <div className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">Transações Processadas</div>
-                      <div className="text-[10px] text-zinc-500 font-mono mt-1">DivinaPay Cashless</div>
-                    </div>
-                    <div className="p-3.5 rounded-2xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-black/10 dark:border-white/5">
-                      <div className="text-2xl font-bold tracking-tight text-cyan-600 dark:text-cyan-400 font-mono">100%</div>
-                      <div className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">Otimização de Infra</div>
-                      <div className="text-[10px] text-zinc-500 font-mono mt-1">Rust + PostgreSQL</div>
-                    </div>
-                  </div>
-
-                  {/* Focus Badges */}
-                  <div className="space-y-2.5 pt-1">
-                    <div className="text-xs font-mono text-zinc-600 dark:text-zinc-400 flex items-center justify-between">
-                      <span>Stack Principal Ativa</span>
-                      <span className="text-emerald-600 dark:text-emerald-400">10+ Anos Exp</span>
-                    </div>
-                    <p className="text-xs font-mono text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                      Swift, Flutter, React Native, Rust, Node.js, Java Spring/Quarkus, PostgreSQL, Kubernetes
-                    </p>
-                  </div>
-
-                  {/* Micro Terminal Quote */}
-                  <div className="p-3 rounded-xl bg-white/80 dark:bg-zinc-950/80 border border-black/10 dark:border-white/5 font-mono text-[11px] text-zinc-600 dark:text-zinc-400 flex items-center gap-2">
-                    <IconTerminal2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                    <span className="truncate">Loterias Caixa • Saque FGTS • Interchange BB</span>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Social Proof Bar */}
-          <div className="pt-8 border-t border-black/10 dark:border-white/5">
+        {/* SOCIAL PROOF */}
+        <section>
+          <div>
             <div className="text-center mb-5">
               <span className="text-[11px] uppercase tracking-[0.2em] font-mono text-zinc-600 dark:text-zinc-400">
                 Soluções e Engenharia Estratégica para Grandes Players
