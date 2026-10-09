@@ -1,57 +1,28 @@
-# FinTech de Crédito Consignado Digital & SDK White-Label
+# Fintech de crédito consignado digital
 
-## Visão Geral da Atuação
+## Visão Geral
 
-Atuação técnica ponta a ponta na engenharia de um ecossistema completo de crédito consignado digital e distribuição B2B2C. O escopo abrangeu o desenvolvimento do aplicativo mobile principal (Flutter), um SDK white-label modular para integração de parceiros (React Native), um motor interno de feature flags (OpenFeature), microsserviços de decisão/elegibilidade (.NET Core) e roteamento universal web-to-app (Next.js).
+Atuação ponta a ponta em um ecossistema de crédito consignado digital: app mobile principal, SDK white-label para parceiros (modelo B2B2C), um microsserviço de elegibilidade e o roteamento web-para-app.
 
----
+## O que este trabalho demonstra
 
-## 1. App Mobile Principal (Flutter & Dart)
+### App mobile em Flutter
+- funil de contratação completo: simulação, biometria e verificação de documento antifraude, OTP, assinatura eletrônica e desembolso, com retomada de jornada interrompida;
+- orquestração de estado com BLoC, eliminando condições de corrida e telas em branco causadas por polling concorrente.
 
-Desenvolvimento do funil de concessão e aquisição de crédito consignado, com foco em resiliência de estado, segurança e observabilidade em tempo real.
+### SDK white-label em React Native
+- produto distribuído dentro de apps de parceiros, com publicação automatizada no npm via Trusted Publishing (OIDC) e versionamento semântico;
+- criptografia de dados sensíveis ponta a ponta e desligamento remoto de fluxos por feature flag;
+- falhas do SDK isoladas, sem derrubar o app hospedeiro.
 
-### Principais Entregas:
-- **Funil de Contratação CLT (Ponta a Ponta)**: Construção da jornada completa de crédito — simulação financeira em tempo real, validação de dados cadastrais/bancários, seguro prestamista, biometria facial com documentoscopia antifraude, assinatura eletrônica, OTP e liquidação com desembolso.
-- **Orquestração de Estado (`HomeCoordinator`)**: Consolidação de múltiplos pollers assíncronos e cubits de retomada de jornada utilizando **BLoC + `restartable()`**, eliminando condições de corrida, telas brancas e flickering de interface.
-- **Autenticação Segura & Onboarding**: Fluxo de autenticação com criptografia assimétrica RSA-OAEP e resolução resiliente de deep links (incluindo recuperação em cold-start).
-- **Biometria & Antifraude**: Integração com SDKs de documentoscopia e prova de vida facial, telemetria dedicada e regras de segurança contra fraudes.
-- **Observabilidade & Telemetria**: Centralização de logs e monitoramento de performance com **Datadog (Logs + RUM)** em fluxos críticos de conversão.
-- **Qualidade & Automação**: Suíte de testes automatizados e2e com **Maestro**, testes unitários e de widgets com alta cobertura.
+### Observabilidade e qualidade
+- Datadog (RUM e Logs) em Flutter e React Native;
+- testes unitários e e2e (Maestro), com cobertura total nos módulos críticos de telemetria, cache e feature flags.
 
----
+### Back-end e web
+- contribuições em um microsserviço .NET de elegibilidade por parceiro;
+- links universais (Android App Links e iOS Universal Links) no webapp Next.js.
 
-## 2. SDK White-Label para Parceiros (React Native & TypeScript)
+## Stack
 
-Construção do SDK embarcado em aplicativos de instituições parceiras, permitindo a distribuição do produto de crédito no modelo "powered by" (B2B2C).
-
-### Principais Entregas:
-- **Fundação do SDK**: Publicação automatizada via npm com *Trusted Publishing (OIDC)*, CI/CD e versionamento semântico.
-- **Segurança e Conformidade de Dados**: Criptografia ponta a ponta (RSA-OAEP + HMAC-SHA256) para garantir que documentos e dados sensíveis nunca trafeguem em texto claro.
-- **Observabilidade & Kill-Switch Remoto**: Instrumentação completa com Datadog RUM/Logs, roteamento seletivo de eventos e desativação remota de fluxos via feature flags em caso de instabilidade externa.
-- **Resiliência e Isolamento**: Tratamento de exceções globais e crashes sem interferir no ciclo de vida do aplicativo hospedeiro do parceiro.
-- **Alta Cobertura**: 100% de cobertura de testes em módulos críticos de telemetria, cache e feature flags.
-
----
-
-## 3. Microsserviços de Decisão de Crédito & Elegibilidade (.NET Core)
-
-- Implementação de endpoints de verificação de elegibilidade por parceiro em tempo real.
-- Descriptografia segura e geração de hash HMAC-SHA256 para busca e auditoria sem armazenamento de documentos em claro.
-- Testes de resiliência e failover com MongoDB e mensageria.
-
----
-
-## 4. Webapp & Deep Linking Universal (Next.js)
-
-- Configuração e auditoria de **Android App Links** e **iOS Universal Links** com validação de certificados e fingerprints para handoff contínuo entre web e aplicativo nativo.
-
----
-
-## Tecnologias e Padrões Aplicados
-
-- **Mobile:** Flutter 3.31+, Dart, BLoC, React Native, TypeScript, Reanimated
-- **Arquitetura:** Clean Architecture, Coordinator Pattern, SDK Design, Modularization
-- **Segurança:** RSA-OAEP, HMAC-SHA256, Biometria / Prova de Vida Antifraude
-- **Observabilidade:** Datadog RUM & Logs, OpenFeature Flags
-- **Backend & Web:** .NET Core, C#, MongoDB, Next.js, Android App Links
-- **Testes & CI/CD:** Maestro e2e, Unit Testing, GitHub Actions, npm OIDC
+Flutter, Dart, BLoC, React Native, TypeScript, .NET Core, Next.js, Datadog, OpenFeature, Maestro, GitHub Actions.

@@ -1,94 +1,19 @@
-# Plataforma de Saque Aniversário (FGTS) - PagSeguro
+# Saque-aniversário FGTS no ecossistema PagSeguro
 
 ## Contexto
 
-Desenvolvimento da plataforma de saque aniversário do FGTS no contexto do PagSeguro, uma das maiores fintechs do Brasil.
+Desenvolvimento iOS da plataforma de saque-aniversário do FGTS no contexto do PagSeguro, entre 12/2021 e 09/2022.
 
-## Desafios Técnicos
+## O que este trabalho demonstra
 
-### Integração com Sistemas Legados
-- **Problema**: Integração com sistemas bancários antigos
-- **Solução**: Camada de abstração com APIs REST
-- **Resultado**: Integração estável e confiável
+### iOS nativo integrado a Flutter
+- Swift com XIB/ViewCode e SwiftUI;
+- integração com módulos em Flutter por Method Channel, em um app com tecnologias convivendo.
 
-### Performance em Larga Escala
-- **Problema**: Milhões de usuários simultâneos
-- **Solução**: Arquitetura distribuída e cache
-- **Resultado**: Suporte a 1M+ transações/dia
+### Entrega contínua segura
+- feature toggles para liberar funcionalidades de forma gradual e reversível;
+- CI/CD no Bitrise, com publicação automatizada.
 
-## Arquitetura Técnica
+## Stack
 
-### iOS (Swift 5.4)
-- **XIB/ViewCode**: Interface híbrida
-- **SwiftUI**: Componentes modernos
-- **Flutter Method Channel**: Integração cross-platform
-
-### CI/CD (Bitrise)
-- **Pipeline**: Automatizado
-- **Testes**: Unitários e integração
-- **Deploy**: Automático para App Store
-
-### Feature Toggles
-- **Implementação**: Flags condicionais
-- **Benefício**: Deploy seguro
-- **Controle**: Ativação gradual
-
-## Funcionalidades Principais
-
-### Autenticação
-- Biometria nativa
-- 2FA obrigatório
-- Sessões seguras
-
-### Saque FGTS
-- Simulação de valores
-- Agendamento de saques
-- Confirmação por SMS
-
-### Dashboard
-- Histórico de transações
-- Status de saques
-- Notificações push
-
-## Impacto no Negócio
-
-### Métricas
-- **Usuários**: 2M+ downloads
-- **Transações**: R$ 500M+ processados
-- **Satisfação**: 4.7/5.0 rating
-
-### Casos de Uso
-1. **Saque Imediato**: Valores disponíveis
-2. **Agendamento**: Saques futuros
-3. **Simulação**: Cálculo de valores
-
-## Tecnologias Utilizadas
-
-### Mobile
-- **Swift 5.4**: Linguagem nativa
-- **XIB/ViewCode**: Interface híbrida
-- **SwiftUI**: Componentes modernos
-- **Flutter Method Channel**: Integração
-
-### DevOps
-- **Bitrise CI/CD**: Pipeline automatizado
-- **Feature Toggles**: Deploy seguro
-- **App Store Connect**: Distribuição
-
-### Integração
-- **REST APIs**: Comunicação
-- **JSON**: Formato de dados
-- **JWT**: Autenticação
-
-## Lições Aprendidas
-
-### Desenvolvimento
-- Feature toggles são essenciais para deploy seguro
-- Integração com sistemas legados requer paciência
-- Performance é crítica em apps financeiros
-
-### Negócio
-- UX/UI impacta diretamente na conversão
-- Segurança é prioridade absoluta
-- Monitoramento em tempo real é essencial
-
+Swift, SwiftUI, XIB/ViewCode, Flutter Method Channel, Bitrise, Feature Toggles, REST.
