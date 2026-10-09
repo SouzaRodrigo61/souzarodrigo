@@ -43,15 +43,15 @@ const allProjectsList: (Project & { highlightMetric: string; highlightLabel: str
     category: "WMS para Distribuidoras",
     role: "Fundador e Desenvolvedor",
     period: "2026 - Presente",
-    description: "WMS sem coletor, no celular da equipe e ao lado do ERP, para distribuidoras de Brasília e entorno: endereçamento, recebimento pela nota e separação conferida. Backend em Rust (axum) com uma crate por feature, Postgres com schema por empresa e webapp React, construído com um harness de agentes de IA.",
-    impact: "Isolamento entre empresas garantido em uma camada só e provado por teste de integração que sobe o binário; 29 crates, uma por feature. Em piloto, ainda sem base de clientes.",
+    description: "WMS sem coletor, no celular da equipe e ao lado do ERP, para distribuidoras de Brasília e entorno: endereçamento, recebimento pela nota e separação conferida. Backend em Rust, Postgres multi-tenant, webapp React e integração com agentes de IA via MCP.",
+    impact: "Do celular ao banco: produto entregue ponta a ponta, com isolamento entre empresas verificado por testes de integração automatizados.",
     technologies: ["Rust", "Axum", "PostgreSQL multi-tenant", "React", "Clerk", "MCP", "Cloudflare Workers"],
     image: "/data/markdown/media/kernos-etiqueta.svg",
     link: "https://kernos.com.br",
     hasHeroModal: true,
     markdownFile: "kernos.md",
-    highlightMetric: "29 crates",
-    highlightLabel: "Uma por feature, em Rust",
+    highlightMetric: "Ponta a ponta",
+    highlightLabel: "Mobile, API e infra",
     type: "backend"
   },
   {
@@ -102,7 +102,7 @@ const skillPillars = [
   {
     icon: <IconCpu className="w-5 h-5 text-violet-600 dark:text-violet-400" />,
     title: "Engenharia AI-first",
-    description: "Agentes de IA no fluxo diário, com harness próprio (BDD, QA que re-executa, portões) e tooling aplicado: programmatic tool calling (codemode-cli) e compressão de contexto de shell (RTK). Ganhos medidos no uso diário: 3.813 tool-calls evitadas em 279 execuções do codemode; 91% de corte de output em 17,8 mil comandos via RTK.",
+    description: "Agentes de IA no fluxo diário, sob especificação, verificação independente e testes automatizados, e tooling aplicado: programmatic tool calling (codemode-cli) e compressão de contexto de shell (RTK). Ganhos medidos no uso diário: 3.813 tool-calls evitadas em 279 execuções do codemode; 91% de corte de output em 17,8 mil comandos via RTK.",
     badges: ["codemode-cli", "Rhai", "RTK", "Programmatic tool calling", "Sandbox", "Token reduction"]
   },
   {
@@ -267,7 +267,7 @@ export default function Home() {
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-4 lg:gap-5 text-xs font-mono whitespace-nowrap text-zinc-600 dark:text-zinc-400">
             <a href="#sobre" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Sobre</a>
-            <a href="#harness" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Harness</a>
+            <a href="#ai-first" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">AI-first</a>
             <a href="#kernos" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Kernos</a>
             <a href="#projetos" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Projetos</a>
             <a href="#experiencia" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Trajetória</a>
@@ -482,7 +482,7 @@ export default function Home() {
                   </h2>
                   <p className="text-base text-zinc-700 dark:text-zinc-300 leading-relaxed">
                     Engenheiro sênior em <strong>mobile e sistemas financeiros</strong>, com <strong>Rust</strong> no backend. Hoje trabalho com agentes de IA no fluxo diário
-                    e construí as ferramentas e o processo para que isso não vire improviso: BDD antes do código, QA que re-executa e portões por repositório.
+                    sob especificação, verificação independente e testes automatizados — com ferramentas próprias para isso não virar improviso.
                   </p>
                   <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
                     Com ampla bagagem no setor bancário e de pagamentos, atuei diretamente na modernização de rotinas mainframe 
@@ -498,7 +498,7 @@ export default function Home() {
                       <span>Prova, não promessa</span>
                     </div>
                     <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                      Arquitetura desacoplada (Clean Architecture / TCA), testes, CI/CD com Bitrise e GitHub Actions — e um QA que não aceita "passou" sem reproduzir.
+                      Arquitetura desacoplada (Clean Architecture / TCA), testes, CI/CD com Bitrise e GitHub Actions e verificação que não aceita "passou" sem reproduzir.
                     </p>
                   </div>
 

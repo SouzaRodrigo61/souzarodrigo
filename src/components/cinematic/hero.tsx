@@ -142,7 +142,7 @@ export function CinematicHero() {
           transition={{ delay: 2.1, duration: 0.9 }}
           className="mt-8 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg"
         >
-          Mais de 10 anos entregando mobile e backend em Caixa, Banco do Brasil, PagSeguro e fintechs. Hoje construo em Rust, Swift e Flutter com um harness próprio de agentes, portões e provas.
+          Mais de 10 anos entregando mobile e backend em Caixa, Banco do Brasil, PagSeguro e fintechs. Hoje construo em Rust, Swift e Flutter com agentes de IA no fluxo, sob verificação e testes automatizados.
         </motion.p>
 
         <motion.div
@@ -151,7 +151,7 @@ export function CinematicHero() {
           transition={{ delay: 2.3, duration: 0.9 }}
           className="mt-9 flex flex-wrap items-center gap-3"
         >
-          <a href="#harness" className="group inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-sm font-semibold text-zinc-950 transition active:scale-[0.98]">
+          <a href="#ai-first" className="group inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-sm font-semibold text-zinc-950 transition active:scale-[0.98]">
             Ver como eu trabalho
             <IconArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
