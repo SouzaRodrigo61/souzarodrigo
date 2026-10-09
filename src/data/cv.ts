@@ -51,14 +51,14 @@ const CONTACTS = [
 export const cv: Record<"pt" | "en", CvData> = {
   pt: {
     name: "Rodrigo Santos de Souza",
-    title: "Senior Software Engineer — Mobile & Sistemas Distribuídos",
+    title: "Senior Software Engineer — Mobile em Fintech & Engenharia AI-first",
     location: "Brasília, DF, Brasil",
     contacts: CONTACTS,
     summary:
-      "Engenheiro de software sênior com 10+ anos em aplicações de missão crítica para instituições financeiras (Caixa, Banco do Brasil, PagSeguro) e fintechs. Especialista em mobile nativo e multiplataforma (Swift/SwiftUI, Flutter, React Native) e em backends de alta performance em Rust, Node.js, Java Spring e Quarkus. Pesquisa aplicada em tooling de agentes de IA (autor do codemode-cli; RTK em produção). Experiência recente com .NET em fintech. Histórico de entregas ponta a ponta: do funil de crédito digital com biometria antifraude ao processamento de R$ 2M+ em pagamentos cashless.",
+      "Engenheiro sênior com 10+ anos entregando apps e backends de missão crítica em Caixa, Banco do Brasil, PagSeguro e fintechs: do funil de crédito digital com biometria antifraude a R$ 2M+ em pagamentos cashless. Mobile nativo e multiplataforma (Swift/SwiftUI, Flutter, React Native) com backends em Rust, Node.js, Java e .NET. Trabalho AI-first: agentes de IA (Claude Code, subagentes) no fluxo diário de desenvolvimento e autor de ferramentas open source que reduzem o custo de contexto desses agentes (codemode-cli, RTK).",
     sections: {
       experience: "Experiência Profissional",
-      projects: "Projetos Selecionados",
+      projects: "Projetos e Open Source",
       education: "Formação Acadêmica",
       skills: "Competências Técnicas",
       languages: "Idiomas",
@@ -128,17 +128,6 @@ export const cv: Record<"pt" | "en", CvData> = {
     ],
     projects: [
       {
-        name: "DivinaPay (Divina Cashless) — Sócio Desenvolvedor",
-        description:
-          "Plataforma de pagamentos cashless para eventos: app Flutter, backend Rust (Axum/Salvo) e PostgreSQL. Processou R$ 2M+ em transações em 30+ eventos, com picos elevados de usuários simultâneos.",
-        link: "divinapay.com",
-      },
-      {
-        name: "Sistema de gestão de campanhas — Desenvolvedor (trabalho voluntário)",
-        description:
-          "Plataforma de campanhas e gestão financeira em Next.js + Rust com arquitetura multi-tenant, mantida como serviço voluntário; redução de 100% do custo fixo de cloud (USD 16 -> USD 0) e migração para VPS autogerenciada.",
-      },
-      {
         name: "codemode-cli — Open source",
         description:
           "Binário Rust de programmatic tool calling para agentes de IA: um script Rhai sandboxed substitui N tool-calls por 1, sem MCP e sem processo residente. Medido em tarefa real: 6 -> 1 (83%). Em uso real: 279 execuções, 3.813 tool-calls evitadas (68% das rodadas colapsam 3+ primitivas).",
@@ -149,6 +138,23 @@ export const cv: Record<"pt" | "en", CvData> = {
         description:
           "Proxy CLI que comprime output de shell antes de entrar no contexto do agente; filtros também embutidos in-process no codemode-cli. Em produção: 17,8 mil comandos, 91% de redução de output.",
         link: "github.com/SouzaRodrigo61/rtk",
+      },
+      {
+        name: "DivinaPay (Divina Cashless) — Sócio Desenvolvedor",
+        description:
+          "Plataforma de pagamentos cashless para eventos: app Flutter, backend Rust (Axum/Salvo) e PostgreSQL. Processou R$ 2M+ em transações em 30+ eventos, com picos elevados de usuários simultâneos.",
+        link: "divinapay.com",
+      },
+      {
+        name: "Kernos — WMS no celular para distribuidoras",
+        description:
+          "Produto próprio: WMS sem coletor, via celular, com WhatsApp e IA, para distribuidoras de Brasília/DF. Backend em Rust (Axum, Postgres multi-tenant) e webapp React.",
+        link: "kernos.com.br",
+      },
+      {
+        name: "Sistema de gestão de campanhas — Desenvolvedor (trabalho voluntário)",
+        description:
+          "Plataforma de campanhas e gestão financeira em Next.js + Rust com arquitetura multi-tenant, mantida como serviço voluntário; redução de 100% do custo fixo de cloud (USD 16 -> USD 0) e migração para VPS autogerenciada.",
       },
     ],
     education: [
@@ -164,23 +170,23 @@ export const cv: Record<"pt" | "en", CvData> = {
       },
     ],
     skills: [
+      { group: "Engenharia AI-first", items: "Claude Code e subagentes no fluxo diário, programmatic tool calling, orquestração de agentes, sandboxing, redução de contexto, ferramentas próprias (codemode-cli, RTK)" },
       { group: "Mobile", items: "Swift, SwiftUI, Combine, UIKit, TCA, Flutter, Dart, BLoC, React Native, TypeScript" },
       { group: "Backend", items: "Rust (Axum/Salvo), Node.js, Java (Spring, Quarkus), PostgreSQL, MongoDB, Supabase, .NET Core (atuação recente)" },
-      { group: "IA / Agentes", items: "codemode-cli (Rhai, programmatic tool calling), RTK, sandboxing, redução de contexto em agentes" },
       { group: "Infra & Qualidade", items: "Docker, Kubernetes, GitHub Actions, Bitrise, Datadog (RUM/Logs), OpenFeature, Maestro e2e, testes unitários" },
     ],
     languages: ["Português (nativo)", "Inglês (intermediário)"],
   },
   en: {
     name: "Rodrigo Santos de Souza",
-    title: "Senior Software Engineer — Mobile & Distributed Systems",
+    title: "Senior Software Engineer — Fintech Mobile & AI-first Engineering",
     location: "Brasília, Brazil",
     contacts: CONTACTS,
     summary:
-      "Senior software engineer with 10+ years building mission-critical applications for financial institutions (Caixa, Banco do Brasil, PagSeguro) and fintechs. Specialist in native and cross-platform mobile (Swift/SwiftUI, Flutter, React Native) and high-performance backends in Rust, Node.js, Java Spring and Quarkus. Applied research in AI-agent tooling (author of codemode-cli; RTK in production). Recent .NET experience in a fintech context. Track record of end-to-end delivery: from a digital credit funnel with anti-fraud biometrics to processing R$ 2M+ (BRL) in cashless payments.",
+      "Senior engineer with 10+ years shipping mission-critical apps and backends at Caixa, Banco do Brasil, PagSeguro and fintechs: from a digital credit funnel with anti-fraud biometrics to R$ 2M+ (BRL) in cashless payments. Native and cross-platform mobile (Swift/SwiftUI, Flutter, React Native) with Rust, Node.js, Java and .NET backends. AI-first workflow: AI agents (Claude Code, subagents) in daily development, and author of open-source tools that cut the context cost of those agents (codemode-cli, RTK).",
     sections: {
       experience: "Professional Experience",
-      projects: "Selected Projects",
+      projects: "Projects & Open Source",
       education: "Education",
       skills: "Technical Skills",
       languages: "Languages",
@@ -250,17 +256,6 @@ export const cv: Record<"pt" | "en", CvData> = {
     ],
     projects: [
       {
-        name: "DivinaPay (Divina Cashless) — Founding Developer",
-        description:
-          "Cashless payments platform for live events: Flutter app, Rust backend (Axum/Salvo) and PostgreSQL. Processed R$ 2M+ (BRL) across 30+ events with high concurrent-user peaks.",
-        link: "divinapay.com",
-      },
-      {
-        name: "Campaign management system — Developer (volunteer work)",
-        description:
-          "Campaign and financial-management platform in Next.js + Rust with multi-tenant architecture, maintained as volunteer work; cut fixed cloud costs by 100% (USD 16 -> USD 0) and migrated to self-managed VPS infrastructure.",
-      },
-      {
         name: "codemode-cli — Open source",
         description:
           "Rust binary for programmatic tool calling in AI agents: one sandboxed Rhai script replaces N tool calls, with no MCP and no resident process. Measured on a real task: 6 -> 1 (83%). In real use: 279 runs, 3,813 tool-calls avoided (68% of runs collapse 3+ primitives).",
@@ -271,6 +266,23 @@ export const cv: Record<"pt" | "en", CvData> = {
         description:
           "CLI proxy that compresses shell output before it enters the agent context; filters also embedded in-process in codemode-cli. In production: 17.8k commands, 91% output reduction.",
         link: "github.com/SouzaRodrigo61/rtk",
+      },
+      {
+        name: "DivinaPay (Divina Cashless) — Founding Developer",
+        description:
+          "Cashless payments platform for live events: Flutter app, Rust backend (Axum/Salvo) and PostgreSQL. Processed R$ 2M+ (BRL) across 30+ events with high concurrent-user peaks.",
+        link: "divinapay.com",
+      },
+      {
+        name: "Kernos — Mobile WMS for distributors",
+        description:
+          "Own product: handheld-free WMS on the phone, with WhatsApp and AI, for distributors in Brasília, Brazil. Rust backend (Axum, multi-tenant Postgres) and React webapp.",
+        link: "kernos.com.br",
+      },
+      {
+        name: "Campaign management system — Developer (volunteer work)",
+        description:
+          "Campaign and financial-management platform in Next.js + Rust with multi-tenant architecture, maintained as volunteer work; cut fixed cloud costs by 100% (USD 16 -> USD 0) and migrated to self-managed VPS infrastructure.",
       },
     ],
     education: [
@@ -286,9 +298,9 @@ export const cv: Record<"pt" | "en", CvData> = {
       },
     ],
     skills: [
+      { group: "AI-first Engineering", items: "Claude Code and subagents in daily workflow, programmatic tool calling, agent orchestration, sandboxing, context reduction, own tooling (codemode-cli, RTK)" },
       { group: "Mobile", items: "Swift, SwiftUI, Combine, UIKit, TCA, Flutter, Dart, BLoC, React Native, TypeScript" },
       { group: "Backend", items: "Rust (Axum/Salvo), Node.js, Java (Spring, Quarkus), PostgreSQL, MongoDB, Supabase, .NET Core (recent)" },
-      { group: "AI / Agents", items: "codemode-cli (Rhai, programmatic tool calling), RTK, sandboxing, agent-context reduction" },
       { group: "Infra & Quality", items: "Docker, Kubernetes, GitHub Actions, Bitrise, Datadog (RUM/Logs), OpenFeature, Maestro e2e, unit testing" },
     ],
     languages: ["Portuguese (native)", "English (intermediate)"],
