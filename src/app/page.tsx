@@ -32,6 +32,7 @@ import { HeroModal } from "@/components/ui/hero-modal"
 import { useProjectStore, Project, Experience } from "@/lib/store"
 import { CinematicHero } from "@/components/cinematic/hero"
 import { Harness } from "@/components/cinematic/harness"
+import { CreditsStrip, RevealSection, ScrollProgress } from "@/components/cinematic/scene"
 import { ArchitectureSimulator } from "@/components/ui/architecture-simulator"
 
 const allProjectsList: (Project & { highlightMetric: string; highlightLabel: string; type: "mobile" | "backend" | "fintech" })[] = [
@@ -81,16 +82,16 @@ const enterpriseClients = [
 
 const skillPillars = [
   {
+    icon: <IconCpu className="w-5 h-5 text-violet-600 dark:text-violet-400" />,
+    title: "Engenharia AI-first",
+    description: "Agentes de IA no fluxo diário, com harness próprio (BDD, QA que re-executa, portões) e tooling aplicado: programmatic tool calling (codemode-cli) e compressão de contexto de shell (RTK). Ganhos medidos no uso diário: 3.813 tool-calls evitadas em 279 execuções do codemode; 91% de corte de output em 17,8 mil comandos via RTK.",
+    badges: ["codemode-cli", "Rhai", "RTK", "Programmatic tool calling", "Sandbox", "Token reduction"]
+  },
+  {
     icon: <IconDeviceMobile className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
     title: "Mobile Architecture & iOS Native",
     description: "Especialista em Swift nativo com foco em arquiteturas reativas (Combine, SwiftUI), UIKit avançado, Diffable Data Sources, Apple Wallet e The Composable Architecture (TCA).",
     badges: ["Swift 5.5+", "SwiftUI", "Combine", "UIKit / XIB", "TCA", "Diffable DS", "Apple Wallet", "VoiceOver a11y", "Flutter 3.31+", "React Native"]
-  },
-  {
-    icon: <IconCpu className="w-5 h-5 text-violet-600 dark:text-violet-400" />,
-    title: "AI Agents & Token Economy",
-    description: "Pesquisa aplicada em tooling de agentes: programmatic tool calling (codemode-cli) e compressão de contexto de shell (RTK). Ganhos medidos no uso diário: 3.813 tool-calls evitadas em 279 execuções do codemode; 91% de corte de output em 17,8 mil comandos via RTK.",
-    badges: ["codemode-cli", "Rhai", "RTK", "Programmatic tool calling", "Sandbox", "Token reduction"]
   },
   {
     icon: <IconServer className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />,
@@ -192,6 +193,16 @@ export default function Home() {
     loadProjectData()
   }, [loadProjectData])
 
+  // fundo do documento acompanha a home escura (overscroll e faixa abaixo do conteúdo)
+  useEffect(() => {
+    const el = document.documentElement
+    const prev = el.style.backgroundColor
+    el.style.backgroundColor = "#050507"
+    return () => {
+      el.style.backgroundColor = prev
+    }
+  }, [])
+
   const handleOpenItem = (item: Project | Experience, layoutId: string) => {
     setSelectedItem(item)
     setSelectedLayoutId(layoutId)
@@ -214,11 +225,8 @@ export default function Home() {
   })
 
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:text-emerald-300 relative overflow-x-hidden font-sans">
-      {/* Background Ambient Glow & Grid Pattern */}
-      <div className="fixed inset-0 pointer-events-none noise-overlay z-0 opacity-40" />
-      <div className="fixed top-[-10%] left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-emerald-500/10 via-cyan-500/5 to-transparent blur-3xl pointer-events-none z-0" />
-      <div className="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-gradient-to-t from-emerald-500/5 to-transparent blur-3xl pointer-events-none z-0" />
+    <div className="min-h-screen force-dark bg-[#050507] text-zinc-900 dark:text-zinc-100 selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:text-emerald-300 relative overflow-x-hidden font-sans">
+      <ScrollProgress />
 
       {/* Floating Island Navigation */}
       <header className="sticky top-4 z-40 px-4 max-w-5xl mx-auto">
@@ -326,33 +334,16 @@ export default function Home() {
       <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-20 pb-32 space-y-24 md:space-y-36">
         
         {/* SOCIAL PROOF */}
-        <section>
-          <div>
-            <div className="text-center mb-5">
-              <span className="text-[11px] uppercase tracking-[0.2em] font-mono text-zinc-600 dark:text-zinc-400">
-                Soluções e Engenharia Estratégica para Grandes Players
-              </span>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-              {enterpriseClients.map((client, idx) => (
-                <div
-                  key={idx}
-                  className="p-3 rounded-2xl bg-white/60 dark:bg-zinc-900/40 border border-black/10 dark:border-white/5 hover:border-black/15 dark:hover:border-white/15 transition-all text-center flex flex-col justify-center"
-                >
-                  <div className="text-xs font-semibold text-zinc-800 dark:text-zinc-200 tracking-tight">{client.name}</div>
-                  <div className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono mt-0.5 truncate">{client.role}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <RevealSection>
+          <CreditsStrip items={enterpriseClients} />
+        </RevealSection>
 
         {/* FEATURED PROJECTS (PROJETOS EM DESTAQUE) */}
-        <section id="projetos" className="space-y-8 scroll-mt-24">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-black/10 dark:border-white/5">
+        <RevealSection id="projetos" className="space-y-8 scroll-mt-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-black/10 dark:border-white/10">
             <div>
-              <div className="text-xs font-mono uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-2">Engenharia Aplicada</div>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">Projetos de Destaque</h2>
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 03 · Engenharia aplicada</div>
+              <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-950 dark:text-zinc-50">Projetos <span className="font-serif font-normal italic text-emerald-700 dark:text-emerald-200">de destaque</span></h2>
             </div>
 
             {/* Filter Tabs */}
@@ -398,8 +389,8 @@ export default function Home() {
                   onClick={() => handleOpenItem(project, `project-${index}`)}
                   className="group cursor-pointer"
                 >
-                  <div className="h-full rounded-3xl p-1.5 ring-1 ring-black/10 dark:ring-white/10 bg-black/[0.03] dark:bg-white/[0.02] hover:ring-emerald-500/30 transition-all duration-300 card-bezel">
-                    <div className="h-full rounded-[calc(1.5rem-0.375rem)] bg-white/90 dark:bg-zinc-900/90 border border-black/10 dark:border-white/5 p-6 flex flex-col justify-between space-y-6 group-hover:bg-white/95 dark:group-hover:bg-zinc-900/95 transition-colors">
+                  <div className="h-full rounded-3xl p-px border border-black/10 dark:border-white/10 bg-white dark:bg-[#0b0b0e] hover:border-emerald-500/40 transition-all duration-300">
+                    <div className="h-full rounded-[calc(1.5rem-1px)] bg-transparent p-6 flex flex-col justify-between space-y-6 group-hover:bg-white/95 dark:group-hover:bg-zinc-900/95 transition-colors">
                       
                       <div className="space-y-4">
                         {/* Top Metric Bar */}
@@ -451,28 +442,27 @@ export default function Home() {
               ))}
             </AnimatePresence>
           </div>
-        </section>
+        </RevealSection>
 
         {/* INTERACTIVE ARCHITECTURE SIMULATOR */}
-        <section id="arquitetura" className="space-y-8 scroll-mt-24">
+        <RevealSection id="arquitetura" className="space-y-8 scroll-mt-24">
           <ArchitectureSimulator />
-        </section>
+        </RevealSection>
 
         {/* ABOUT & PHILOSOPHY (SOBRE MIM) */}
-        <section id="sobre" className="space-y-10 scroll-mt-24">
-          <div className="rounded-3xl p-1.5 ring-1 ring-black/10 dark:ring-white/10 bg-black/[0.03] dark:bg-white/[0.02] card-bezel">
-            <div className="rounded-[calc(1.5rem-0.375rem)] bg-white/90 dark:bg-zinc-900/90 border border-black/10 dark:border-white/5 p-8 md:p-12">
+        <RevealSection id="sobre" className="space-y-10 scroll-mt-24">
+          <div className="rounded-3xl p-px border border-black/10 dark:border-white/10 bg-white dark:bg-[#0b0b0e]">
+            <div className="rounded-[calc(1.5rem-1px)] bg-transparent p-8 md:p-12">
               <div className="grid lg:grid-cols-12 gap-10 items-center">
                 
                 <div className="lg:col-span-7 space-y-6">
-                  <div className="text-xs font-mono uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Perfil & Filosofia de Engenharia</div>
-                  <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">
-                    Construindo software resiliente onde precisão e escala importam.
+                  <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 04 · Perfil</div>
+                  <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-950 dark:text-zinc-50">
+                    Rigor de banco, <span className="font-serif font-normal italic text-emerald-700 dark:text-emerald-200">velocidade de agente.</span>
                   </h2>
                   <p className="text-base text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                    Sou um engenheiro de software versátil, focado em resolver gargalos de alta complexidade. 
-                    Minha trajetória combina o rigor do <strong>desenvolvimento nativo Apple (iOS/Swift)</strong> com a 
-                    eficiência extrema de <strong>sistemas de baixo nível em Rust</strong> e microsserviços modernos.
+                    Engenheiro sênior em <strong>mobile e sistemas financeiros</strong>, com <strong>Rust</strong> no backend. Hoje trabalho com agentes de IA no fluxo diário
+                    e construí as ferramentas e o processo para que isso não vire improviso: BDD antes do código, QA que re-executa e portões por repositório.
                   </p>
                   <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
                     Com ampla bagagem no setor bancário e de pagamentos, atuei diretamente na modernização de rotinas mainframe 
@@ -485,10 +475,10 @@ export default function Home() {
                   <div className="p-4 rounded-2xl bg-white/70 dark:bg-zinc-950/70 border border-black/10 dark:border-white/5 space-y-2">
                     <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 text-sm font-semibold">
                       <IconShieldCheck className="w-4 h-4" />
-                      <span>Zero-Defect Delivery</span>
+                      <span>Prova, não promessa</span>
                     </div>
                     <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                      Foco em código limpo, arquitetura desacoplada (Clean Architecture / TCA), testes e CI/CD automatizado com Bitrise e GitHub Actions.
+                      Arquitetura desacoplada (Clean Architecture / TCA), testes, CI/CD com Bitrise e GitHub Actions — e um QA que não aceita "passou" sem reproduzir.
                     </p>
                   </div>
 
@@ -516,14 +506,14 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </RevealSection>
 
         {/* CAREER TIMELINE (EXPERIÊNCIA PROFISSIONAL) */}
-        <section id="experiencia" className="space-y-8 scroll-mt-24">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-black/10 dark:border-white/5">
+        <RevealSection id="experiencia" className="space-y-8 scroll-mt-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-black/10 dark:border-white/10">
             <div>
-              <div className="text-xs font-mono uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-2">Histórico Profissional</div>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">Trajetória & Experiências</h2>
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 05 · Histórico</div>
+              <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-950 dark:text-zinc-50">Trajetória <span className="font-serif font-normal italic text-emerald-700 dark:text-emerald-200">& experiências</span></h2>
             </div>
             <p className="text-sm text-zinc-600 dark:text-zinc-400 max-w-md">
               Clique em qualquer experiência para abrir a documentação técnica e arquitetural completa.
@@ -538,8 +528,8 @@ export default function Home() {
                 onClick={() => handleOpenItem(exp, `experience-${exp.id}`)}
                 className="group cursor-pointer"
               >
-                <div className="rounded-2xl p-1 ring-1 ring-black/10 dark:ring-white/10 bg-black/[0.02] dark:bg-white/[0.01] hover:ring-black/15 dark:hover:ring-white/20 transition-all card-bezel">
-                  <div className="rounded-[calc(1rem-0.125rem)] bg-white/80 dark:bg-zinc-900/80 hover:bg-zinc-100 dark:hover:bg-zinc-900 p-6 transition-colors space-y-4">
+                <div className="rounded-2xl p-px border border-black/10 dark:border-white/10 hover:border-emerald-500/40 transition-all">
+                  <div className="rounded-[calc(1rem-1px)] bg-transparent hover:bg-zinc-100 dark:hover:bg-white/[0.03] p-6 transition-colors space-y-4">
                     
                     {/* Header Row */}
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -588,14 +578,14 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-        </section>
+        </RevealSection>
 
         {/* ARCHITECTURE PILLARS (HABILIDADES) */}
-        <section className="space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-black/10 dark:border-white/5">
+        <RevealSection className="space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-black/10 dark:border-white/10">
             <div>
-              <div className="text-xs font-mono uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-2">Domínio Técnico</div>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">Pilares de Engenharia</h2>
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 06 · Domínio técnico</div>
+              <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-950 dark:text-zinc-50">Pilares <span className="font-serif font-normal italic text-emerald-700 dark:text-emerald-200">de engenharia</span></h2>
             </div>
             <p className="text-sm text-zinc-600 dark:text-zinc-400 max-w-md">
               Tecnologias, padrões arquiteturais e frameworks utilizados na entrega de produtos de alto calibre.
@@ -606,9 +596,9 @@ export default function Home() {
             {skillPillars.map((pillar, idx) => (
               <div
                 key={idx}
-                className="group rounded-3xl p-1.5 ring-1 ring-black/10 dark:ring-white/10 bg-black/[0.03] dark:bg-white/[0.02] hover:ring-emerald-500/30 transition-all card-bezel"
+                className="group rounded-3xl p-px border border-black/10 dark:border-white/10 bg-white dark:bg-[#0b0b0e] hover:border-emerald-500/40 transition-all"
               >
-                <div className="h-full rounded-[calc(1.5rem-0.375rem)] bg-white/90 dark:bg-zinc-900/90 border border-black/10 dark:border-white/5 p-6 space-y-4 flex flex-col justify-between">
+                <div className="h-full rounded-[calc(1.5rem-1px)] bg-transparent p-6 space-y-4 flex flex-col justify-between">
                   <div className="space-y-3">
                     <div className="w-10 h-10 rounded-2xl bg-zinc-200 dark:bg-zinc-800 border border-black/10 dark:border-white/10 flex items-center justify-center shadow-inner group-hover:bg-emerald-500/10 group-hover:border-emerald-500/20 transition-colors">
                       {pillar.icon}
@@ -626,14 +616,14 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </section>
+        </RevealSection>
 
         {/* OPEN SOURCE & COMMUNITY */}
-        <section id="opensource" className="space-y-8 scroll-mt-24">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-black/10 dark:border-white/5">
+        <RevealSection id="opensource" className="space-y-8 scroll-mt-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-black/10 dark:border-white/10">
             <div>
-              <div className="text-xs font-mono uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-2">Comunidade & Pesquisa</div>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">Projetos Open Source</h2>
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 07 · Comunidade e pesquisa</div>
+              <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-950 dark:text-zinc-50">Projetos <span className="font-serif font-normal italic text-emerald-700 dark:text-emerald-200">open source</span></h2>
             </div>
             <a 
               href="https://github.com/souzaRodrigo61" 
@@ -653,9 +643,9 @@ export default function Home() {
                 href={repo.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group block rounded-3xl p-1.5 ring-1 ring-black/10 dark:ring-white/10 bg-black/[0.03] dark:bg-white/[0.02] hover:ring-emerald-500/30 transition-all card-bezel"
+                className="group block rounded-3xl p-px border border-black/10 dark:border-white/10 bg-white dark:bg-[#0b0b0e] hover:border-emerald-500/40 transition-all"
               >
-                <div className="h-full rounded-[calc(1.5rem-0.375rem)] bg-white/90 dark:bg-zinc-900/90 border border-black/10 dark:border-white/5 p-6 flex flex-col justify-between space-y-5">
+                <div className="h-full rounded-[calc(1.5rem-1px)] bg-transparent p-6 flex flex-col justify-between space-y-5">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5 text-xs font-mono text-zinc-600 dark:text-zinc-400">
@@ -695,14 +685,14 @@ export default function Home() {
               </a>
             ))}
           </div>
-        </section>
+        </RevealSection>
 
         {/* EDUCATION & ACADEMIC BACKGROUND */}
-        <section id="formacao" className="space-y-8 scroll-mt-24">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-black/10 dark:border-white/5">
+        <RevealSection id="formacao" className="space-y-8 scroll-mt-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-black/10 dark:border-white/10">
             <div>
-              <div className="text-xs font-mono uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-2">Fundamentação Acadêmica</div>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">Formação & Especializações</h2>
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-300/80">Cena 08 · Fundamentação</div>
+              <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-950 dark:text-zinc-50">Formação <span className="font-serif font-normal italic text-emerald-700 dark:text-emerald-200">& especializações</span></h2>
             </div>
           </div>
 
@@ -710,9 +700,9 @@ export default function Home() {
             {educationData.map((edu, idx) => (
               <div
                 key={idx}
-                className="rounded-3xl p-1.5 ring-1 ring-black/10 dark:ring-white/10 bg-black/[0.03] dark:bg-white/[0.02] hover:ring-emerald-500/30 transition-all card-bezel"
+                className="rounded-3xl p-px border border-black/10 dark:border-white/10 bg-white dark:bg-[#0b0b0e] hover:border-emerald-500/40 transition-all"
               >
-                <div className="h-full rounded-[calc(1.5rem-0.375rem)] bg-white/90 dark:bg-zinc-900/90 border border-black/10 dark:border-white/5 p-6 flex flex-col justify-between space-y-4">
+                <div className="h-full rounded-[calc(1.5rem-1px)] bg-transparent p-6 flex flex-col justify-between space-y-4">
                   <div className="space-y-2.5">
                     <span className="inline-block px-2.5 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 text-[10px] font-mono border border-black/10 dark:border-white/5">
                       {edu.status}
@@ -733,78 +723,62 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </section>
+        </RevealSection>
 
-        {/* DIRECT CONTACT & CONNECT SECTION */}
-        <section id="contato" className="scroll-mt-24">
-          <div className="rounded-3xl p-1.5 ring-1 ring-black/10 dark:ring-white/10 bg-gradient-to-b from-black/[0.04] dark:from-white/[0.04] to-emerald-500/[0.03] card-bezel">
-            <div className="rounded-[calc(1.5rem-0.375rem)] bg-white/95 dark:bg-zinc-900/95 border border-black/10 dark:border-white/5 p-8 md:p-14 text-center space-y-8">
-              
-              <div className="max-w-2xl mx-auto space-y-4">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-mono">
-                  <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-500 animate-pulse" />
-                  Pronto para novos desafios e arquiteturas
-                </div>
-                <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">
-                  Vamos construir algo de alto impacto juntos?
-                </h2>
-                <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                  Disponível para projetos estratégicos, consultoria em arquitetura iOS / Rust, e posições de liderança técnica.
-                </p>
-              </div>
+        {/* CRÉDITOS FINAIS */}
+        <RevealSection id="contato" className="scroll-mt-24">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0b0b0e] px-6 py-16 text-center md:px-14 md:py-24">
+            <div aria-hidden className="pointer-events-none absolute left-1/2 top-0 h-72 w-[700px] -translate-x-1/2 rounded-full bg-emerald-500/15 blur-[120px]" />
+            <div className="relative space-y-8">
+              <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-emerald-300/80">Cena 09 · Créditos</div>
+              <h2 className="mx-auto max-w-3xl text-[clamp(2.2rem,5.6vw,4.4rem)] font-semibold leading-[1.05] tracking-tight text-zinc-50">
+                Fim da primeira cena. <span className="font-serif font-normal italic text-emerald-200">Vamos para a segunda?</span>
+              </h2>
+              <p className="mx-auto max-w-xl text-base leading-relaxed text-zinc-400">
+                Conversas sobre mobile em fintech, engenharia AI-first e consultoria técnica.
+              </p>
 
-              <div className="flex flex-wrap items-center justify-center gap-4">
-                <a
-                  href="mailto:souza.rodrigo61@gmail.com?subject=Contato%20via%20portf%C3%B3lio"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-emerald-600 dark:bg-emerald-500 hover:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-zinc-950 font-semibold text-sm transition-all active:scale-95 shadow-xl shadow-emerald-500/20"
-                >
-                  <IconMail className="w-4 h-4" />
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <a href="mailto:souza.rodrigo61@gmail.com?subject=Contato%20via%20portf%C3%B3lio" className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-zinc-950 transition active:scale-95">
+                  <IconMail className="h-4 w-4" />
                   <span>Enviar email</span>
                 </a>
-
-                <a
-                  href="https://www.linkedin.com/in/souzarodrigo61"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 font-medium text-sm border border-black/10 dark:border-white/10 transition-all active:scale-95"
-                >
-                  <IconBrandLinkedin className="w-4 h-4 text-zinc-600 dark:text-zinc-400" />
-                  <span>Conectar no LinkedIn</span>
+                <a href="https://www.linkedin.com/in/souzarodrigo61" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-medium text-zinc-200 transition hover:bg-white/10 active:scale-95">
+                  <IconBrandLinkedin className="h-4 w-4 text-zinc-400" />
+                  <span>LinkedIn</span>
                 </a>
-
-                <a
-                  href="/cv/pt"
-                  download="Rodrigo-Santos-de-Souza-CV-PT.pdf"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 font-medium text-sm border border-black/10 dark:border-white/10 transition-all active:scale-95"
-                >
-                  <IconDownload className="w-4 h-4 text-zinc-600 dark:text-zinc-400" />
-                  <span>Baixar CV (PDF)</span>
+                <a href="/cv/pt" download="Rodrigo-Santos-de-Souza-CV-PT.pdf" className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-medium text-zinc-200 transition hover:bg-white/10 active:scale-95">
+                  <IconDownload className="h-4 w-4 text-zinc-400" />
+                  <span>CV (PDF)</span>
                 </a>
-                <a href="/cv/en" download="Rodrigo-Santos-de-Souza-CV-EN.pdf" className="text-xs font-mono text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">English CV</a>
+                <a href="/cv/en" download="Rodrigo-Santos-de-Souza-CV-EN.pdf" className="font-mono text-xs text-zinc-500 transition hover:text-emerald-300">English CV</a>
               </div>
 
-              <button
-                onClick={handleCopyEmail}
-                className="mx-auto flex items-center gap-2 text-xs font-mono text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer"
-              >
-                {copiedEmail ? <IconCheck className="w-3.5 h-3.5" /> : <IconCopy className="w-3.5 h-3.5" />}
+              <button onClick={handleCopyEmail} className="mx-auto flex cursor-pointer items-center gap-2 font-mono text-xs text-zinc-500 transition hover:text-emerald-300">
+                {copiedEmail ? <IconCheck className="h-3.5 w-3.5" /> : <IconCopy className="h-3.5 w-3.5" />}
                 <span>{copiedEmail ? "Email copiado!" : "souza.rodrigo61@gmail.com — clique para copiar"}</span>
               </button>
 
-              <div className="pt-8 border-t border-black/10 dark:border-white/5 flex flex-wrap items-center justify-center gap-8 text-xs font-mono text-zinc-600 dark:text-zinc-400">
-                <div className="flex items-center gap-2">
-                  <IconMapPin className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span>Brasília, DF (UTC-3)</span>
-                </div>
-                <div>•</div>
-                <div>Português (Nativo) • Inglês (Intermediário)</div>
-                <div>•</div>
-                <div>iOS • Rust • Cloud • FinTech</div>
-              </div>
+              <dl className="mx-auto grid max-w-3xl gap-6 border-t border-white/10 pt-8 text-left sm:grid-cols-3">
+                {[
+                  ["Mobile", "Swift · SwiftUI · Flutter · React Native"],
+                  ["Backend", "Rust · Node.js · Java · .NET · PostgreSQL"],
+                  ["Agentes", "Claude Code · codemode-cli · rtk"],
+                ].map(([k, v]) => (
+                  <div key={k}>
+                    <dt className="font-serif text-xl italic text-zinc-100">{k}</dt>
+                    <dd className="mt-1 font-mono text-[11px] leading-relaxed text-zinc-500">{v}</dd>
+                  </div>
+                ))}
+              </dl>
 
+              <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-[11px] text-zinc-500">
+                <span className="flex items-center gap-2"><IconMapPin className="h-3.5 w-3.5 text-emerald-300/80" />Brasília, DF (UTC-3)</span>
+                <span>Português (nativo) · Inglês (intermediário)</span>
+              </div>
             </div>
           </div>
-        </section>
+        </RevealSection>
 
       </main>
 
