@@ -71,7 +71,7 @@ export const cv: Record<"pt" | "en", CvData> = {
         bullets: [
           "Construí do zero o funil de crédito consignado CLT no app Flutter: simulação, biometria/documentoscopia antifraude, OTP, assinatura eletrônica e desembolso, com retomada de jornada interrompida.",
           "Consolidei a orquestração da Home (múltiplos pollers e cubits) em arquitetura única com BLoC + restartable(), eliminando condições de corrida e bugs de produção (tela branca, polling concorrente).",
-          "Desenvolvi o SDK white-label React Native para parceiros (modelo B2B2C): publicação npm com Trusted Publishing (OIDC), criptografia de CPF ponta a ponta (RSA-OAEP + HMAC-SHA256) e kill switch remoto por feature flag.",
+          "Desenvolvi o SDK white-label para parceiros (modelo B2B2C) em React Native e em Flutter, com a mesma solução nas duas stacks: publicação npm com Trusted Publishing (OIDC), criptografia de CPF ponta a ponta (RSA-OAEP + HMAC-SHA256) e kill switch remoto por feature flag.",
           "Implementei observabilidade com Datadog (RUM + Logs) em Flutter e React Native, com 100% de cobertura de testes nos módulos críticos de telemetria, cache e feature flags.",
           "Contribuí no microsserviço .NET de decisão de crédito (elegibilidade por parceiro, descriptografia RSA e hash HMAC para lookup seguro) e no deep linking universal do webapp Next.js.",
         ],
@@ -199,7 +199,7 @@ export const cv: Record<"pt" | "en", CvData> = {
         bullets: [
           "Built the payroll-loan credit funnel from scratch in the main Flutter app: simulation, anti-fraud biometrics/document verification, OTP, e-signature and disbursement, with interrupted-journey resumption.",
           "Consolidated home-screen orchestration (multiple pollers and cubits) into a single BLoC + restartable() architecture, eliminating race conditions and production bugs (blank screen, concurrent polling).",
-          "Developed the white-label React Native SDK for partners (B2B2C model): npm Trusted Publishing (OIDC), end-to-end document encryption (RSA-OAEP + HMAC-SHA256) and remote feature-flag kill switch.",
+          "Developed the white-label SDK for partners (B2B2C model) in both React Native and Flutter, delivering the same solution on both stacks: npm Trusted Publishing (OIDC), end-to-end document encryption (RSA-OAEP + HMAC-SHA256) and remote feature-flag kill switch.",
           "Implemented observability with Datadog (RUM + Logs) across Flutter and React Native, with 100% test coverage in critical telemetry, cache and feature-flag modules.",
           "Contributed to the .NET credit-decision microservice (per-partner eligibility, RSA decryption and HMAC hashing for secure lookup) and to universal deep linking in the Next.js web app.",
         ],

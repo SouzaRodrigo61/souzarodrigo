@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-Atuação ponta a ponta em um ecossistema de crédito consignado digital: app mobile principal, SDK white-label para parceiros (modelo B2B2C), um microsserviço de elegibilidade e o roteamento web-para-app.
+Atuação ponta a ponta em um ecossistema de crédito consignado digital: app mobile principal, SDK white-label para parceiros (modelo B2B2C) em React Native e em Flutter, um microsserviço de elegibilidade e o roteamento web-para-app.
 
 ## O que este trabalho demonstra
 
@@ -10,7 +10,8 @@ Atuação ponta a ponta em um ecossistema de crédito consignado digital: app mo
 - funil de contratação completo: simulação, biometria e verificação de documento antifraude, OTP, assinatura eletrônica e desembolso, com retomada de jornada interrompida;
 - orquestração de estado com BLoC, eliminando condições de corrida e telas em branco causadas por polling concorrente.
 
-### SDK white-label em React Native
+### SDK white-label em React Native e em Flutter
+- a mesma solução construída nas duas stacks, para o parceiro integrar no app que já tem, seja React Native ou Flutter;
 - produto distribuído dentro de apps de parceiros, com publicação automatizada no npm via Trusted Publishing (OIDC) e versionamento semântico;
 - criptografia de dados sensíveis ponta a ponta e desligamento remoto de fluxos por feature flag;
 - falhas do SDK isoladas, sem derrubar o app hospedeiro.
@@ -25,4 +26,4 @@ Atuação ponta a ponta em um ecossistema de crédito consignado digital: app mo
 
 ## Stack
 
-Flutter, Dart, BLoC, React Native, TypeScript, .NET Core, Next.js, Datadog, OpenFeature, Maestro, GitHub Actions.
+Flutter, Dart, BLoC, React Native, TypeScript, SDK white-label (RN e Flutter), .NET Core, Next.js, Datadog, OpenFeature, Maestro, GitHub Actions.
