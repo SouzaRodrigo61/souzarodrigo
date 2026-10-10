@@ -59,7 +59,7 @@ const allProjectsList: (Project & { highlightMetric: string; highlightLabel: str
     title: "DivinaPay (Divina Cashless)",
     category: "Plataforma de Pagamentos em Eventos",
     role: "Sócio Desenvolvedor",
-    period: "2024/01 - Presente",
+    period: "2024 - 2025 (encerrada)",
     description: "Plataforma completa para gestão e pagamentos cashless em eventos de grande porte. Aplicativo móvel moderno em Flutter 3.31+, backend de alta performance em Rust (Axum e Salvo.rs), banco PostgreSQL via Supabase e frontend operacional em Svelte 5.",
     impact: "Processou mais de R$ 2 milhões em transações, atendendo mais de 30 eventos com elevados picos de usuários simultâneos e zero tolerância a downtime.",
     technologies: ["Flutter 3.31+", "Rust", "Axum", "PostgreSQL", "Supabase", "Svelte 5", "Coolify"],

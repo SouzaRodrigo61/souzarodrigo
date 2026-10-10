@@ -51,11 +51,11 @@ const CONTACTS = [
 export const cv: Record<"pt" | "en", CvData> = {
   pt: {
     name: "Rodrigo Santos de Souza",
-    title: "Senior Software Engineer — Mobile em Fintech & Engenharia AI-first",
+    title: "Senior Full-Stack Engineer — Mobile, Web & Backend | Fintech & Engenharia AI-first",
     location: "Brasília, DF, Brasil",
     contacts: CONTACTS,
     summary:
-      "Engenheiro sênior com 10+ anos entregando apps e backends de missão crítica em Caixa, Banco do Brasil, PagSeguro e fintechs: do funil de crédito digital com biometria antifraude a R$ 2M+ em pagamentos cashless. Mobile nativo e multiplataforma (Swift/SwiftUI, Flutter, React Native) com backends em Rust, Node.js, Java e .NET. Trabalho AI-first: agentes de IA (Claude Code, subagentes) no fluxo diário de desenvolvimento e autor de ferramentas open source que reduzem o custo de contexto desses agentes (codemode-cli, RTK).",
+      "Engenheiro sênior com 10+ anos entregando apps e backends de missão crítica em Caixa, Banco do Brasil, PagSeguro e fintechs: do funil de crédito digital com biometria antifraude a R$ 2M+ em pagamentos cashless. Full-stack: mobile nativo (iOS/Swift, mais projetos pessoais em Kotlin/Android) e multiplataforma (Flutter, React Native), web com React e backends em Java, Node.js e Rust. Trabalho AI-first: agentes de IA (Claude Code, Codex, Grok Build, OpenCode e subagentes) no fluxo diário de desenvolvimento e autor de ferramentas open source que reduzem o custo de contexto desses agentes (codemode-cli, RTK).",
     sections: {
       experience: "Experiência Profissional",
       projects: "Projetos e Open Source",
@@ -66,7 +66,7 @@ export const cv: Record<"pt" | "en", CvData> = {
     experiences: [
       {
         role: "Desenvolvedor Full-Stack Mobile",
-        company: "Vale Consignado (fintech de crédito consignado)",
+        company: "Vale Consignado (fintech de crédito consignado) — via Smart System até 08/2026; internalizado em 09/2026",
         period: "02/2026 – presente",
         bullets: [
           "Construí do zero o funil de crédito consignado CLT no app Flutter: simulação, biometria/documentoscopia antifraude, OTP, assinatura eletrônica e desembolso, com retomada de jornada interrompida.",
@@ -140,7 +140,7 @@ export const cv: Record<"pt" | "en", CvData> = {
         link: "github.com/SouzaRodrigo61/rtk",
       },
       {
-        name: "DivinaPay (Divina Cashless) — Sócio Desenvolvedor",
+        name: "DivinaPay (Divina Cashless) — Sócio Desenvolvedor (encerrada em 2025)",
         description:
           "Plataforma de pagamentos cashless para eventos: app Flutter, backend Rust (Axum/Salvo) e PostgreSQL. Processou R$ 2M+ em transações em 30+ eventos, com picos elevados de usuários simultâneos.",
         link: "divinapay.com",
@@ -170,8 +170,9 @@ export const cv: Record<"pt" | "en", CvData> = {
       },
     ],
     skills: [
-      { group: "Engenharia AI-first", items: "Claude Code e subagentes no fluxo diário, programmatic tool calling, orquestração de agentes, sandboxing, redução de contexto, ferramentas próprias (codemode-cli, RTK)" },
-      { group: "Mobile", items: "Swift, SwiftUI, Combine, UIKit, TCA, Flutter, Dart, BLoC, React Native, TypeScript" },
+      { group: "Engenharia AI-first", items: "Claude Code, Codex, Grok Build e OpenCode no fluxo diário, subagentes, MCP, programmatic tool calling, orquestração de agentes, sandboxing, redução de contexto, ferramentas próprias (codemode-cli, RTK)" },
+      { group: "Mobile", items: "Swift, SwiftUI, Combine, UIKit, TCA, Flutter, Dart, BLoC, React Native, Kotlin/Android (projetos pessoais)" },
+      { group: "Web", items: "React, Next.js, TypeScript, Tailwind CSS" },
       { group: "Backend", items: "Rust (Axum/Salvo), Node.js, Java (Spring, Quarkus), PostgreSQL, MongoDB, Supabase, .NET Core (atuação recente)" },
       { group: "Infra & Qualidade", items: "Docker, Kubernetes, GitHub Actions, Bitrise, Datadog (RUM/Logs), OpenFeature, Maestro e2e, testes unitários" },
     ],
@@ -179,11 +180,11 @@ export const cv: Record<"pt" | "en", CvData> = {
   },
   en: {
     name: "Rodrigo Santos de Souza",
-    title: "Senior Software Engineer — Fintech Mobile & AI-first Engineering",
+    title: "Senior Full-Stack Engineer — Mobile, Web & Backend | Fintech & AI-first Engineering",
     location: "Brasília, Brazil",
     contacts: CONTACTS,
     summary:
-      "Senior engineer with 10+ years shipping mission-critical apps and backends at Caixa, Banco do Brasil, PagSeguro and fintechs: from a digital credit funnel with anti-fraud biometrics to R$ 2M+ (BRL) in cashless payments. Native and cross-platform mobile (Swift/SwiftUI, Flutter, React Native) with Rust, Node.js, Java and .NET backends. AI-first workflow: AI agents (Claude Code, subagents) in daily development, and author of open-source tools that cut the context cost of those agents (codemode-cli, RTK).",
+      "Senior engineer with 10+ years shipping mission-critical apps and backends at Caixa, Banco do Brasil, PagSeguro and fintechs: from a digital credit funnel with anti-fraud biometrics to R$ 2M+ (BRL) in cashless payments. Full-stack: native mobile (iOS/Swift, plus personal Kotlin/Android projects) and cross-platform (Flutter, React Native), React on the web and Java, Node.js and Rust backends. AI-first workflow: AI agents (Claude Code, Codex, Grok Build, OpenCode and subagents) in daily development, and author of open-source tools that cut the context cost of those agents (codemode-cli, RTK).",
     sections: {
       experience: "Professional Experience",
       projects: "Projects & Open Source",
@@ -194,7 +195,7 @@ export const cv: Record<"pt" | "en", CvData> = {
     experiences: [
       {
         role: "Full-Stack Mobile Developer",
-        company: "Vale Consignado (payroll-loan fintech)",
+        company: "Vale Consignado (payroll-loan fintech) — via Smart System until 08/2026; hired in-house in 09/2026",
         period: "02/2026 – present",
         bullets: [
           "Built the payroll-loan credit funnel from scratch in the main Flutter app: simulation, anti-fraud biometrics/document verification, OTP, e-signature and disbursement, with interrupted-journey resumption.",
@@ -268,7 +269,7 @@ export const cv: Record<"pt" | "en", CvData> = {
         link: "github.com/SouzaRodrigo61/rtk",
       },
       {
-        name: "DivinaPay (Divina Cashless) — Founding Developer",
+        name: "DivinaPay (Divina Cashless) — Founding Developer (wound down in 2025)",
         description:
           "Cashless payments platform for live events: Flutter app, Rust backend (Axum/Salvo) and PostgreSQL. Processed R$ 2M+ (BRL) across 30+ events with high concurrent-user peaks.",
         link: "divinapay.com",
@@ -298,8 +299,9 @@ export const cv: Record<"pt" | "en", CvData> = {
       },
     ],
     skills: [
-      { group: "AI-first Engineering", items: "Claude Code and subagents in daily workflow, programmatic tool calling, agent orchestration, sandboxing, context reduction, own tooling (codemode-cli, RTK)" },
-      { group: "Mobile", items: "Swift, SwiftUI, Combine, UIKit, TCA, Flutter, Dart, BLoC, React Native, TypeScript" },
+      { group: "AI-first Engineering", items: "Claude Code, Codex, Grok Build and OpenCode in the daily workflow, sub-agents, MCP, programmatic tool calling, agent orchestration, sandboxing, context reduction, own tooling (codemode-cli, RTK)" },
+      { group: "Mobile", items: "Swift, SwiftUI, Combine, UIKit, TCA, Flutter, Dart, BLoC, React Native, Kotlin/Android (personal projects)" },
+      { group: "Web", items: "React, Next.js, TypeScript, Tailwind CSS" },
       { group: "Backend", items: "Rust (Axum/Salvo), Node.js, Java (Spring, Quarkus), PostgreSQL, MongoDB, Supabase, .NET Core (recent)" },
       { group: "Infra & Quality", items: "Docker, Kubernetes, GitHub Actions, Bitrise, Datadog (RUM/Logs), OpenFeature, Maestro e2e, unit testing" },
     ],
